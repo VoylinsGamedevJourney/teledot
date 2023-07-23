@@ -21,4 +21,6 @@ You have a view application and a controller application. Have the view on your 
 - [ ] Font color setting;
 - [ ] Background color setting;
 - [ ] Localization support;
+- [ ] Create some kind of icons;
+- [ ] Upload to Itch.io.
 
