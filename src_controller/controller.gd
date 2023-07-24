@@ -42,8 +42,7 @@ func _process(_delta: float) -> void:
 				send_command("change_color_background", %FontColorPicker.color)
 				send_command("change_margin", %MarginSpinBox.value)
 				send_command("change_scroll_speed", %ScrollSpeedSpinBox.value)
-				# Send font size
-				# Send scroll speed
+				send_command("change_font_size", %FontSizeSpinBox.value)
 
 
 func send_command(key:String, value) -> void:
@@ -104,4 +103,7 @@ func _on_screen_saver_button_pressed() -> void:
 
 func _on_scroll_speed_spin_box_value_changed(value: float) -> void:
 	send_command("change_scroll_speed", value)
-	pass # Replace with function body.
+
+
+func _on_font_size_spin_box_value_changed(value: float) -> void:
+	send_command("change_font_size", value)

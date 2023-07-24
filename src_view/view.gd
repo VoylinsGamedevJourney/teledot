@@ -84,3 +84,9 @@ func change_margin(margin: int) -> void:
 	%ScriptMargin.add_theme_constant_override("margin_right", margin)
 func change_scroll_speed(speed: int) -> void:
 	scroll_speed = speed
+func change_font_size(value: int) -> void:
+	%ScriptBox.add_theme_font_size_override("normal_font_size", value)
+	%ScriptBox.add_theme_font_size_override("bold_font_size", value)
+	%ScriptBox.add_theme_font_size_override("italics_font_size", value)
+	%ScriptBox.add_theme_font_size_override("bold_italics_font_size", value)
+	%ScriptBox.add_theme_font_size_override("mono_font_size", value)
