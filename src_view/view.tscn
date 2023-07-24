@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://view.gd" id="1_xcb5l"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_hb0d8"]
-viewport_path = NodePath("NoConnection/VBoxContainer/TextureRect/SubViewportContainer/SubViewport")
+viewport_path = NodePath("NoConnection/VBoxContainer/SubViewportContainer/SubViewport")
 
 [node name="View" type="ColorRect"]
 self_modulate = Color(0, 0, 0, 1)
@@ -15,7 +15,6 @@ grow_vertical = 2
 script = ExtResource("1_xcb5l")
 
 [node name="Script" type="RichTextLabel" parent="."]
-unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -32,21 +31,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ShowIPButton1" type="Button" parent="NoConnection"]
-layout_mode = 2
-text = "Show IP"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="NoConnection"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Control" type="Control" parent="NoConnection/VBoxContainer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="NoConnection/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+stretch = true
 
-[node name="VBox" type="VBoxContainer" parent="NoConnection/VBoxContainer/Control"]
-layout_mode = 1
+[node name="SubViewport" type="SubViewport" parent="NoConnection/VBoxContainer/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 534)
+render_target_update_mode = 4
+
+[node name="VBox" type="VBoxContainer" parent="NoConnection/VBoxContainer/SubViewportContainer/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -54,13 +55,26 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="ConnectionInfo" type="RichTextLabel" parent="NoConnection/VBoxContainer/Control/VBox"]
+[node name="ConnectionInfo" type="RichTextLabel" parent="NoConnection/VBoxContainer/SubViewportContainer/SubViewport/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/bold_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 40
 bbcode_enabled = true
-text = "[center][b]No connection[/b][/center]"
+text = "[center][i][b]No connection ...[/b][/i][/center]"
 fit_content = true
+
+[node name="InfoLabel" type="Label" parent="NoConnection/VBoxContainer/SubViewportContainer/SubViewport/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Connect with TeleDot Controller"
+horizontal_alignment = 1
+
+[node name="IPLabel" type="Label" parent="NoConnection/VBoxContainer/SubViewportContainer/SubViewport/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "IP: %s"
+horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="NoConnection/VBoxContainer"]
 layout_mode = 2
@@ -70,45 +84,3 @@ layout_mode = 2
 size_flags_vertical = 3
 texture = SubResource("ViewportTexture_hb0d8")
 flip_h = true
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="NoConnection/VBoxContainer/TextureRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="NoConnection/VBoxContainer/TextureRect/SubViewportContainer"]
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(1774, 534)
-render_target_update_mode = 4
-
-[node name="VBox" type="VBoxContainer" parent="NoConnection/VBoxContainer/TextureRect/SubViewportContainer/SubViewport"]
-offset_left = 73.0
-offset_top = 187.0
-offset_right = 1847.0
-offset_bottom = 542.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-alignment = 1
-
-[node name="ConnectionInfo" type="RichTextLabel" parent="NoConnection/VBoxContainer/TextureRect/SubViewportContainer/SubViewport/VBox"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/bold_font_size = 40
-bbcode_enabled = true
-text = "[center][b]No connection[/b][/center]"
-fit_content = true
-
-[node name="ShowIPButton2" type="Button" parent="NoConnection"]
-layout_mode = 2
-text = "Show IP"
-
-[connection signal="pressed" from="NoConnection/ShowIPButton1" to="." method="_on_switch_ip_button_pressed"]
-[connection signal="pressed" from="NoConnection/ShowIPButton2" to="." method="_on_switch_ip_button_pressed"]
