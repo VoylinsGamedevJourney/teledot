@@ -50,12 +50,65 @@ label_settings = ExtResource("2_n4yov")
 horizontal_alignment = 1
 
 [node name="SettingsScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox"]
-visible = false
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="SettingsGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll"]
 layout_mode = 2
 size_flags_vertical = 3
+columns = 2
+
+[node name="ScreensaverLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+layout_mode = 2
+text = "SETTING_SCREENSAVER"
+
+[node name="ScrollSpeedLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+layout_mode = 2
+text = "SETTING_SCROLL_SPEED"
+
+[node name="MirrorTextLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+layout_mode = 2
+text = "SETTING_MIRROR_TEXT"
+
+[node name="MirrorOptionButton" type="OptionButton" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "No"
+popup/item_0/id = 0
+popup/item_1/text = "Yes"
+popup/item_1/id = 1
+
+[node name="MarginsLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+layout_mode = 2
+text = "SETTING_MARGINS"
+
+[node name="FontSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+layout_mode = 2
+text = "SETTING_FONT_SIZE"
+
+[node name="ColorFontLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+layout_mode = 2
+text = "SETTING_COLOR_FONT"
+
+[node name="ColorBackgroundLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+layout_mode = 2
+text = "SETTING_COLOR_BACKGROUND"
+
+[node name="AlignmentLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+layout_mode = 2
+text = "SETTING_ALIGNMENT"
+
+[node name="AlignmentOptionButton" type="OptionButton" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "Left"
+popup/item_0/id = 0
+popup/item_1/text = "Center"
+popup/item_1/id = 1
+popup/item_2/text = "Right"
+popup/item_2/id = 2
 
 [node name="ScriptsContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftVSplit"]
 layout_mode = 2
@@ -138,6 +191,33 @@ text = "TITLE_SHORTCUTS"
 label_settings = ExtResource("2_n4yov")
 horizontal_alignment = 1
 
+[node name="ShortcutsScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ShortcutsGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll"]
+layout_mode = 2
+
+[node name="ShowScreensaverLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_SHOW_SCREENSAVER"
+
+[node name="GoUpLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_GO_UP"
+
+[node name="GoDownLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_GO_DOWN"
+
+[node name="IncreaseSpeedLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_INCREASE_SPEED"
+
+[node name="DecreaseSpeedLabel2" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_DECREASE_SPEED"
+
 [node name="NetworkingContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/RightVBox"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -156,7 +236,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
-text = "Status:"
+text = "Status: [i][color=grey]no connection[/color][/i]"
 fit_content = true
 
 [node name="NetworkingGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer"]
@@ -188,6 +268,8 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Start connection"
 
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/MirrorOptionButton" to="." method="_on_mirror_option_button_item_selected"]
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/AlignmentOptionButton" to="." method="_on_alignment_option_item_selected"]
 [connection signal="tab_changed" from="MarginContainer/HBoxContainer/ScriptPanel" to="." method="_on_script_panel_tab_changed"]
 [connection signal="text_changed" from="MarginContainer/HBoxContainer/ScriptPanel/Script/ScriptScroll/ScriptTextEdit" to="." method="_on_script_text_edit_changed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/ConnectionButton" to="." method="_on_connection_button_pressed"]
