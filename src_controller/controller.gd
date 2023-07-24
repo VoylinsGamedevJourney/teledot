@@ -15,6 +15,10 @@ var status = -1
 var screensaver_img: Texture
 
 
+func _ready() -> void:
+	$Screensaver.visible = false
+
+
 func _process(_delta: float) -> void:
 	if client == null: return
 	client.poll()
@@ -37,7 +41,7 @@ func _process(_delta: float) -> void:
 				send_command("change_color_text", %FontColorPicker.color)
 				send_command("change_color_background", %FontColorPicker.color)
 				send_command("change_margin", %MarginSpinBox.value)
-				# Send margin
+				send_command("change_scroll_speed", %ScrollSpeedSpinBox.value)
 				# Send font size
 				# Send scroll speed
 
@@ -90,8 +94,14 @@ func _on_margin_spin_box_value_changed(value: float) -> void:
 	send_command("change_margin", value)
 
 
+# TODO: Screensaver
 func _on_screen_saver_button_pressed() -> void:
 	# TODO: When pressed, go fullscreen
-	
+	# TODO: Display screensaver
 	# TODO: when pressed again or esc pressed, exit screensaver mode
 	pass
+
+
+func _on_scroll_speed_spin_box_value_changed(value: float) -> void:
+	send_command("change_scroll_speed", value)
+	pass # Replace with function body.

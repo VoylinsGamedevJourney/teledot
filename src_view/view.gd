@@ -24,6 +24,8 @@ var base_script: String
 var formatted_script: String
 var alignment: int = 1
 
+var scroll_speed: int = 2
+
 
 func _ready() -> void:
 	start_server()
@@ -80,3 +82,5 @@ func change_mirror(mirror: bool) -> void:
 func change_margin(margin: int) -> void:
 	%ScriptMargin.add_theme_constant_override("margin_left", margin)
 	%ScriptMargin.add_theme_constant_override("margin_right", margin)
+func change_scroll_speed(speed: int) -> void:
+	scroll_speed = speed
