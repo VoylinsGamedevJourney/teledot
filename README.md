@@ -12,7 +12,7 @@ You have a view application and a controller application. Have the view on your 
 
 - [ ] Create UI for controller;
 - [ ] Create UI for view;
-- [ ] Do networking stuff;
+- [x] Do networking stuff;
 - [ ] Add screensaver feature;
 - [ ] Make margins work;
 - [ ] Add custom shortcut keys;
