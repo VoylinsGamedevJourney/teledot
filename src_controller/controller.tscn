@@ -64,6 +64,7 @@ text = "SETTING_SCREENSAVER"
 
 [node name="ScreenSaverButton" type="Button" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
+text = "Select"
 
 [node name="ScrollSpeedLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
@@ -74,7 +75,7 @@ unique_name_in_owner = true
 layout_mode = 2
 min_value = 1.0
 max_value = 200.0
-value = 1.0
+value = 10.0
 alignment = 1
 
 [node name="MirrorTextLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
@@ -85,6 +86,7 @@ text = "SETTING_MIRROR_TEXT"
 unique_name_in_owner = true
 layout_mode = 2
 item_count = 2
+selected = 1
 popup/item_0/text = "No"
 popup/item_0/id = 0
 popup/item_1/text = "Yes"
@@ -98,6 +100,7 @@ text = "SETTING_MARGINS"
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 200.0
+value = 7.0
 alignment = 1
 
 [node name="FontSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
@@ -119,6 +122,7 @@ text = "SETTING_COLOR_FONT"
 [node name="FontColorPicker" type="ColorPickerButton" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 unique_name_in_owner = true
 layout_mode = 2
+color = Color(1, 1, 1, 1)
 
 [node name="ColorBackgroundLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
@@ -136,6 +140,7 @@ text = "SETTING_ALIGNMENT"
 unique_name_in_owner = true
 layout_mode = 2
 item_count = 3
+selected = 0
 popup/item_0/text = "Left"
 popup/item_0/id = 0
 popup/item_1/text = "Center"
@@ -143,24 +148,25 @@ popup/item_1/id = 1
 popup/item_2/text = "Right"
 popup/item_2/id = 2
 
-[node name="ScriptsContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftVSplit"]
+[node name="WIPScriptsContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftVSplit"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/ScriptsContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/WIPScriptsContainer"]
 layout_mode = 2
 
-[node name="ScriptsLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/ScriptsContainer/VBoxContainer"]
+[node name="ScriptsLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/WIPScriptsContainer/VBoxContainer"]
 layout_mode = 2
 text = "TITLE_SCRIPTS"
 label_settings = ExtResource("2_n4yov")
 horizontal_alignment = 1
 
-[node name="ScriptsScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/ScriptsContainer/VBoxContainer"]
+[node name="ScriptsScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/WIPScriptsContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScriptsVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/ScriptsContainer/VBoxContainer/ScriptsScroll"]
+[node name="ScriptsVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/WIPScriptsContainer/VBoxContainer/ScriptsScroll"]
 layout_mode = 2
 
 [node name="ScriptPanel" type="TabContainer" parent="MarginContainer/HBoxContainer"]
