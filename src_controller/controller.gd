@@ -85,12 +85,12 @@ func _on_alignment_option_item_selected(index: int) -> void:
 func _on_mirror_option_button_item_selected(index: int) -> void:
 	save_setting("mirror", index)
 	send_command("change_mirror", index == 1)
-func _on_font_color_picker_changed(color: Color) -> void:
-	save_setting("color_text", color)
-	send_command("change_color_text", color)
-func _on_background_color_picker_changed(color: Color) -> void:
-	save_setting("color_background", color)
-	send_command("change_color_background", color)
+func _on_font_color_picker_changed(_color: Color) -> void:
+	save_setting("color_text", _color)
+	send_command("change_color_text", _color)
+func _on_background_color_picker_changed(_color: Color) -> void:
+	save_setting("color_background", _color)
+	send_command("change_color_background", _color)
 func _on_margin_spin_box_value_changed(value: float) -> void:
 	save_setting("margin", value)
 	send_command("change_margin", value)
