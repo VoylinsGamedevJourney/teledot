@@ -77,3 +77,6 @@ func change_alignment(new_align: int = alignment) -> void:
 			formatted_script = "[right]%s[/right]" % base_script
 func change_mirror(mirror: bool) -> void:
 	$Script.flip_h = mirror
+func change_margin(margin: int) -> void:
+	%ScriptMargin.add_theme_constant_override("margin_left", margin)
+	%ScriptMargin.add_theme_constant_override("margin_right", margin)

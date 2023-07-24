@@ -62,6 +62,9 @@ columns = 2
 layout_mode = 2
 text = "SETTING_SCREENSAVER"
 
+[node name="ScreenSaverButton" type="Button" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+layout_mode = 2
+
 [node name="ScrollSpeedLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_SCROLL_SPEED"
@@ -83,6 +86,12 @@ popup/item_1/id = 1
 layout_mode = 2
 text = "SETTING_MARGINS"
 
+[node name="MarginSpinBox" type="SpinBox" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 200.0
+alignment = 1
+
 [node name="FontSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_FONT_SIZE"
@@ -91,9 +100,17 @@ text = "SETTING_FONT_SIZE"
 layout_mode = 2
 text = "SETTING_COLOR_FONT"
 
+[node name="FontColorPicker" type="ColorPickerButton" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="ColorBackgroundLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_COLOR_BACKGROUND"
+
+[node name="BackgroundColorPicker" type="ColorPickerButton" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="AlignmentLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
@@ -268,7 +285,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Start connection"
 
+[connection signal="pressed" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/ScreenSaverButton" to="." method="_on_screen_saver_button_pressed"]
 [connection signal="item_selected" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/MirrorOptionButton" to="." method="_on_mirror_option_button_item_selected"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/MarginSpinBox" to="." method="_on_margin_spin_box_value_changed"]
+[connection signal="color_changed" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/FontColorPicker" to="." method="_on_font_color_picker_changed"]
+[connection signal="color_changed" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/BackgroundColorPicker" to="." method="_on_background_color_picker_changed"]
 [connection signal="item_selected" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/AlignmentOptionButton" to="." method="_on_alignment_option_item_selected"]
 [connection signal="tab_changed" from="MarginContainer/HBoxContainer/ScriptPanel" to="." method="_on_script_panel_tab_changed"]
 [connection signal="text_changed" from="MarginContainer/HBoxContainer/ScriptPanel/Script/ScriptScroll/ScriptTextEdit" to="." method="_on_script_text_edit_changed"]

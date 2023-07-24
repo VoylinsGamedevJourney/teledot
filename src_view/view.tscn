@@ -31,13 +31,16 @@ stretch = true
 transparent_bg = true
 size = Vector2i(1920, 1080)
 
-[node name="ScriptBox" type="RichTextLabel" parent="ScriptViewport/SubViewport"]
+[node name="ScriptMargin" type="MarginContainer" parent="ScriptViewport/SubViewport"]
 unique_name_in_owner = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+
+[node name="ScriptBox" type="RichTextLabel" parent="ScriptViewport/SubViewport/ScriptMargin"]
+unique_name_in_owner = true
+layout_mode = 2
 bbcode_enabled = true
 
 [node name="Script" type="TextureRect" parent="."]

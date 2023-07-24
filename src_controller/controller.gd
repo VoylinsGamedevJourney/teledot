@@ -12,6 +12,8 @@ const PORT := 55757
 var client: StreamPeerTCP
 var status = -1
 
+var screensaver_img: Texture
+
 
 func _process(_delta: float) -> void:
 	if client == null: return
@@ -32,8 +34,9 @@ func _process(_delta: float) -> void:
 				send_command("change_script", %ScriptTextEdit.text)
 				send_command("change_alignment", %AlignmentOptionButton.selected) 
 				send_command("change_mirror", %MirrorOptionButton.selected == 1)
-				# Send text color
-				# Send background color
+				send_command("change_color_text", %FontColorPicker.color)
+				send_command("change_color_background", %FontColorPicker.color)
+				send_command("change_margin", %MarginSpinBox.value)
 				# Send margin
 				# Send font size
 				# Send scroll speed
@@ -73,3 +76,22 @@ func _on_alignment_option_item_selected(index: int) -> void:
 
 func _on_mirror_option_button_item_selected(index: int) -> void:
 	send_command("change_mirror", index == 1)
+
+
+func _on_font_color_picker_changed(color: Color) -> void:
+	send_command("change_color_text", color)
+
+
+func _on_background_color_picker_changed(color: Color) -> void:
+	send_command("change_color_background", color)
+
+
+func _on_margin_spin_box_value_changed(value: float) -> void:
+	send_command("change_margin", value)
+
+
+func _on_screen_saver_button_pressed() -> void:
+	# TODO: When pressed, go fullscreen
+	
+	# TODO: when pressed again or esc pressed, exit screensaver mode
+	pass
