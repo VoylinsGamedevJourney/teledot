@@ -10,17 +10,17 @@ You have a view application and a controller application. Have the view on your 
 
 ## TODO list:
 
-- [ ] Create UI for controller;
-- [ ] Create UI for view;
+- [x] Create UI for controller;
+- [x] Create UI for view;
 - [x] Do networking stuff;
 - [ ] Add screensaver feature;
-- [ ] Make margins work;
+- [x] Make margins work;
 - [ ] Add custom shortcut keys;
-- [ ] Scroll speed control;
-- [ ] Mirror text setting;
-- [ ] Font color setting;
-- [ ] Background color setting;
-- [ ] Localization support;
+- [x] Scroll speed control;
+- [x] Mirror text setting;
+- [x] Font color setting;
+- [x] Background color setting;
+- [x] Localization support;
 - [ ] Create some kind of icons;
 - [ ] Upload to Itch.io.
 
