@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqi78vhexs7gv"]
+[gd_scene load_steps=4 format=3 uid="uid://bqi78vhexs7gv"]
 
+[ext_resource type="Theme" uid="uid://dt4slcvh1rugo" path="res://theme.tres" id="1_2beuo"]
 [ext_resource type="Script" path="res://controller.gd" id="1_51ox2"]
+[ext_resource type="LabelSettings" uid="uid://tqv2bcmchynl" path="res://title.tres" id="2_n4yov"]
 
 [node name="Controller" type="ColorRect"]
 anchors_preset = 15
@@ -8,5 +10,184 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_2beuo")
 color = Color(0, 0.0784314, 0.0901961, 1)
 script = ExtResource("1_51ox2")
+metadata/_edit_vertical_guides_ = [841.0]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="LeftVSplit" type="VSplitContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SettingsContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftVSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer"]
+layout_mode = 2
+
+[node name="SettingsLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox"]
+layout_mode = 2
+text = "TITLE_SETTINGS"
+label_settings = ExtResource("2_n4yov")
+horizontal_alignment = 1
+
+[node name="SettingsScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox"]
+visible = false
+layout_mode = 2
+
+[node name="SettingsGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScriptsContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftVSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/ScriptsContainer"]
+layout_mode = 2
+
+[node name="ScriptsLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/ScriptsContainer/VBoxContainer"]
+layout_mode = 2
+text = "TITLE_SCRIPTS"
+label_settings = ExtResource("2_n4yov")
+horizontal_alignment = 1
+
+[node name="ScriptsScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/ScriptsContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScriptsVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/ScriptsContainer/VBoxContainer/ScriptsScroll"]
+layout_mode = 2
+
+[node name="ScriptPanel" type="TabContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Script" type="TabBar" parent="MarginContainer/HBoxContainer/ScriptPanel"]
+layout_mode = 2
+
+[node name="ScriptScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/ScriptPanel/Script"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScriptTextEdit" type="TextEdit" parent="MarginContainer/HBoxContainer/ScriptPanel/Script/ScriptScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Preview" type="TabBar" parent="MarginContainer/HBoxContainer/ScriptPanel"]
+visible = false
+layout_mode = 2
+
+[node name="PreviewScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/ScriptPanel/Preview"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScriptPreview" type="RichTextLabel" parent="MarginContainer/HBoxContainer/ScriptPanel/Preview/PreviewScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
+
+[node name="RightVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 14
+
+[node name="ShortcutsContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/RightVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer"]
+layout_mode = 2
+
+[node name="ShortcutsLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox"]
+layout_mode = 2
+text = "TITLE_SHORTCUTS"
+label_settings = ExtResource("2_n4yov")
+horizontal_alignment = 1
+
+[node name="NetworkingContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/RightVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer"]
+layout_mode = 2
+
+[node name="NetworkingLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer"]
+layout_mode = 2
+text = "TITLE_NETWORKING"
+label_settings = ExtResource("2_n4yov")
+horizontal_alignment = 1
+
+[node name="NetworkStatusLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Status:"
+fit_content = true
+
+[node name="NetworkingGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="IPLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/NetworkingGrid"]
+layout_mode = 2
+text = "IP address: "
+
+[node name="IPLineEdit" type="LineEdit" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/NetworkingGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "192.168.0.1"
+
+[node name="PortLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/NetworkingGrid"]
+layout_mode = 2
+text = "Port:"
+
+[node name="PortLineEdit" type="LineEdit" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/NetworkingGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "55757"
+
+[node name="ConnectionButton" type="Button" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start connection"
+
+[connection signal="tab_changed" from="MarginContainer/HBoxContainer/ScriptPanel" to="." method="_on_script_panel_tab_changed"]
+[connection signal="text_changed" from="MarginContainer/HBoxContainer/ScriptPanel/Script/ScriptScroll/ScriptTextEdit" to="." method="_on_script_text_edit_changed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/ConnectionButton" to="." method="_on_connection_button_pressed"]
