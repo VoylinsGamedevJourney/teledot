@@ -5,6 +5,11 @@ extends ColorRect
 ## change_color_background (Color)
 ## change_color_text (Color)
 ## change_script (String)
+##
+## Commands:
+## command_play_pause
+## command_move_up
+## command_move_down
 
 
 # TODO: Set margin feature
@@ -25,6 +30,7 @@ var formatted_script: String
 var alignment: int = 1
 
 var scroll_speed: int = 2
+var play: bool = false
 
 
 func _ready() -> void:
@@ -32,6 +38,8 @@ func _ready() -> void:
 
 
 func start_server() -> void:
+	$NoConnection.visible = true
+	
 	# Initialize server
 	$Script.visible = false
 	server = TCPServer.new()
@@ -40,7 +48,8 @@ func start_server() -> void:
 	%IPLabel.text = "IP: %s" % IP.get_local_addresses()[0]
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	if play: %ScriptScroll.scroll_vertical += 2* delta
 	if server.is_connection_available(): 
 		connection = server.take_connection()
 	if connection != null:
@@ -55,9 +64,11 @@ func _process(_delta: float) -> void:
 			return
 		if connection.get_available_bytes() == null:
 			var data: Array = connection.get_var()
-			self.call(data[0], data[1])
-			if data[0] == "change_alignment":
-				change_script()
+			if data.size() == 2:
+				self.call(data[0], data[1])
+				if data[0] == "change_alignment":
+					change_script()
+			else: self.call(data[0])
 
 
 func change_color_background(new_color: Color = Color8(0,0,0)) -> void:
@@ -90,3 +101,11 @@ func change_font_size(value: int) -> void:
 	%ScriptBox.add_theme_font_size_override("italics_font_size", value)
 	%ScriptBox.add_theme_font_size_override("bold_italics_font_size", value)
 	%ScriptBox.add_theme_font_size_override("mono_font_size", value)
+
+
+func command_play_pause() -> void:
+	play = !play
+func command_move_up() -> void:
+	%ScrollScript.scroll_vertical -= 1
+func command_move_down() -> void:
+	%ScrollScript.scroll_vertical += 1

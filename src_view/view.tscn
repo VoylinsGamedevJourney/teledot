@@ -29,19 +29,32 @@ stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="ScriptViewport"]
 transparent_bg = true
+handle_input_locally = false
 size = Vector2i(1920, 1080)
+render_target_update_mode = 4
 
 [node name="ScriptMargin" type="MarginContainer" parent="ScriptViewport/SubViewport"]
 unique_name_in_owner = true
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 
-[node name="ScriptBox" type="RichTextLabel" parent="ScriptViewport/SubViewport/ScriptMargin"]
+[node name="ScriptScroll" type="ScrollContainer" parent="ScriptViewport/SubViewport/ScriptMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="ScriptBox" type="RichTextLabel" parent="ScriptViewport/SubViewport/ScriptMargin/ScriptScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
+text = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+scroll_active = false
 
 [node name="Script" type="TextureRect" parent="."]
 layout_mode = 1
