@@ -63,7 +63,7 @@ switch_tab_double={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://translations/translations.en.translation", "res://translations/translations.ja.translation")
+locale/translations=PackedStringArray("res://translations/translations.en.translation", "res://translations/translations.ja.translation", "res://translations/translations.fr.translation")
 
 [rendering]
 
