@@ -1,34 +1,38 @@
 extends ColorRect
 
+## All TeleDot View does is create a server, let the 
+## controller connect to it and then just receive and listen
+## to the commands being send
+##
 ## Each var that gets send should be [function_name, value]
 ## List of possible commands which can be send:
-## change_color_background (Color)
-## change_color_text (Color)
-## change_script (String)
+## [change_color_background, Color]
+## [change_color_text, Color]
+## [change_script, String]
+## [change_alignment, int]
+## [change_mirror, bool]
+## [change_margin, int]
+## [change_scroll_speed, int]
+## [change_font_size, int]
 ##
-## Commands:
-## command_play_pause
-## command_move_up
-## command_move_down
+## [command_play_pause, null]
+## [command_move_up, null]
+## [command_move_down, null]
 
 
-# TODO: Set margin feature
-# TODO: Set mirroring feature
-# TODO: Set alignment
-
-
-
+# Connection variables:
 const port := 55757
-
 var connected := false
 var server: TCPServer
 var connection : StreamPeerTCP
-var client_status: int = -1
+var client_status: int = connection.STATUS_NONE
 
+# Script formatting variables:
 var base_script: String
 var formatted_script: String
 var alignment: int = 1
 
+# Playback variables:
 var scroll_speed: int = 2
 var play: bool = false
 
@@ -38,39 +42,48 @@ func _ready() -> void:
 
 
 func start_server() -> void:
+	# Hide and show the necesarry stuff
 	$NoConnection.visible = true
+	$Script.visible = false
 	
 	# Initialize server
-	$Script.visible = false
 	server = TCPServer.new()
 	server.listen(port)
-	$NoConnection.visible = true
 	%IPLabel.text = "IP: %s" % IP.get_local_addresses()[0]
 
 
 func _process(delta: float) -> void:
+	# Make the script scroll on screen when play is pressed
 	if play: %ScriptScroll.scroll_vertical += 2* delta
+	
+	# Accept connection when lcient tries to connect 
 	if server.is_connection_available(): 
 		connection = server.take_connection()
-	if connection != null:
-		connection.poll()
-		if client_status != connection.get_status():
-			client_status = connection.get_status()
-			$Script.visible = true
-		if client_status != connection.STATUS_CONNECTED:
-			connection = null
-			start_server()
-			client_status = -1
-			return
-		if connection.get_available_bytes() == null:
-			var data: Array = connection.get_var()
-			if data.size() == 2:
-				self.call(data[0], data[1])
-				if data[0] == "change_alignment":
-					change_script()
-			else: self.call(data[0])
+	
+	# Starting from this point, things only get executed
+	# when having a connection with a TeleDot controller
+	if connection == null: return
+	
+	connection.poll()
+	if client_status != connection.get_status():
+		client_status = connection.get_status()
+		$Script.visible = true
+	
+	# Check to see if the latest poll was able 
+	# to check if still connected.
+	if client_status != connection.STATUS_CONNECTED:
+		connection = null
+		start_server()
+		client_status = connection.STATUS_NONE
+		return
+	if connection.get_available_bytes() == null:
+		var data: Array = connection.get_var()
+		self.call(data[0], data[1])
+		if data[0] == "change_alignment":
+			change_script()
 
 
+# Change settings commands:
 func change_color_background(new_color: Color = Color8(0,0,0)) -> void:
 	self.self_modulate = new_color
 func change_color_text(new_color: Color = Color8(255,255,255)) -> void:
@@ -103,9 +116,10 @@ func change_font_size(value: int) -> void:
 	%ScriptBox.add_theme_font_size_override("mono_font_size", value)
 
 
-func command_play_pause() -> void:
+# Commands:
+func command_play_pause(_value) -> void:
 	play = !play
-func command_move_up() -> void:
+func command_move_up(_value) -> void:
 	%ScrollScript.scroll_vertical -= 1
-func command_move_down() -> void:
+func command_move_down(_value) -> void:
 	%ScrollScript.scroll_vertical += 1

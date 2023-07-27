@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cln6mlxh7p5t8"]
+[gd_scene load_steps=5 format=3 uid="uid://cln6mlxh7p5t8"]
 
 [ext_resource type="Script" path="res://view.gd" id="1_xcb5l"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_mc24b"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_re8l5"]
 viewport_path = NodePath("ScriptViewport/SubViewport")
@@ -49,12 +51,20 @@ layout_mode = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="ScriptBox" type="RichTextLabel" parent="ScriptViewport/SubViewport/ScriptMargin/ScriptScroll"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScriptViewport/SubViewport/ScriptMargin/ScriptScroll"]
+layout_mode = 2
+
+[node name="ScriptBox" type="RichTextLabel" parent="ScriptViewport/SubViewport/ScriptMargin/ScriptScroll/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
 scroll_active = false
+
+[node name="Spacer" type="HSeparator" parent="ScriptViewport/SubViewport/ScriptMargin/ScriptScroll/VBoxContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_mc24b")
 
 [node name="Script" type="TextureRect" parent="."]
 layout_mode = 1
