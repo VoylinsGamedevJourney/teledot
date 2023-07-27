@@ -27,50 +27,50 @@ theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 7
 theme_override_constants/margin_bottom = 7
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HSplit" type="HSplitContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="LeftVSplit" type="VSplitContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VSplit" type="VSplitContainer" parent="MarginContainer/HSplit"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SettingsContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftVSplit"]
+[node name="SettingsContainer" type="PanelContainer" parent="MarginContainer/HSplit/VSplit"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer"]
+[node name="VBox" type="VBoxContainer" parent="MarginContainer/HSplit/VSplit/SettingsContainer"]
 layout_mode = 2
 
-[node name="SettingsLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox"]
+[node name="SettingsLabel" type="Label" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox"]
 layout_mode = 2
 text = "TITLE_SETTINGS"
 label_settings = ExtResource("2_n4yov")
 horizontal_alignment = 1
 
-[node name="SettingsScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox"]
+[node name="SettingsScroll" type="ScrollContainer" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SettingsGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll"]
+[node name="SettingsGrid" type="GridContainer" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
 
-[node name="ScreensaverLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="ScreensaverLabel" type="Label" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_SCREENSAVER"
 
-[node name="ScreenSaverButton" type="Button" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="ScreenSaverButton" type="Button" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "Select"
 
-[node name="ScrollSpeedLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="ScrollSpeedLabel" type="Label" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_SCROLL_SPEED"
 
-[node name="ScrollSpeedSpinBox" type="SpinBox" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="ScrollSpeedSpinBox" type="SpinBox" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 1.0
@@ -78,11 +78,11 @@ max_value = 200.0
 value = 10.0
 alignment = 1
 
-[node name="MirrorTextLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="MirrorTextLabel" type="Label" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_MIRROR_TEXT"
 
-[node name="MirrorOptionButton" type="OptionButton" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="MirrorOptionButton" type="OptionButton" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 item_count = 2
@@ -92,22 +92,22 @@ popup/item_0/id = 0
 popup/item_1/text = "Yes"
 popup/item_1/id = 1
 
-[node name="MarginsLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="MarginsLabel" type="Label" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_MARGINS"
 
-[node name="MarginSpinBox" type="SpinBox" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="MarginSpinBox" type="SpinBox" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 200.0
 value = 7.0
 alignment = 1
 
-[node name="FontSizeLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="FontSizeLabel" type="Label" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_FONT_SIZE"
 
-[node name="FontSizeSpinBox" type="SpinBox" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="FontSizeSpinBox" type="SpinBox" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = 13.0
@@ -115,28 +115,28 @@ max_value = 200.0
 value = 30.0
 alignment = 1
 
-[node name="ColorFontLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="ColorFontLabel" type="Label" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_COLOR_FONT"
 
-[node name="FontColorPicker" type="ColorPickerButton" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="FontColorPicker" type="ColorPickerButton" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 color = Color(1, 1, 1, 1)
 
-[node name="ColorBackgroundLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="ColorBackgroundLabel" type="Label" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_COLOR_BACKGROUND"
 
-[node name="BackgroundColorPicker" type="ColorPickerButton" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="BackgroundColorPicker" type="ColorPickerButton" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AlignmentLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="AlignmentLabel" type="Label" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 layout_mode = 2
 text = "SETTING_ALIGNMENT"
 
-[node name="AlignmentOptionButton" type="OptionButton" parent="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
+[node name="AlignmentOptionButton" type="OptionButton" parent="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 item_count = 3
@@ -148,168 +148,191 @@ popup/item_1/id = 1
 popup/item_2/text = "Right"
 popup/item_2/id = 2
 
-[node name="WIPScriptsContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/LeftVSplit"]
-visible = false
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSplit/VSplit"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="ShortcutsContainer" type="PanelContainer" parent="MarginContainer/HSplit/VSplit/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/WIPScriptsContainer"]
+[node name="VBox" type="VBoxContainer" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer"]
 layout_mode = 2
 
-[node name="ScriptsLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftVSplit/WIPScriptsContainer/VBoxContainer"]
-layout_mode = 2
-text = "TITLE_SCRIPTS"
-label_settings = ExtResource("2_n4yov")
-horizontal_alignment = 1
-
-[node name="ScriptsScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/WIPScriptsContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="ScriptsVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftVSplit/WIPScriptsContainer/VBoxContainer/ScriptsScroll"]
-layout_mode = 2
-
-[node name="ScriptPanel" type="TabContainer" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
-
-[node name="Script" type="TabBar" parent="MarginContainer/HBoxContainer/ScriptPanel"]
-layout_mode = 2
-
-[node name="ScriptScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/ScriptPanel/Script"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScriptTextEdit" type="TextEdit" parent="MarginContainer/HBoxContainer/ScriptPanel/Script/ScriptScroll"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Preview" type="TabBar" parent="MarginContainer/HBoxContainer/ScriptPanel"]
-visible = false
-layout_mode = 2
-
-[node name="PreviewScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/ScriptPanel/Preview"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScriptPreview" type="RichTextLabel" parent="MarginContainer/HBoxContainer/ScriptPanel/Preview/PreviewScroll"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-bbcode_enabled = true
-fit_content = true
-
-[node name="RightVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 14
-
-[node name="ShortcutsContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/RightVBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer"]
-layout_mode = 2
-
-[node name="ShortcutsLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox"]
+[node name="ShortcutsLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox"]
 layout_mode = 2
 text = "TITLE_SHORTCUTS"
 label_settings = ExtResource("2_n4yov")
 horizontal_alignment = 1
 
-[node name="ShortcutsScroll" type="ScrollContainer" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox"]
+[node name="ShortcutsScroll" type="ScrollContainer" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ShortcutsGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll"]
+[node name="ShortcutsGrid" type="GridContainer" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox/ShortcutsScroll"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
 
-[node name="ShowScreensaverLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+[node name="ShowScreensaverLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
 layout_mode = 2
 text = "SHORTCUT_SHOW_SCREENSAVER"
 
-[node name="PlayPauseLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+[node name="ShowScreensaverInfoLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
 layout_mode = 2
-text = "SHORTCUT_GO_UP"
+text = "Ctrl+F"
 
-[node name="GoUpLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+[node name="PlayPauseLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
 layout_mode = 2
 text = "SHORTCUT_PLAY_PAUSE"
 
-[node name="GoDownLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+[node name="PlayPauseInfoLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+layout_mode = 2
+text = "Space"
+
+[node name="MoveUpLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_GO_UP"
+
+[node name="MoveUpInfoLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+layout_mode = 2
+text = "Up arrow"
+
+[node name="MoveDownLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
 layout_mode = 2
 text = "SHORTCUT_GO_DOWN"
 
-[node name="IncreaseSpeedLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
+[node name="MoveDownInfoLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
 layout_mode = 2
-text = "SHORTCUT_INCREASE_SPEED"
+text = "Down arrow"
 
-[node name="DecreaseSpeedLabel2" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/ShortcutsContainer/VBox/ShortcutsScroll/ShortcutsGrid"]
-layout_mode = 2
-text = "SHORTCUT_DECREASE_SPEED"
-
-[node name="NetworkingContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer/RightVBox"]
+[node name="NetworkingContainer" type="PanelContainer" parent="MarginContainer/HSplit/VSplit/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HSplit/VSplit/VBoxContainer/NetworkingContainer"]
 layout_mode = 2
 
-[node name="NetworkingLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer"]
+[node name="NetworkingLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/NetworkingContainer/VBoxContainer"]
 layout_mode = 2
 text = "TITLE_NETWORKING"
 label_settings = ExtResource("2_n4yov")
 horizontal_alignment = 1
 
-[node name="NetworkStatusLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer"]
+[node name="NetworkStatusLabel" type="RichTextLabel" parent="MarginContainer/HSplit/VSplit/VBoxContainer/NetworkingContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 text = "Status: [i][color=grey]no connection[/color][/i]"
 fit_content = true
 
-[node name="NetworkingGrid" type="GridContainer" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer"]
+[node name="NetworkingGrid" type="GridContainer" parent="MarginContainer/HSplit/VSplit/VBoxContainer/NetworkingContainer/VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="IPLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/NetworkingGrid"]
+[node name="IPLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/NetworkingContainer/VBoxContainer/NetworkingGrid"]
 layout_mode = 2
 text = "IP address: "
 
-[node name="IPLineEdit" type="LineEdit" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/NetworkingGrid"]
+[node name="IPLineEdit" type="LineEdit" parent="MarginContainer/HSplit/VSplit/VBoxContainer/NetworkingContainer/VBoxContainer/NetworkingGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "192.168.0.1"
 
-[node name="PortLabel" type="Label" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/NetworkingGrid"]
+[node name="PortLabel" type="Label" parent="MarginContainer/HSplit/VSplit/VBoxContainer/NetworkingContainer/VBoxContainer/NetworkingGrid"]
 layout_mode = 2
 text = "Port:"
 
-[node name="PortLineEdit" type="LineEdit" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/NetworkingGrid"]
+[node name="PortLineEdit" type="LineEdit" parent="MarginContainer/HSplit/VSplit/VBoxContainer/NetworkingContainer/VBoxContainer/NetworkingGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "55757"
 
-[node name="ConnectionButton" type="Button" parent="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer"]
+[node name="ConnectionButton" type="Button" parent="MarginContainer/HSplit/VSplit/VBoxContainer/NetworkingContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Start connection"
+
+[node name="ScriptPanel" type="TabContainer" parent="MarginContainer/HSplit"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="Script (ctrl+1)" type="TabBar" parent="MarginContainer/HSplit/ScriptPanel"]
+layout_mode = 2
+
+[node name="ScriptScroll" type="ScrollContainer" parent="MarginContainer/HSplit/ScriptPanel/Script (ctrl+1)"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScriptTextEdit" type="TextEdit" parent="MarginContainer/HSplit/ScriptPanel/Script (ctrl+1)/ScriptScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Preview (ctrl+2)" type="TabBar" parent="MarginContainer/HSplit/ScriptPanel"]
+visible = false
+layout_mode = 2
+
+[node name="PreviewScroll" type="ScrollContainer" parent="MarginContainer/HSplit/ScriptPanel/Preview (ctrl+2)"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScriptPreview" type="RichTextLabel" parent="MarginContainer/HSplit/ScriptPanel/Preview (ctrl+2)/PreviewScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
+
+[node name="Side-by-side (ctrl+3)" type="TabBar" parent="MarginContainer/HSplit/ScriptPanel"]
+visible = false
+layout_mode = 2
+
+[node name="ScriptScroll" type="ScrollContainer" parent="MarginContainer/HSplit/ScriptPanel/Side-by-side (ctrl+3)"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HSplit/ScriptPanel/Side-by-side (ctrl+3)/ScriptScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="sbsTextEdit" type="TextEdit" parent="MarginContainer/HSplit/ScriptPanel/Side-by-side (ctrl+3)/ScriptScroll/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="sbsPreview" type="RichTextLabel" parent="MarginContainer/HSplit/ScriptPanel/Side-by-side (ctrl+3)/ScriptScroll/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
 
 [node name="Screensaver" type="TextureRect" parent="."]
 visible = false
@@ -320,14 +343,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/ScreenSaverButton" to="." method="_on_screen_saver_button_pressed"]
-[connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/ScrollSpeedSpinBox" to="." method="_on_scroll_speed_spin_box_value_changed"]
-[connection signal="item_selected" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/MirrorOptionButton" to="." method="_on_mirror_option_button_item_selected"]
-[connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/MarginSpinBox" to="." method="_on_margin_spin_box_value_changed"]
-[connection signal="value_changed" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/FontSizeSpinBox" to="." method="_on_font_size_spin_box_value_changed"]
-[connection signal="color_changed" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/FontColorPicker" to="." method="_on_font_color_picker_changed"]
-[connection signal="color_changed" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/BackgroundColorPicker" to="." method="_on_background_color_picker_changed"]
-[connection signal="item_selected" from="MarginContainer/HBoxContainer/LeftVSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/AlignmentOptionButton" to="." method="_on_alignment_option_item_selected"]
-[connection signal="tab_changed" from="MarginContainer/HBoxContainer/ScriptPanel" to="." method="_on_script_panel_tab_changed"]
-[connection signal="text_changed" from="MarginContainer/HBoxContainer/ScriptPanel/Script/ScriptScroll/ScriptTextEdit" to="." method="_on_script_text_edit_changed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/RightVBox/NetworkingContainer/VBoxContainer/ConnectionButton" to="." method="_on_connection_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/ScreenSaverButton" to="." method="_on_screen_saver_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/ScrollSpeedSpinBox" to="." method="_on_scroll_speed_spin_box_value_changed"]
+[connection signal="item_selected" from="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/MirrorOptionButton" to="." method="_on_mirror_option_button_item_selected"]
+[connection signal="value_changed" from="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/MarginSpinBox" to="." method="_on_margin_spin_box_value_changed"]
+[connection signal="value_changed" from="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/FontSizeSpinBox" to="." method="_on_font_size_spin_box_value_changed"]
+[connection signal="color_changed" from="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/FontColorPicker" to="." method="_on_font_color_picker_changed"]
+[connection signal="color_changed" from="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/BackgroundColorPicker" to="." method="_on_background_color_picker_changed"]
+[connection signal="item_selected" from="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/AlignmentOptionButton" to="." method="_on_alignment_option_item_selected"]
+[connection signal="pressed" from="MarginContainer/HSplit/VSplit/VBoxContainer/NetworkingContainer/VBoxContainer/ConnectionButton" to="." method="_on_connection_button_pressed"]
+[connection signal="text_changed" from="MarginContainer/HSplit/ScriptPanel/Script (ctrl+1)/ScriptScroll/ScriptTextEdit" to="." method="_on_script_tab_text_changed"]
+[connection signal="text_changed" from="MarginContainer/HSplit/ScriptPanel/Side-by-side (ctrl+3)/ScriptScroll/HBoxContainer/sbsTextEdit" to="." method="_on_sbs_tab_text_changed"]

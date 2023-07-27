@@ -1,21 +1,31 @@
 extends ColorRect
 
-# TODO: Add shortcuts to switch between Script view and preview view
-# TODO: Make scripts saving/deleting/loading work
+## TeleDot controller's job is to connect to the TeleDot view and
+## send all necesarry data. This data includes commands and settings.
+##
+## Full list of possible commands and settings data which can
+## be send, can be found within the main script of TeleView.
 
+# TODO: Change logo and startup picture
+# TODO: Make screensaver work
 
+# Paths:
 const SETTINGS_FILE := "user://settings"
 
+# Connection variables:
 const PORT := 55757
 var client: StreamPeerTCP
-var status = -1
+var status = client.STATUS_NONE
 
+# Screensave image
 var screensaver_img: Texture
 
 
 func _ready() -> void:
-	load_settings()
+	# Hiding the screensaver incase it was visible when building.
 	$Screensaver.visible = false
+	
+	load_settings()
 
 
 func _process(_delta: float) -> void:
@@ -25,6 +35,24 @@ func _process(_delta: float) -> void:
 	if client.get_status() != status:
 		status = client.get_status()
 		connection_changed()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("switch_tab_script"):
+		%ScriptPanel.current_tab = 0
+	if event.is_action_pressed("switch_tab_preview"):
+		%ScriptPanel.current_tab = 1
+	if event.is_action_pressed("switch_tab_double"):
+		%ScriptPanel.current_tab = 2
+	
+	if event.is_action_pressed("show_screensaver"):
+		print("dd")
+	if event.is_action_pressed("play_pause"):
+		send_command("command_play_pause", null)
+	elif event.is_action_pressed("move_down"):
+		send_command("command_move_down", null)
+	elif event.is_action_pressed("move_up"):
+		send_command("command_move_up", null)
 
 
 func connection_changed() -> void:
@@ -53,16 +81,6 @@ func set_connection_text(_status: int = status) -> void:
 func send_command(key:String, value) -> void:
 	if client == null: return
 	if client.get_status() == 2: client.put_var([key,value])
-
-
-func _on_script_panel_tab_changed(_tab: int) -> void:
-	%ScriptPreview.text = %ScriptTextEdit.text
-	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
-	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
-
-
-func _on_script_text_edit_changed() -> void:
-	send_command("change_script", %ScriptTextEdit.text)
 
 
 func _on_connection_button_pressed() -> void:
@@ -151,3 +169,19 @@ func _on_screen_saver_button_pressed() -> void:
 	# TODO: Display screensaver
 	# TODO: when pressed again or esc pressed, exit screensaver mode
 	pass
+
+
+func _on_script_tab_text_changed() -> void:
+	%sbsTextEdit.text = %ScriptTextEdit.text
+	%sbsPreview.text = %ScriptTextEdit.text
+	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
+	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
+	send_command("change_script", %ScriptTextEdit.text)
+
+
+func _on_sbs_tab_text_changed() -> void:
+	%ScriptTextEdit.text = %sbsTextEdit.text
+	%sbsPreview.text = %sbsTextEdit.text
+	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
+	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
+	send_command("change_script", %ScriptTextEdit.text)
