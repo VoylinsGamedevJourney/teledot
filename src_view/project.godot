@@ -13,7 +13,8 @@ config_version=5
 config/name="TeleDot - View"
 run/main_scene="res://view.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/image="res://TeleDotViewLogo.png"
+config/icon="res://TeleDotViewLogo.svg"
 
 [display]
 
