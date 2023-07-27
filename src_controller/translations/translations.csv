@@ -1,18 +1,18 @@
-KEY,en,ja
-TITLE_SETTINGS,Settings,設定
-TITLE_SHORTCUTS,Shortcuts,ショートカット
-TITLE_SCRIPTS,Scripts,脚本
-TITLE_NETWORKING,Networking,コネクション
-SETTING_SCREENSAVER,Screensaver,
-SETTING_SCROLL_SPEED,Scroll speed,
-SETTING_MIRROR_TEXT,Mirror text,
-SETTING_MARGINS,Margins,
-SETTING_COLOR_FONT,Font color,
-SETTING_COLOR_BACKGROUND,Background color,
-SETTING_ALIGNMENT,Alignment,
-SHORTCUT_SHOW_SCREENSAVER,Show screensaver,
-SHORTCUT_PLAY_PAUSE,Play/Pause,
-SHORTCUT_GO_UP,Go up,
-SHORTCUT_GO_DOWN,Go down,
-SHORTCUT_INCREASE_SPEED,Increase speed,
-SHORTCUT_DECREASE_SPEED,Decrease speed,
+KEY,en,ja,fr
+TITLE_SETTINGS,Settings,設定,Réglages
+TITLE_SHORTCUTS,Shortcuts,ショートカット,Raccourcis
+TITLE_SCRIPTS,Scripts,脚本,Scripts
+TITLE_NETWORKING,Networking,コネクション,Réseau
+SETTING_SCREENSAVER,Screensaver,,Écran de veille
+SETTING_SCROLL_SPEED,Scroll speed,,Vitesse de défilement
+SETTING_MIRROR_TEXT,Mirror text,,Texte miroir
+SETTING_MARGINS,Margins,,Marges
+SETTING_COLOR_FONT,Font color,,Couleur du texte
+SETTING_COLOR_BACKGROUND,Background color,,Couleur du fond
+SETTING_ALIGNMENT,Alignment,,Alignement
+SHORTCUT_SHOW_SCREENSAVER,Show screensaver,,Afficher l'écran de veille
+SHORTCUT_PLAY_PAUSE,Play/Pause,,Lecture/Pause
+SHORTCUT_GO_UP,Go up,,Vers le haut
+SHORTCUT_GO_DOWN,Go down,,Vers le bas
+SHORTCUT_INCREASE_SPEED,Increase speed,,Augmenter la vitesse
+SHORTCUT_DECREASE_SPEED,Decrease speed,,Diminuer la vitesse
