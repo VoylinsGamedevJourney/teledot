@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bqi78vhexs7gv"]
+[gd_scene load_steps=6 format=3 uid="uid://bqi78vhexs7gv"]
 
 [ext_resource type="Theme" uid="uid://dt4slcvh1rugo" path="res://theme.tres" id="1_2beuo"]
 [ext_resource type="Script" path="res://controller.gd" id="1_51ox2"]
 [ext_resource type="LabelSettings" uid="uid://tqv2bcmchynl" path="res://title.tres" id="2_n4yov"]
+
+[sub_resource type="Gradient" id="Gradient_m5bjm"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d0ttv"]
+gradient = SubResource("Gradient_m5bjm")
 
 [node name="Controller" type="ColorRect"]
 anchors_preset = 15
@@ -334,14 +341,24 @@ size_flags_vertical = 3
 bbcode_enabled = true
 fit_content = true
 
-[node name="Screensaver" type="TextureRect" parent="."]
-visible = false
+[node name="Screensaver" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ScreensaverTexture" type="TextureRect" parent="Screensaver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_d0ttv")
+
+[node name="FileDialog" type="FileDialog" parent="Screensaver/ScreensaverTexture"]
 
 [connection signal="pressed" from="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/ScreenSaverButton" to="." method="_on_screen_saver_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/HSplit/VSplit/SettingsContainer/VBox/SettingsScroll/SettingsGrid/ScrollSpeedSpinBox" to="." method="_on_scroll_speed_spin_box_value_changed"]

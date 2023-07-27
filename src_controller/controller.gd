@@ -6,8 +6,6 @@ extends ColorRect
 ## Full list of possible commands and settings data which can
 ## be send, can be found within the main script of TeleView.
 
-# TODO: Change logo and startup picture
-# TODO: Make screensaver work
 
 # Paths:
 const SETTINGS_FILE := "user://settings"
@@ -16,9 +14,6 @@ const SETTINGS_FILE := "user://settings"
 const PORT := 55757
 var client: StreamPeerTCP
 var status = client.STATUS_NONE
-
-# Screensave image
-var screensaver_img: Texture
 
 
 func _ready() -> void:
@@ -29,30 +24,33 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	# Do not go further when no connection has been made yet.
 	if client == null: return
+	
+	# Checking connection status with TeleDot View
 	client.poll()
-	# Checking status
 	if client.get_status() != status:
 		status = client.get_status()
 		connection_changed()
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("switch_tab_script"):
-		%ScriptPanel.current_tab = 0
-	if event.is_action_pressed("switch_tab_preview"):
-		%ScriptPanel.current_tab = 1
-	if event.is_action_pressed("switch_tab_double"):
-		%ScriptPanel.current_tab = 2
+	# Switching tab commands:
+	if event.is_action_pressed("switch_tab_script"):  %ScriptPanel.current_tab = 0
+	if event.is_action_pressed("switch_tab_preview"): %ScriptPanel.current_tab = 1
+	if event.is_action_pressed("switch_tab_double"):  %ScriptPanel.current_tab = 2
 	
+	# Shortcut commands
 	if event.is_action_pressed("show_screensaver"):
-		print("dd")
-	if event.is_action_pressed("play_pause"):
-		send_command("command_play_pause", null)
-	elif event.is_action_pressed("move_down"):
-		send_command("command_move_down", null)
-	elif event.is_action_pressed("move_up"):
-		send_command("command_move_up", null)
+		if $Screensaver.visible:
+			get_window().mode = Window.MODE_WINDOWED
+		else:
+			get_window().mode = Window.MODE_FULLSCREEN
+		$Screensaver.visible = !$Screensaver.visible
+	
+	if event.is_action_pressed("play_pause"):  send_command("command_play_pause", null)
+	elif event.is_action_pressed("move_down"): send_command("command_move_down", null)
+	elif event.is_action_pressed("move_up"):   send_command("command_move_up", null)
 
 
 func connection_changed() -> void:
@@ -163,14 +161,6 @@ func load_settings() -> void:
 			_: printerr("Could not find setting: %s" % setting)
 
 
-# TODO: Screensaver
-func _on_screen_saver_button_pressed() -> void:
-	# TODO: When pressed, go fullscreen
-	# TODO: Display screensaver
-	# TODO: when pressed again or esc pressed, exit screensaver mode
-	pass
-
-
 func _on_script_tab_text_changed() -> void:
 	%sbsTextEdit.text = %ScriptTextEdit.text
 	%sbsPreview.text = %ScriptTextEdit.text
@@ -185,3 +175,22 @@ func _on_sbs_tab_text_changed() -> void:
 	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
 	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
 	send_command("change_script", %ScriptTextEdit.text)
+
+
+func _on_screen_saver_button_pressed() -> void:
+	var file_explorer := FileDialog.new()
+	file_explorer.title = "Select Screensaver"
+	file_explorer.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	file_explorer.size = Vector2i(600,600)
+	file_explorer.access = FileDialog.ACCESS_FILESYSTEM
+	add_child(file_explorer)
+	file_explorer.file_selected.connect(change_screensaver)
+	file_explorer.popup_centered()
+
+
+func change_screensaver(path: String) -> void:
+	print(path)
+	var tex := ImageTexture.new()
+	var image := Image.load_from_file(path)
+	tex.set_image(image)
+	$Screensaver/ScreensaverTexture.texture = tex
