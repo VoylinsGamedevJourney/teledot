@@ -59,6 +59,8 @@ func _process(delta: float) -> void:
 	# Accept connection when lcient tries to connect 
 	if server.is_connection_available(): 
 		connection = server.take_connection()
+		$NoConnection.visible = false
+		$Script.visible = true
 	
 	# Starting from this point, things only get executed
 	# when having a connection with a TeleDot controller
@@ -76,7 +78,7 @@ func _process(delta: float) -> void:
 		start_server()
 		client_status = connection.STATUS_NONE
 		return
-	if connection.get_available_bytes() == null:
+	if connection.get_available_bytes() != null:
 		var data: Array = connection.get_var()
 		self.call(data[0], data[1])
 		if data[0] == "change_alignment":
@@ -87,11 +89,11 @@ func _process(delta: float) -> void:
 func change_color_background(new_color: Color = Color8(0,0,0)) -> void:
 	self.self_modulate = new_color
 func change_color_text(new_color: Color = Color8(255,255,255)) -> void:
-	%Script.self_modulate = new_color
+	%ScriptBox.self_modulate = new_color
 func change_script(text: String = base_script) -> void:
 	base_script = text
 	change_alignment()
-	%Script.text = text
+	%ScriptBox.text = text
 func change_alignment(new_align: int = alignment) -> void:
 	alignment = new_align
 	match alignment:
@@ -118,6 +120,7 @@ func change_font_size(value: int) -> void:
 
 # Commands:
 func command_play_pause(_value) -> void:
+	print("play pressed")
 	play = !play
 func command_move_up(_value) -> void:
 	%ScrollScript.scroll_vertical -= 1
