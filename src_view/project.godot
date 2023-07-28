@@ -14,7 +14,7 @@ config/name="TeleDot - View"
 run/main_scene="res://view.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/image="res://TeleDotViewLogo.png"
-config/icon="res://TeleDotViewLogo.svg"
+config/icon="res://TeleDotViewLogo.png"
 
 [display]
 
@@ -24,3 +24,4 @@ window/size/viewport_height=1080
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

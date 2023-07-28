@@ -14,7 +14,7 @@ config/name="TeleDot - Controller"
 run/main_scene="res://controller.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/image="res://TeleDotControllerLogo.png"
-config/icon="res://TeleDotControllerLogo.svg"
+config/icon="res://TeleDotControllerLogo.png"
 
 [display]
 

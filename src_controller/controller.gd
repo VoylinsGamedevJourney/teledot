@@ -55,13 +55,12 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action_pressed("play_pause"):
+		print("play/pause pressed")
 		send_command("command_play_pause", null)
 	if event.is_action_pressed("move_down"):
 		send_command("command_move_down", null)
 	if event.is_action_pressed("move_up"):
 		send_command("command_move_up", null)
-	
-	
 
 
 func connection_changed() -> void:
