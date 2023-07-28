@@ -78,7 +78,7 @@ func _process(delta: float) -> void:
 		start_server()
 		client_status = connection.STATUS_NONE
 		return
-	if connection.get_available_bytes() != null:
+	if connection.get_available_bytes() != 0:
 		var data: Array = connection.get_var()
 		self.call(data[0], data[1])
 		if data[0] == "change_alignment":
@@ -125,4 +125,4 @@ func command_play_pause(_value) -> void:
 func command_move_up(_value) -> void:
 	%ScrollScript.scroll_vertical -= 1
 func command_move_down(_value) -> void:
-	%ScrollScript.scroll_vertical += 1
+	%ScriptScroll.scroll_vertical += 1
