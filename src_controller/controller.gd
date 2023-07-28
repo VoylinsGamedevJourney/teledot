@@ -42,15 +42,26 @@ func _input(event: InputEvent) -> void:
 	
 	# Shortcut commands
 	if event.is_action_pressed("show_screensaver"):
+		get_viewport().gui_release_focus()
 		if $Screensaver.visible:
 			get_window().mode = Window.MODE_WINDOWED
 		else:
 			get_window().mode = Window.MODE_FULLSCREEN
 		$Screensaver.visible = !$Screensaver.visible
 	
-	if event.is_action_pressed("play_pause"):  send_command("command_play_pause", null)
-	elif event.is_action_pressed("move_down"): send_command("command_move_down", null)
-	elif event.is_action_pressed("move_up"):   send_command("command_move_up", null)
+	if event.is_action_pressed("release_focus"):
+		get_viewport().gui_release_focus()
+	if (get_viewport().gui_get_focus_owner() != null):
+		return
+	
+	if event.is_action_pressed("play_pause"):
+		send_command("command_play_pause", null)
+	if event.is_action_pressed("move_down"):
+		send_command("command_move_down", null)
+	if event.is_action_pressed("move_up"):
+		send_command("command_move_up", null)
+	
+	
 
 
 func connection_changed() -> void:
@@ -67,12 +78,13 @@ func connection_changed() -> void:
 
 
 func set_connection_text(_status: int = status) -> void:
-	var text: PackedStringArray
+	var text: Array
 	match _status:
 		client.STATUS_NONE:       text = ["gray", "no connection"]
 		client.STATUS_ERROR:      text = ["red", "error"]
 		client.STATUS_CONNECTING: text = ["purple", "connecting"]
 		client.STATUS_CONNECTED:  text = ["green", "connected"]
+		_: text = ["red", _status]
 	%NetworkStatusLabel.text = "Status: [i][color=%s]%s[/color][/i]" % text
 
 
