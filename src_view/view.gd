@@ -49,12 +49,17 @@ func start_server() -> void:
 	# Initialize server
 	server = TCPServer.new()
 	server.listen(port)
-	%IPLabel.text = "IP: %s" % IP.get_local_addresses()[0]
+	var ip : String
+	for x in IP.get_local_addresses():
+		if "192." in x: 
+			ip = x
+			break
+	%IPLabel.text = "IP: %s" % ip
 
 
 func _process(delta: float) -> void:
 	# Make the script scroll on screen when play is pressed
-	if play: %ScriptScroll.scroll_vertical += 2* delta
+	if play: %ScriptScroll.scroll_vertical += scroll_speed * delta
 	
 	# Accept connection when lcient tries to connect 
 	if server.is_connection_available(): 
@@ -83,6 +88,8 @@ func _process(delta: float) -> void:
 		self.call(data[0], data[1])
 		if data[0] == "change_alignment":
 			change_script()
+		print(data)
+		
 
 
 # Change settings commands:
@@ -106,10 +113,10 @@ func change_alignment(new_align: int = alignment) -> void:
 func change_mirror(mirror: bool) -> void:
 	$Script.flip_h = mirror
 func change_margin(margin: int) -> void:
-	%ScriptMargin.add_theme_constant_override("margin_left", margin)
-	%ScriptMargin.add_theme_constant_override("margin_right", margin)
+	%ScriptMargin.add_theme_constant_override("margin_left", margin * 5)
+	%ScriptMargin.add_theme_constant_override("margin_right", margin * 5)
 func change_scroll_speed(speed: int) -> void:
-	scroll_speed = speed
+	scroll_speed = speed * 5
 func change_font_size(value: int) -> void:
 	%ScriptBox.add_theme_font_size_override("normal_font_size", value)
 	%ScriptBox.add_theme_font_size_override("bold_font_size", value)
@@ -122,7 +129,7 @@ func change_font_size(value: int) -> void:
 func command_play_pause(_value) -> void:
 	print("play pressed")
 	play = !play
-func command_move_up(_value) -> void:
-	%ScrollScript.scroll_vertical -= 1
-func command_move_down(_value) -> void:
-	%ScriptScroll.scroll_vertical += 1
+func command_move_up(value) -> void:
+	%ScriptScroll.scroll_vertical -= value
+func command_move_down(value) -> void:
+	%ScriptScroll.scroll_vertical += value
