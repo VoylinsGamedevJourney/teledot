@@ -13,3 +13,9 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Android files
+src_view/android
+
+# Exports
+exports
