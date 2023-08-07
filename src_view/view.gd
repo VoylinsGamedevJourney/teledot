@@ -93,7 +93,7 @@ func change_color_text(new_color: Color = Color8(255,255,255)) -> void:
 func change_script(text: String = base_script) -> void:
 	base_script = text
 	change_alignment()
-	%ScriptBox.text = text
+	%ScriptBox.text = formatted_script
 func change_alignment(new_align: int = alignment) -> void:
 	alignment = new_align
 	match alignment:
