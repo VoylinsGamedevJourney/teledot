@@ -26,14 +26,23 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	# Do not go further when no connection has been made yet.
-	if client == null: return
+	if get_viewport().gui_get_focus_owner() == null:
+		if Input.is_action_just_released("play_pause"):
+			get_viewport().gui_release_focus()
+			send_command("command_play_pause", null)
+		if Input.is_action_pressed("move_down"):
+			send_command("command_move_down", 2)
+		if Input.is_action_pressed("move_up"):
+			send_command("command_move_up", 2)
 	
-	# Checking connection status with TeleDot View
-	client.poll()
-	if client.get_status() != status:
-		status = client.get_status()
-		connection_changed()
+	
+	# Do not go further when no connection has been made yet.
+	if client != null:
+		# Checking connection status with TeleDot View
+		client.poll()
+		if client.get_status() != status:
+			status = client.get_status()
+			connection_changed()
 
 
 func _input(event: InputEvent) -> void:
@@ -53,16 +62,6 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("release_focus"):
 		get_viewport().gui_release_focus()
-	if (get_viewport().gui_get_focus_owner() != null):
-		return
-	
-	if event.is_action_pressed("play_pause"):
-		get_viewport().gui_release_focus()
-		send_command("command_play_pause", null)
-	if event.is_action("move_down"):
-		send_command("command_move_down", 60)
-	if event.is_action("move_up"):
-		send_command("command_move_up", 60)
 
 
 func connection_changed() -> void:
@@ -76,6 +75,7 @@ func connection_changed() -> void:
 		var settings_data: Dictionary = settings.get_var()
 		settings.close()
 		for setting in settings_data:
+			if setting == "language": continue
 			send_command("change_%s" % setting, settings_data[setting])
 
 
@@ -160,7 +160,7 @@ func load_settings() -> void:
 	if !FileAccess.file_exists(SETTINGS_FILE):
 		var default_file := FileAccess.open(SETTINGS_FILE,FileAccess.WRITE)
 		default_file.store_var({
-			"color_background": %FontColorPicker.color,
+			"color_background": %BackgroundColorPicker.color,
 			"scroll_speed": %ScrollSpeedSpinBox.value,
 			"color_text": %FontColorPicker.color,
 			"alignment": %AlignmentOptionButton.selected,
@@ -222,7 +222,6 @@ func _on_screen_saver_button_pressed() -> void:
 
 
 func change_screensaver(path: String) -> void:
-	print(path)
 	var tex := ImageTexture.new()
 	var image := Image.load_from_file(path)
 	tex.set_image(image)
@@ -234,10 +233,10 @@ func _on_remove_focus_button_pressed(_e:int = 0) -> void:
 
 
 func _on_ip_line_edit_text_submitted(_new_text: String) -> void:
-	# Go to PortLineEdit
 	%PortLineEdit.grab_focus()
 	%PortLineEdit.caret_column = %PortLineEdit.text.length()
 
 
 func _on_port_line_edit_text_submitted(_new_text: String) -> void:
 	_on_connection_button_pressed()
+	get_viewport().gui_release_focus()

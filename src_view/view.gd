@@ -59,7 +59,12 @@ func start_server() -> void:
 
 func _process(delta: float) -> void:
 	# Make the script scroll on screen when play is pressed
-	if play: %ScriptScroll.scroll_vertical += scroll_speed * delta
+	if play:
+		var new_scroll: int = %ScriptScroll.scroll_vertical + (scroll_speed * delta)
+		%ScriptScroll.scroll_vertical = new_scroll
+		if %ScriptScroll.scroll_vertical != new_scroll:
+			# Reached end
+			play = !play
 	
 	# Accept connection when lcient tries to connect 
 	if server.is_connection_available(): 
@@ -89,7 +94,6 @@ func _process(delta: float) -> void:
 		if data[0] == "change_alignment":
 			change_script()
 		print(data)
-		
 
 
 # Change settings commands:
@@ -127,9 +131,8 @@ func change_font_size(value: int) -> void:
 
 # Commands:
 func command_play_pause(_value) -> void:
-	print("play pressed")
 	play = !play
 func command_move_up(value) -> void:
-	%ScriptScroll.scroll_vertical -= value
+	%ScriptScroll.scroll_vertical -= 5 * value
 func command_move_down(value) -> void:
-	%ScriptScroll.scroll_vertical += value
+	%ScriptScroll.scroll_vertical += 5 * value
