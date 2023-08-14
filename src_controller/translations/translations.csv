@@ -11,9 +11,15 @@ SETTING_COLOR_FONT,Font color,フォントの色,Couleur du texte
 SETTING_COLOR_BACKGROUND,Background color,背景色,Couleur du fond
 SETTING_ALIGNMENT,Alignment,配置,Alignement
 SETTING_FONT_SIZE,Font size,フォントサイズ,Taille de la police
-SHORTCUT_SHOW_SCREENSAVER,Show screensaver,スクリーンセーバー表示,Afficher l'écran de veille
+SHORTCUT_SCREENSAVER,Screensaver,スクリーンセーバー,L'écran de veille
 SHORTCUT_PLAY_PAUSE,Play/Pause,再生/一時停止,Lecture/Pause
 SHORTCUT_GO_UP,Go up,上に移動,Vers le haut
 SHORTCUT_GO_DOWN,Go down,下に移動,Vers le bas
 SHORTCUT_INCREASE_SPEED,Increase speed,速度を上げる,Augmenter la vitesse
 SHORTCUT_DECREASE_SPEED,Decrease speed,速度を下げる,Diminuer la vitesse
+NETWORK_STATUS,Status:,ステータス：,
+NETWORK_STATUS_NO_CONNECTION,No connection,接続なし,
+NETWORK_STATUS_ERROR,Error,エラー,
+NETWORK_STATUS_CONNECTED,Connected,接続済み,
+NETWORK_STATUS_CONNECTING,Connecting,接続中,
+BUTTON_START_CONNECTION,Start connection,接続開始,
