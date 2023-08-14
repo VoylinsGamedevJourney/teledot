@@ -1,25 +1,25 @@
-KEY,en,ja,fr
-TITLE_SETTINGS,Settings,設定,Réglages
-TITLE_SHORTCUTS,Shortcuts,ショートカット,Raccourcis
-TITLE_SCRIPTS,Scripts,脚本,Scripts
-TITLE_NETWORKING,Networking,コネクション,Réseau
-SETTING_SCREENSAVER,Screensaver,スクリーンセーバー,Écran de veille
-SETTING_SCROLL_SPEED,Scroll speed,スクロール速度,Vitesse de défilement
-SETTING_MIRROR_TEXT,Mirror text,ミラーテキスト,Texte miroir
-SETTING_MARGINS,Margins,マージン,Marges
-SETTING_COLOR_FONT,Font color,フォントの色,Couleur du texte
-SETTING_COLOR_BACKGROUND,Background color,背景色,Couleur du fond
-SETTING_ALIGNMENT,Alignment,配置,Alignement
-SETTING_FONT_SIZE,Font size,フォントサイズ,Taille de la police
-SHORTCUT_SCREENSAVER,Screensaver,スクリーンセーバー,L'écran de veille
-SHORTCUT_PLAY_PAUSE,Play/Pause,再生/一時停止,Lecture/Pause
-SHORTCUT_GO_UP,Go up,上に移動,Vers le haut
-SHORTCUT_GO_DOWN,Go down,下に移動,Vers le bas
-SHORTCUT_INCREASE_SPEED,Increase speed,速度を上げる,Augmenter la vitesse
-SHORTCUT_DECREASE_SPEED,Decrease speed,速度を下げる,Diminuer la vitesse
-NETWORK_STATUS,Status:,ステータス：,
-NETWORK_STATUS_NO_CONNECTION,No connection,接続なし,
-NETWORK_STATUS_ERROR,Error,エラー,
-NETWORK_STATUS_CONNECTED,Connected,接続済み,
-NETWORK_STATUS_CONNECTING,Connecting,接続中,
-BUTTON_START_CONNECTION,Start connection,接続開始,
+KEY,en,ja,fr,zh_TW
+TITLE_SETTINGS,Settings,設定,Réglages,設定
+TITLE_SHORTCUTS,Shortcuts,ショートカット,Raccourcis,快捷鍵
+TITLE_SCRIPTS,Scripts,脚本,Scripts,腳本
+TITLE_NETWORKING,Networking,コネクション,Réseau,網路
+SETTING_SCREENSAVER,Screensaver,スクリーンセーバー,Écran de veille,螢幕保護程式
+SETTING_SCROLL_SPEED,Scroll speed,スクロール速度,Vitesse de défilement,滾動速度
+SETTING_MIRROR_TEXT,Mirror text,ミラーテキスト,Texte miroir,鏡像文字
+SETTING_MARGINS,Margins,マージン,Marges,邊距
+SETTING_COLOR_FONT,Font color,フォントの色,Couleur du texte,字體顏色
+SETTING_COLOR_BACKGROUND,Background color,背景色,Couleur du fond,背景顏色
+SETTING_ALIGNMENT,Alignment,配置,Alignement,對齊
+SETTING_FONT_SIZE,Font size,フォントサイズ,Taille de la police,字體大小
+SHORTCUT_SCREENSAVER,Screensaver,スクリーンセーバー,L'écran de veille,螢幕保護程式
+SHORTCUT_PLAY_PAUSE,Play/Pause,再生/一時停止,Lecture/Pause,播放/暫停
+SHORTCUT_GO_UP,Go up,上に移動,Vers le haut,向上移動
+SHORTCUT_GO_DOWN,Go down,下に移動,Vers le bas,向下移動
+SHORTCUT_INCREASE_SPEED,Increase speed,速度を上げる,Augmenter la vitesse,加速
+SHORTCUT_DECREASE_SPEED,Decrease speed,速度を下げる,Diminuer la vitesse,減速
+NETWORK_STATUS,Status:,ステータス：,,狀態:
+NETWORK_STATUS_NO_CONNECTION,No connection,接続なし,,未連接
+NETWORK_STATUS_ERROR,Error,エラー,,錯誤
+NETWORK_STATUS_CONNECTED,Connected,接続済み,,已連接
+NETWORK_STATUS_CONNECTING,Connecting,接続中,,連接中
+BUTTON_START_CONNECTION,Start connection,接続開始,,開始連接

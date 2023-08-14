@@ -70,7 +70,7 @@ release_focus={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://translations/translations.en.translation", "res://translations/translations.ja.translation", "res://translations/translations.fr.translation")
+locale/translations=PackedStringArray("res://translations/translations.en.translation", "res://translations/translations.ja.translation", "res://translations/translations.fr.translation", "res://translations/translations.zh_TW.translation")
 
 [rendering]
 
