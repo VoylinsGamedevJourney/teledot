@@ -7,6 +7,8 @@ extends ColorRect
 ## be send, can be found within the main script of TeleView.
 
 
+enum LANGUAGE {ENGLISH, JAPANESE, FRENCH, CHINESE_TAIWAN}
+
 # Paths:
 const SETTINGS_FILE := "user://settings"
 
@@ -19,7 +21,7 @@ var status = client.STATUS_NONE
 func _ready() -> void:
 	# Hiding the screensaver incase it was visible when building.
 	$Screensaver.visible = false
-#	load_settings()
+	load_settings()
 	set_connection_text()
 
 
@@ -128,6 +130,21 @@ func _on_scroll_speed_spin_box_value_changed(value: float) -> void:
 func _on_font_size_spin_box_value_changed(value: float) -> void:
 	save_setting("font_size", value)
 	send_command("change_font_size", value)
+func _on_language_option_button_item_selected(value: int) -> void:
+	save_setting("language", value)
+	set_language(value)
+
+
+func set_language(value:int) -> void:
+	match value:
+		LANGUAGE.ENGLISH:
+			TranslationServer.set_locale("en")
+		LANGUAGE.JAPANESE:
+			TranslationServer.set_locale("ja")
+		LANGUAGE.FRENCH:
+			TranslationServer.set_locale("fr")
+		LANGUAGE.CHINESE_TAIWAN:
+			TranslationServer.set_locale("zh_TW")
 
 
 func save_setting(key: String, value) -> void:
@@ -150,6 +167,7 @@ func load_settings() -> void:
 			"font_size": %FontSizeSpinBox.value,
 			"mirror": %MirrorOptionButton.selected,
 			"margin": %MarginSpinBox.value,
+			"language": %LanguageOptionButton.selected,
 			})
 		return
 	var settings_file := FileAccess.open(SETTINGS_FILE, FileAccess.READ)
@@ -157,9 +175,9 @@ func load_settings() -> void:
 	for setting in settings_data:
 		match setting:
 			"alignment": 
-				%AlignmentOptionButton.selected = settings_data[setting]
+				%AlignmentOptionButton.select(settings_data[setting])
 			"mirror": 
-				%MirrorOptionButton.selected = settings_data[setting]
+				%MirrorOptionButton.select(settings_data[setting])
 			"color_text": 
 				%FontColorPicker.color = settings_data[setting]
 			"color_background": 
@@ -170,6 +188,9 @@ func load_settings() -> void:
 				%ScrollSpeedSpinBox.value = settings_data[setting]
 			"font_size": 
 				%FontSizeSpinBox.value = settings_data[setting]
+			"language": 
+				%LanguageOptionButton.select(settings_data[setting])
+				set_language(settings_data[setting])
 			_: printerr("Could not find setting: %s" % setting)
 
 
@@ -208,7 +229,7 @@ func change_screensaver(path: String) -> void:
 	$Screensaver/ScreensaverTexture.texture = tex
 
 
-func _on_remove_focus_button_pressed() -> void:
+func _on_remove_focus_button_pressed(_e:int = 0) -> void:
 	get_viewport().gui_release_focus()
 
 

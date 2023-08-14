@@ -11,6 +11,7 @@ SETTING_COLOR_FONT,Font color,フォントの色,Couleur du texte,字體顏色
 SETTING_COLOR_BACKGROUND,Background color,背景色,Couleur du fond,背景顏色
 SETTING_ALIGNMENT,Alignment,配置,Alignement,對齊
 SETTING_FONT_SIZE,Font size,フォントサイズ,Taille de la police,字體大小
+SETTING_LANGUAGE,"Language","言語","Langue","語言"
 SHORTCUT_SCREENSAVER,Screensaver,スクリーンセーバー,L'écran de veille,螢幕保護程式
 SHORTCUT_PLAY_PAUSE,Play/Pause,再生/一時停止,Lecture/Pause,播放/暫停
 SHORTCUT_GO_UP,Go up,上に移動,Vers le haut,向上移動

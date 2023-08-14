@@ -180,6 +180,24 @@ popup/item_1/id = 1
 popup/item_2/text = "Right"
 popup/item_2/id = 2
 
+[node name="LanguageLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid"]
+layout_mode = 2
+text = "SETTING_LANGUAGE"
+
+[node name="LanguageOptionButton" type="OptionButton" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 4
+selected = 0
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "日本語"
+popup/item_1/id = 1
+popup/item_2/text = "Français"
+popup/item_2/id = 2
+popup/item_3/text = "中文"
+popup/item_3/id = 3
+
 [node name="RemoveFocusButton" type="Button" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox"]
 layout_mode = 2
 text = "Remove focus"
@@ -384,13 +402,22 @@ texture = SubResource("GradientTexture1D_d0ttv")
 [node name="FileDialog" type="FileDialog" parent="Screensaver/ScreensaverTexture"]
 
 [connection signal="pressed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/ScreenSaverButton" to="." method="_on_screen_saver_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/ScrollSpeedSpinBox" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/ScrollSpeedSpinBox" to="." method="_on_scroll_speed_spin_box_value_changed"]
 [connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MirrorOptionButton" to="." method="_on_mirror_option_button_item_selected"]
+[connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MirrorOptionButton" to="." method="_on_remove_focus_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MarginSpinBox" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MarginSpinBox" to="." method="_on_margin_spin_box_value_changed"]
+[connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_font_size_spin_box_value_changed"]
+[connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontColorPicker" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontColorPicker" to="." method="_on_font_color_picker_changed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/BackgroundColorPicker" to="." method="_on_background_color_picker_changed"]
+[connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/BackgroundColorPicker" to="." method="_on_remove_focus_button_pressed"]
+[connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/AlignmentOptionButton" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/AlignmentOptionButton" to="." method="_on_alignment_option_item_selected"]
+[connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/LanguageOptionButton" to="." method="_on_remove_focus_button_pressed"]
+[connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/LanguageOptionButton" to="." method="_on_language_option_button_item_selected"]
 [connection signal="pressed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/RemoveFocusButton" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="text_submitted" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/NetworkingGrid/IPLineEdit" to="." method="_on_ip_line_edit_text_submitted"]
 [connection signal="text_submitted" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/NetworkingGrid/PortLineEdit" to="." method="_on_port_line_edit_text_submitted"]
