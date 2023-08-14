@@ -35,13 +35,15 @@ func _process(_delta: float) -> void:
 		if Input.is_action_pressed("move_up"):
 			send_command("command_move_up", 2)
 	
-	
 	# Do not go further when no connection has been made yet.
 	if client != null:
 		# Checking connection status with TeleDot View
 		client.poll()
-		if client.get_status() != status:
-			status = client.get_status()
+		var current_status := client.get_status()
+		if current_status != status:
+			if status == client.STATUS_CONNECTED:
+				_on_connection_button_pressed()
+			status = current_status
 			connection_changed()
 
 
@@ -70,7 +72,6 @@ func connection_changed() -> void:
 	# Sending all necesarry data to view
 	if status == client.STATUS_CONNECTED: 
 		send_command("change_script", %ScriptTextEdit.text)
-		# TODO: All settings which are not in data, should also send.
 		var settings := FileAccess.open(SETTINGS_FILE, FileAccess.READ)
 		var settings_data: Dictionary = settings.get_var()
 		settings.close()
@@ -107,6 +108,7 @@ func _on_connection_button_pressed() -> void:
 		%ConnectionButton.text = "Start connection"
 		client = null
 		set_connection_text(client.STATUS_NONE)
+	get_viewport().gui_release_focus()
 
 
 func _on_alignment_option_item_selected(index: int) -> void:
