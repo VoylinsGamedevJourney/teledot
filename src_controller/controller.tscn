@@ -102,7 +102,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 200.0
-value = 10.0
+value = 18.0
 alignment = 1
 
 [node name="MirrorTextLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid"]
