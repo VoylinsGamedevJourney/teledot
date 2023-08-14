@@ -19,8 +19,8 @@ var status = client.STATUS_NONE
 func _ready() -> void:
 	# Hiding the screensaver incase it was visible when building.
 	$Screensaver.visible = false
-	
-	load_settings()
+#	load_settings()
+	set_connection_text()
 
 
 func _process(_delta: float) -> void:
@@ -55,7 +55,7 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action_pressed("play_pause"):
-		print("play/pause pressed")
+		get_viewport().gui_release_focus()
 		send_command("command_play_pause", null)
 	if event.is_action("move_down"):
 		send_command("command_move_down", 60)
@@ -69,6 +69,7 @@ func connection_changed() -> void:
 	# Sending all necesarry data to view
 	if status == client.STATUS_CONNECTED: 
 		send_command("change_script", %ScriptTextEdit.text)
+		# TODO: All settings which are not in data, should also send.
 		var settings := FileAccess.open(SETTINGS_FILE, FileAccess.READ)
 		var settings_data: Dictionary = settings.get_var()
 		settings.close()
@@ -77,14 +78,14 @@ func connection_changed() -> void:
 
 
 func set_connection_text(_status: int = status) -> void:
-	var text: Array
+	var text: Array = [tr("NETWORK_STATUS")]
 	match _status:
-		client.STATUS_NONE:       text = ["gray", "no connection"]
-		client.STATUS_ERROR:      text = ["red", "error"]
-		client.STATUS_CONNECTING: text = ["purple", "connecting"]
-		client.STATUS_CONNECTED:  text = ["green", "connected"]
+		client.STATUS_NONE:       text.append_array(["gray", tr("NETWORK_STATUS_NO_CONNECTION")])
+		client.STATUS_ERROR:      text.append_array(["red", tr("NETWORK_STATUS_ERROR")])
+		client.STATUS_CONNECTING: text.append_array(["purple", tr("NETWORK_STATUS_CONNECTING")])
+		client.STATUS_CONNECTED:  text.append_array(["green", tr("NETWORK_STATUS_CONNECTING")])
 		_: text = ["red", _status]
-	%NetworkStatusLabel.text = "Status: [i][color=%s]%s[/color][/i]" % text
+	%NetworkStatusLabel.text = "%s [i][color=%s]%s[/color][/i]" % text
 
 
 func send_command(key:String, value) -> void:
@@ -209,3 +210,13 @@ func change_screensaver(path: String) -> void:
 
 func _on_remove_focus_button_pressed() -> void:
 	get_viewport().gui_release_focus()
+
+
+func _on_ip_line_edit_text_submitted(_new_text: String) -> void:
+	# Go to PortLineEdit
+	%PortLineEdit.grab_focus()
+	%PortLineEdit.caret_column = %PortLineEdit.text.length()
+
+
+func _on_port_line_edit_text_submitted(_new_text: String) -> void:
+	_on_connection_button_pressed()
