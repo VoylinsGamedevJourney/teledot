@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cln6mlxh7p5t8"]
+[gd_scene load_steps=6 format=3 uid="uid://cln6mlxh7p5t8"]
 
 [ext_resource type="Script" path="res://view.gd" id="1_xcb5l"]
 
@@ -6,6 +6,12 @@
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_re8l5"]
 viewport_path = NodePath("ScriptViewport/SubViewport")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_r2j3r"]
+color = Color(0.619608, 0.619608, 0.619608, 1)
+grow_begin = 5.0
+grow_end = 5.0
+thickness = 5
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_hb0d8"]
 viewport_path = NodePath("NoConnection/VBoxContainer/SubViewportContainer/SubViewport")
@@ -120,26 +126,27 @@ alignment = 1
 [node name="ConnectionInfo" type="RichTextLabel" parent="NoConnection/VBoxContainer/SubViewportContainer/SubViewport/VBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/bold_italics_font_size = 40
+theme_override_font_sizes/bold_italics_font_size = 100
 bbcode_enabled = true
 text = "[center][i][b]No connection ...[/b][/i][/center]"
 fit_content = true
 
 [node name="InfoLabel" type="Label" parent="NoConnection/VBoxContainer/SubViewportContainer/SubViewport/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 50
 text = "Connect with TeleDot Controller"
 horizontal_alignment = 1
 
 [node name="IPLabel" type="Label" parent="NoConnection/VBoxContainer/SubViewportContainer/SubViewport/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 50
 text = "IP: %s"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="NoConnection/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_r2j3r")
 
 [node name="TextureRect" type="TextureRect" parent="NoConnection/VBoxContainer"]
 layout_mode = 2

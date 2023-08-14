@@ -113,16 +113,16 @@ func change_alignment(new_align: int = alignment) -> void:
 func change_mirror(mirror: bool) -> void:
 	$Script.flip_h = mirror
 func change_margin(margin: int) -> void:
-	%ScriptMargin.add_theme_constant_override("margin_left", margin * 5)
-	%ScriptMargin.add_theme_constant_override("margin_right", margin * 5)
+	%ScriptMargin.add_theme_constant_override("margin_left", margin*10)
+	%ScriptMargin.add_theme_constant_override("margin_right", margin*10)
 func change_scroll_speed(speed: int) -> void:
 	scroll_speed = speed * 5
 func change_font_size(value: int) -> void:
-	%ScriptBox.add_theme_font_size_override("normal_font_size", value)
-	%ScriptBox.add_theme_font_size_override("bold_font_size", value)
-	%ScriptBox.add_theme_font_size_override("italics_font_size", value)
-	%ScriptBox.add_theme_font_size_override("bold_italics_font_size", value)
-	%ScriptBox.add_theme_font_size_override("mono_font_size", value)
+	%ScriptBox.add_theme_font_size_override("normal_font_size", value*5)
+	%ScriptBox.add_theme_font_size_override("bold_font_size", value*5)
+	%ScriptBox.add_theme_font_size_override("italics_font_size", value*5)
+	%ScriptBox.add_theme_font_size_override("bold_italics_font_size", value*5)
+	%ScriptBox.add_theme_font_size_override("mono_font_size", value*5)
 
 
 # Commands:
