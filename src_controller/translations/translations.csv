@@ -12,15 +12,15 @@ SETTING_COLOR_BACKGROUND,Background color,背景色,Couleur du fond,背景顏色
 SETTING_ALIGNMENT,Alignment,配置,Alignement,對齊
 SETTING_FONT_SIZE,Font size,フォントサイズ,Taille de la police,字體大小
 SETTING_LANGUAGE,"Language","言語","Langue","語言"
-SHORTCUT_SCREENSAVER,Screensaver,スクリーンセーバー,L'écran de veille,螢幕保護程式
+SHORTCUT_SCREENSAVER,Screensaver,スクリーンセーバー,Écran de veille,螢幕保護程式
 SHORTCUT_PLAY_PAUSE,Play/Pause,再生/一時停止,Lecture/Pause,播放/暫停
 SHORTCUT_GO_UP,Go up,上に移動,Vers le haut,向上移動
 SHORTCUT_GO_DOWN,Go down,下に移動,Vers le bas,向下移動
 SHORTCUT_INCREASE_SPEED,Increase speed,速度を上げる,Augmenter la vitesse,加速
 SHORTCUT_DECREASE_SPEED,Decrease speed,速度を下げる,Diminuer la vitesse,減速
-NETWORK_STATUS,Status:,ステータス：,,狀態:
-NETWORK_STATUS_NO_CONNECTION,No connection,接続なし,,未連接
-NETWORK_STATUS_ERROR,Error,エラー,,錯誤
-NETWORK_STATUS_CONNECTED,Connected,接続済み,,已連接
-NETWORK_STATUS_CONNECTING,Connecting,接続中,,連接中
-BUTTON_START_CONNECTION,Start connection,接続開始,,開始連接
+NETWORK_STATUS,Status:,ステータス：,Statut :,狀態:
+NETWORK_STATUS_NO_CONNECTION,No connection,接続なし,Pas de connexion,未連接
+NETWORK_STATUS_ERROR,Error,エラー,Erreur,錯誤
+NETWORK_STATUS_CONNECTED,Connected,接続済み,Connecté,已連接
+NETWORK_STATUS_CONNECTING,Connecting,接続中,Connexion en cours,連接中
+BUTTON_START_CONNECTION,Start connection,接続開始,Démarrer la connexion,開始連接
