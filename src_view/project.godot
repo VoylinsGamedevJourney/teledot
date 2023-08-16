@@ -13,15 +13,14 @@ config_version=5
 config/name="TeleDot - View"
 run/main_scene="res://view.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
-boot_splash/image="res://TeleDotViewLogo.png"
+boot_splash/image="res://startup.png"
 config/icon="res://TeleDotViewLogo.png"
+boot_splash/minimum_display_time=10
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/stretch/mode="viewport"
-window/stretch/aspect="keep_height"
 
 [rendering]
 
