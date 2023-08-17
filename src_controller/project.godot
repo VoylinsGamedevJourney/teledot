@@ -15,6 +15,7 @@ run/main_scene="res://controller.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/image="res://startup.png"
 config/icon="res://TeleDotControllerLogo.png"
+config/windows_native_icon="res://TeleDotControllerLogo.ico"
 boot_splash/minimum_display_time=10
 
 [display]
