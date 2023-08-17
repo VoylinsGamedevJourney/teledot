@@ -7,8 +7,11 @@
    viewBox="0 0 600 600"
    version="1.1"
    id="svg185"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    sodipodi:docname="BaseLogo.svg"
+   inkscape:export-filename="BaseLogo.png"
+   inkscape:export-xdpi="42.333332"
+   inkscape:export-ydpi="42.333332"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,16 +27,17 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.38306678"
-     inkscape:cx="869.30013"
-     inkscape:cy="1719.0214"
+     inkscape:zoom="0.19153339"
+     inkscape:cx="1166.8984"
+     inkscape:cy="1341.8026"
      inkscape:window-width="1920"
      inkscape:window-height="1057"
      inkscape:window-x="0"
      inkscape:window-y="23"
      inkscape:window-maximized="1"
      inkscape:current-layer="g10537"
-     showguides="true" />
+     showguides="true"
+     inkscape:export-bgcolor="#ffffff00" />
   <defs
      id="defs182" />
   <g
@@ -51,7 +55,8 @@
        rx="133.55914"
        inkscape:label="Background" />
     <g
-       id="g10537">
+       id="g10537"
+       style="display:inline">
       <rect
          style="fill:#8b7a9b;fill-opacity:1;fill-rule:evenodd;stroke-width:1.68444;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;paint-order:markers stroke fill"
          id="rect2603"
@@ -127,15 +132,15 @@
          ry="8.9655342" />
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:77.611px;font-family:'Arial Black';-inkscape-font-specification:'Arial Black, ';fill:#c1bcc5;fill-opacity:1;fill-rule:evenodd;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;paint-order:markers stroke fill"
-         x="47.221886"
-         y="418.08224"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:141.111px;font-family:'Arial Black';-inkscape-font-specification:'Arial Black, ';fill:#c1bcc5;fill-opacity:1;fill-rule:evenodd;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;paint-order:markers stroke fill"
+         x="45.718094"
+         y="499.15414"
          id="text10640"><tspan
            sodipodi:role="line"
            id="tspan10638"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Arial Black';-inkscape-font-specification:'Arial Black, ';stroke-width:1.7"
-           x="47.221886"
-           y="418.08224">VIEW</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:141.111px;font-family:'URW Gothic';-inkscape-font-specification:'URW Gothic';stroke-width:1.7"
+           x="45.718094"
+           y="499.15414">TeleDot</tspan></text>
     </g>
     <path
        style="fill:#8b7a9b;fill-opacity:1;fill-rule:evenodd;stroke-width:1.94056;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;paint-order:markers stroke fill"
