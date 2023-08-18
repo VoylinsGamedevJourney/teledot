@@ -1,0 +1,13 @@
+{
+	"latest_stable": {
+		"major": 1,
+		"minor": 0,
+		"patch": 0
+	},
+	"current": {
+		"major": 1,
+		"minor": 0,
+		"patch": 1,
+		"tag": "-dev"
+	}
+}

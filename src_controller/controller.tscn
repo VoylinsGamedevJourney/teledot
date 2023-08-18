@@ -73,6 +73,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="UpdateAvailableLabel" type="RichTextLabel" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=pink][i]Update available! Get it at:
+[url=https://voylin.itch.io/teledot]https://voylin.itch.io/teledot[/url][/i][/color]
+
+"
+fit_content = true
+
 [node name="SettingsLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox"]
 layout_mode = 2
 text = "TITLE_SETTINGS"
@@ -401,15 +411,16 @@ texture = SubResource("GradientTexture1D_d0ttv")
 
 [node name="FileDialog" type="FileDialog" parent="Screensaver/ScreensaverTexture"]
 
+[connection signal="meta_clicked" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/UpdateAvailableLabel" to="." method="_on_update_available_label_meta_clicked"]
 [connection signal="pressed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/ScreenSaverButton" to="." method="_on_screen_saver_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/ScrollSpeedSpinBox" to="." method="_on_scroll_speed_spin_box_value_changed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/ScrollSpeedSpinBox" to="." method="_on_remove_focus_button_pressed"]
-[connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MirrorOptionButton" to="." method="_on_mirror_option_button_item_selected"]
 [connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MirrorOptionButton" to="." method="_on_remove_focus_button_pressed"]
+[connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MirrorOptionButton" to="." method="_on_mirror_option_button_item_selected"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MarginSpinBox" to="." method="_on_margin_spin_box_value_changed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MarginSpinBox" to="." method="_on_remove_focus_button_pressed"]
-[connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_font_size_spin_box_value_changed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_remove_focus_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_font_size_spin_box_value_changed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontColorPicker" to="." method="_on_font_color_picker_changed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontColorPicker" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/BackgroundColorPicker" to="." method="_on_remove_focus_button_pressed"]
