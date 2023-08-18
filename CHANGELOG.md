@@ -4,6 +4,7 @@
 
 - Add version checker;
 - Added translations for tabs;
+- Add left and right buttons for controlling scroll speed;
 
 ## Bugs fixed:
 

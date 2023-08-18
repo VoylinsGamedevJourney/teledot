@@ -263,6 +263,24 @@ layout_mode = 2
 text = "Down arrow"
 label_settings = ExtResource("4_1dvxd")
 
+[node name="IncreaseSpeedLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_INCREASE_SPEED"
+
+[node name="IncreaseSpeedInfoLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "Left arrow"
+label_settings = ExtResource("4_1dvxd")
+
+[node name="DecreaseSpeedLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_DECREASE_SPEED"
+
+[node name="DecreaseSpeedInfoLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "Right arrow"
+label_settings = ExtResource("4_1dvxd")
+
 [node name="BottomSeparator" type="HSeparator" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
