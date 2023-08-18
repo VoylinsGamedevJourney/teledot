@@ -95,6 +95,9 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("release_focus"):
 		get_viewport().gui_release_focus()
+		if get_node("Screensaver").visible:
+			get_window().mode = Window.MODE_WINDOWED
+			get_node("Screensaver").visible = false
 
 
 func connection_changed() -> void:

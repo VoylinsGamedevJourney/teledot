@@ -3,14 +3,15 @@
 ## New features/improvements:
 
 - Add version checker;
+- Added translations for tabs;
 
 ## Bugs fixed:
 
-- x
+- Escape now also exits out of screensaver mode;
 
 ## Known bugs:
 
-- x
+- Exiting screensaver mode has a strange window effect because of a Godot bug: https://github.com/godotengine/godot/issues/80595
 
 
 # Version 1.0.0: 2023-08-18
