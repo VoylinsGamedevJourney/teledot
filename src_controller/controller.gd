@@ -47,11 +47,11 @@ func version_check(_result, response_code, _headers, body) -> void:
 	json.parse(file.get_as_text())
 	var local_version: Dictionary = json.data
 	var update_available := false
-	if current_version.latest_stable.major > current_version.latest_stable.major:
+	if current_version.latest_stable.major > local_version.latest_stable.major:
 		update_available = true
-	elif current_version.latest_stable.minor > current_version.latest_stable.minor:
+	elif current_version.latest_stable.minor > local_version.latest_stable.minor:
 		update_available = true
-	elif current_version.latest_stable.patch > current_version.latest_stable.patch:
+	elif current_version.latest_stable.patch > local_version.latest_stable.patch:
 		update_available = true
 	%UpdateAvailableLabel.visible = update_available
 
