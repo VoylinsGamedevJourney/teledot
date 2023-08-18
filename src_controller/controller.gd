@@ -98,6 +98,11 @@ func _input(event: InputEvent) -> void:
 		if get_node("Screensaver").visible:
 			get_window().mode = Window.MODE_WINDOWED
 			get_node("Screensaver").visible = false
+	
+	if event.is_action_pressed("decrease_speed"):
+		%ScrollSpeedSpinBox.value -= 1
+	if event.is_action_pressed("increase_speed"):
+		%ScrollSpeedSpinBox.value += 1
 
 
 func connection_changed() -> void:
