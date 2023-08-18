@@ -178,6 +178,10 @@ func set_language(value:int) -> void:
 			TranslationServer.set_locale("fr")
 		LANGUAGE.CHINESE_TAIWAN:
 			TranslationServer.set_locale("zh_TW")
+	# Set tab translations correct
+	%ScriptPanel.get_child(0).name = "%s (ctrl+1)" % tr("TAB_SCRIPT")
+	%ScriptPanel.get_child(1).name = "%s (ctrl+2)" % tr("TAB_PREVIEW")
+	%ScriptPanel.get_child(2).name = "%s (ctrl+3)" % tr("TAB_SIDE_BY_SIDE")
 
 
 func save_setting(key: String, value) -> void:
@@ -202,6 +206,10 @@ func load_settings() -> void:
 			"margin": %MarginSpinBox.value,
 			"language": %LanguageOptionButton.selected,
 			})
+		# Possible TODO for later, Godot automatically selects your
+		# system language, we could use this info to save the system
+		# locale directly without having English as the default.
+		set_language(%LanguageOptionButton.selected)
 		return
 	var settings_file := FileAccess.open(SETTINGS_FILE, FileAccess.READ)
 	var settings_data: Dictionary = settings_file.get_var()
