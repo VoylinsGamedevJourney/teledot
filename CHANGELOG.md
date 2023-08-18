@@ -9,6 +9,7 @@
 ## Bugs fixed:
 
 - Escape now also exits out of screensaver mode;
+- Fixed Preview tab not displaying anything
 
 ## Known bugs:
 
