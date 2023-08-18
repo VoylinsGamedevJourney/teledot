@@ -51,9 +51,10 @@ func start_server() -> void:
 	server.listen(port)
 	var ip : String
 	for x in IP.get_local_addresses():
-		if "192." in x: 
+		if x.count('.') == 3 and !x.begins_with("127"):
 			ip = x
-			break
+		else:continue
+		break
 	%IPLabel.text = "IP: %s" % ip
 
 

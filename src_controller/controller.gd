@@ -19,6 +19,12 @@ var status = client.STATUS_NONE
 
 
 func _ready() -> void:
+	# Adding local ip to IPLineEdit to save a bit more time
+	for x in IP.get_local_addresses():
+		if x.count('.') == 3 and !x.begins_with("127"):
+			%IPLineEdit.text = x.rstrip(x.split('.')[-1])
+		else:continue
+		break
 	version_check_request()
 	# Hiding the screensaver incase it was visible when building.
 	$Screensaver.visible = false
@@ -283,10 +289,17 @@ func _on_remove_focus_button_pressed(_e:int = 0) -> void:
 
 
 func _on_ip_line_edit_text_submitted(_new_text: String) -> void:
-	%PortLineEdit.grab_focus()
-	%PortLineEdit.caret_column = %PortLineEdit.text.length()
+	_on_connection_button_pressed()
+	get_viewport().gui_release_focus()
+# Explanation of why this is commented is bellow
+#	%PortLineEdit.grab_focus()
+#	%PortLineEdit.caret_column = %PortLineEdit.text.length()
 
 
+# Port is being hidden for now as there is no way of changing the port
+# in view anyway. Maybe we could check if the port is actually open
+# on TeleDot View and make it choose a different port, but that's
+# probably for a later moment if this were to become an issue.
 func _on_port_line_edit_text_submitted(_new_text: String) -> void:
 	_on_connection_button_pressed()
 	get_viewport().gui_release_focus()
