@@ -246,6 +246,7 @@ func load_settings() -> void:
 func _on_script_tab_text_changed() -> void:
 	%sbsTextEdit.text = %ScriptTextEdit.text
 	%sbsPreview.text = %ScriptTextEdit.text
+	%ScriptPreview.text = %ScriptTextEdit.text
 	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
 	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
 	send_command("change_script", %ScriptTextEdit.text)
