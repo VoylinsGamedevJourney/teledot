@@ -1,4 +1,10 @@
-# Version 1.1.0: 2023-08-18
+# TeleDot View Version 1.1: 2023-08-18
+
+## Bug fixed:
+
+- Fixed a problem of not showing local ip (not all local ip's start with 192);
+
+# Version 1.1.1: 2023-08-18
 
 ## New features/improvements:
 
