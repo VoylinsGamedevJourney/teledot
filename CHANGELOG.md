@@ -1,4 +1,4 @@
-# Version 1.1.0: 2023-xx-xx
+# Version 1.1.0: 2023-08-18
 
 ## New features/improvements:
 
