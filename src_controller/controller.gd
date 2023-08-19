@@ -19,12 +19,6 @@ var status = client.STATUS_NONE
 
 
 func _ready() -> void:
-	# Adding local ip to IPLineEdit to save a bit more time
-	for x in IP.get_local_addresses():
-		if x.count('.') == 3 and !x.begins_with("127"):
-			%IPLineEdit.text = x.rstrip(x.split('.')[-1])
-		else:continue
-		break
 	version_check_request()
 	# Hiding the screensaver incase it was visible when building.
 	$Screensaver.visible = false
@@ -208,9 +202,37 @@ func save_setting(key: String, value) -> void:
 
 
 func load_settings() -> void:
+	var settings_data: Dictionary = get_settings()
+	for setting in settings_data:
+		match setting:
+			"alignment":
+				%AlignmentOptionButton.select(settings_data[setting])
+			"mirror":
+				%MirrorOptionButton.select(settings_data[setting])
+			"color_text":
+				%FontColorPicker.color = settings_data[setting]
+			"color_background":
+				%FontColorPicker.color = settings_data[setting]
+			"margin":
+				%MarginSpinBox.value = settings_data[setting]
+			"scroll_speed":
+				%ScrollSpeedSpinBox.value = settings_data[setting]
+			"font_size":
+				%FontSizeSpinBox.value = settings_data[setting]
+			"language":
+				%LanguageOptionButton.select(settings_data[setting])
+				set_language(settings_data[setting])
+			"ip":
+				%IPLineEdit.text = settings_data[setting]
+			_:
+				printerr("Could not find setting: %s" % setting)
+
+
+func get_settings() -> Dictionary:
+	var settings: Dictionary
 	if !FileAccess.file_exists(SETTINGS_FILE):
-		var default_file := FileAccess.open(SETTINGS_FILE,FileAccess.WRITE)
-		default_file.store_var({
+		# Default Settings
+		settings = {
 			"color_background": %BackgroundColorPicker.color,
 			"scroll_speed": %ScrollSpeedSpinBox.value,
 			"color_text": %FontColorPicker.color,
@@ -219,34 +241,17 @@ func load_settings() -> void:
 			"mirror": %MirrorOptionButton.selected,
 			"margin": %MarginSpinBox.value,
 			"language": %LanguageOptionButton.selected,
-			})
+			"ip": "127.0.0.1",
+		}
+		FileAccess.open(SETTINGS_FILE, FileAccess.WRITE).store_var(settings)
+
 		# Possible TODO for later, Godot automatically selects your
 		# system language, we could use this info to save the system
 		# locale directly without having English as the default.
 		set_language(%LanguageOptionButton.selected)
-		return
-	var settings_file := FileAccess.open(SETTINGS_FILE, FileAccess.READ)
-	var settings_data: Dictionary = settings_file.get_var()
-	for setting in settings_data:
-		match setting:
-			"alignment": 
-				%AlignmentOptionButton.select(settings_data[setting])
-			"mirror": 
-				%MirrorOptionButton.select(settings_data[setting])
-			"color_text": 
-				%FontColorPicker.color = settings_data[setting]
-			"color_background": 
-				%FontColorPicker.color = settings_data[setting]
-			"margin": 
-				%MarginSpinBox.value = settings_data[setting]
-			"scroll_speed": 
-				%ScrollSpeedSpinBox.value = settings_data[setting]
-			"font_size": 
-				%FontSizeSpinBox.value = settings_data[setting]
-			"language": 
-				%LanguageOptionButton.select(settings_data[setting])
-				set_language(settings_data[setting])
-			_: printerr("Could not find setting: %s" % setting)
+	else:
+		settings = FileAccess.open(SETTINGS_FILE, FileAccess.READ).get_var()
+	return settings
 
 
 func _on_script_tab_text_changed() -> void:
@@ -294,6 +299,10 @@ func _on_ip_line_edit_text_submitted(_new_text: String) -> void:
 # Explanation of why this is commented is bellow
 #	%PortLineEdit.grab_focus()
 #	%PortLineEdit.caret_column = %PortLineEdit.text.length()
+
+
+func _on_ip_line_edit_text_changed(new_text: String) -> void:
+	save_setting("ip", new_text)
 
 
 # Port is being hidden for now as there is no way of changing the port
