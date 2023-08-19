@@ -326,3 +326,8 @@ func _on_port_line_edit_text_submitted(_new_text: String) -> void:
 
 func _on_update_available_label_meta_clicked(meta) -> void:
 	OS.shell_open(meta)
+
+
+func _on_reset_ip_pressed() -> void:
+	save_setting("ip", get_default_ip())
+	load_settings()

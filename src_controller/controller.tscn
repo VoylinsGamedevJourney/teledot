@@ -325,6 +325,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "55757"
 
+[node name="ResetIP" type="Button" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "BUTTON_RESET_IP"
+
 [node name="ConnectionButton" type="Button" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -452,6 +457,7 @@ texture = SubResource("GradientTexture1D_d0ttv")
 [connection signal="text_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/NetworkingGrid/IPLineEdit" to="." method="_on_ip_line_edit_text_changed"]
 [connection signal="text_submitted" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/NetworkingGrid/IPLineEdit" to="." method="_on_ip_line_edit_text_submitted"]
 [connection signal="text_submitted" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/NetworkingGrid/PortLineEdit" to="." method="_on_port_line_edit_text_submitted"]
+[connection signal="pressed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ResetIP" to="." method="_on_reset_ip_pressed"]
 [connection signal="pressed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ConnectionButton" to="." method="_on_connection_button_pressed"]
 [connection signal="text_changed" from="MarginContainer/MainHSplit/ScriptPanel/Script (ctrl+1)/ScriptScroll/ScriptTextEdit" to="." method="_on_script_tab_text_changed"]
 [connection signal="text_changed" from="MarginContainer/MainHSplit/ScriptPanel/Side-by-side (ctrl+3)/ScriptScroll/HBoxContainer/sbsTextEdit" to="." method="_on_sbs_tab_text_changed"]
