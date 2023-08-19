@@ -241,7 +241,7 @@ func get_settings() -> Dictionary:
 			"mirror": %MirrorOptionButton.selected,
 			"margin": %MarginSpinBox.value,
 			"language": %LanguageOptionButton.selected,
-			"ip": "127.0.0.1",
+			"ip": get_default_ip(),
 		}
 		FileAccess.open(SETTINGS_FILE, FileAccess.WRITE).store_var(settings)
 
@@ -252,6 +252,16 @@ func get_settings() -> Dictionary:
 	else:
 		settings = FileAccess.open(SETTINGS_FILE, FileAccess.READ).get_var()
 	return settings
+
+
+func get_default_ip() -> String:
+	for x in IP.get_local_addresses():
+		if x.count(".") == 3 and !x.begins_with("127"):
+			return x
+		else:
+			continue
+		break
+	return "127.0.0.1"
 
 
 func _on_script_tab_text_changed() -> void:
