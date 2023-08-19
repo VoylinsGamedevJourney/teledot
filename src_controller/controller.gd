@@ -71,7 +71,15 @@ func _process(_delta: float) -> void:
 			send_command("command_move_down", 2)
 		if Input.is_action_pressed("move_up"):
 			send_command("command_move_up", 2)
-	
+		if Input.is_action_pressed("jump_beginning"):
+			send_command("command_jump_beginning", null)
+		if Input.is_action_pressed("jump_end"):
+			send_command("command_jump_end", null)
+		if Input.is_action_just_pressed("page_up"):
+			send_command("command_page_up", null)
+		if Input.is_action_just_pressed("page_down"):
+			send_command("command_page_down", null)
+
 	# Do not go further when no connection has been made yet.
 	if client != null:
 		# Checking connection status with TeleDot View
