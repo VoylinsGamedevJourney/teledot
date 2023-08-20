@@ -479,6 +479,7 @@ texture = SubResource("GradientTexture1D_d0ttv")
 [connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MirrorOptionButton" to="." method="_on_mirror_option_button_item_selected"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MarginSpinBox" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MarginSpinBox" to="." method="_on_margin_spin_box_value_changed"]
+[connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_font_size_spin_box_value_changed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontColorPicker" to="." method="_on_font_color_picker_changed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontColorPicker" to="." method="_on_remove_focus_button_pressed"]
