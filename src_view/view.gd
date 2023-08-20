@@ -147,10 +147,7 @@ func command_move_down(_value) -> void:
 func command_jump_beginning(_value):
 	%ScriptScroll.scroll_vertical = 0
 func command_jump_end(_value):
-	var track_scroll = %ScriptScroll.scroll_vertical
-	while %ScriptScroll.scroll_vertical == track_scroll:
-		%ScriptScroll.scroll_vertical += 10000
-		track_scroll += 10000
+	%ScriptScroll.scroll_vertical = %ScriptBox.size.y + 100
 func command_page_up(_value):
 	%ScriptScroll.scroll_vertical -= get_window().size.y
 func command_page_down(_value):
