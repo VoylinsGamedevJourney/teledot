@@ -19,12 +19,6 @@ var status = client.STATUS_NONE
 
 
 func _ready() -> void:
-	# Adding local ip to IPLineEdit to save a bit more time
-	for x in IP.get_local_addresses():
-		if x.count('.') == 3 and !x.begins_with("127"):
-			%IPLineEdit.text = x.rstrip(x.split('.')[-1])
-		else:continue
-		break
 	version_check_request()
 	# Hiding the screensaver incase it was visible when building.
 	$Screensaver.visible = false
@@ -68,9 +62,9 @@ func _process(_delta: float) -> void:
 			get_viewport().gui_release_focus()
 			send_command("command_play_pause", null)
 		if Input.is_action_pressed("move_down"):
-			send_command("command_move_down", 2)
+			send_command("command_move_down", null)
 		if Input.is_action_pressed("move_up"):
-			send_command("command_move_up", 2)
+			send_command("command_move_up", null)
 		if Input.is_action_pressed("jump_beginning"):
 			send_command("command_jump_beginning", null)
 		if Input.is_action_pressed("jump_end"):
@@ -129,7 +123,7 @@ func connection_changed() -> void:
 		var settings_data: Dictionary = settings.get_var()
 		settings.close()
 		for setting in settings_data:
-			if setting == "language": continue
+			if setting in ["language", "ip"]: continue
 			send_command("change_%s" % setting, settings_data[setting])
 
 
@@ -216,9 +210,37 @@ func save_setting(key: String, value) -> void:
 
 
 func load_settings() -> void:
+	var settings_data: Dictionary = get_settings()
+	for setting in settings_data:
+		match setting:
+			"alignment":
+				%AlignmentOptionButton.select(settings_data[setting])
+			"mirror":
+				%MirrorOptionButton.select(settings_data[setting])
+			"color_text":
+				%FontColorPicker.color = settings_data[setting]
+			"color_background":
+				%FontColorPicker.color = settings_data[setting]
+			"margin":
+				%MarginSpinBox.value = settings_data[setting]
+			"scroll_speed":
+				%ScrollSpeedSpinBox.value = settings_data[setting]
+			"font_size":
+				%FontSizeSpinBox.value = settings_data[setting]
+			"language":
+				%LanguageOptionButton.select(settings_data[setting])
+				set_language(settings_data[setting])
+			"ip":
+				%IPLineEdit.text = settings_data[setting]
+			_:
+				printerr("Could not find setting: %s" % setting)
+
+
+func get_settings() -> Dictionary:
+	var settings: Dictionary
 	if !FileAccess.file_exists(SETTINGS_FILE):
-		var default_file := FileAccess.open(SETTINGS_FILE,FileAccess.WRITE)
-		default_file.store_var({
+		# Default Settings
+		settings = {
 			"color_background": %BackgroundColorPicker.color,
 			"scroll_speed": %ScrollSpeedSpinBox.value,
 			"color_text": %FontColorPicker.color,
@@ -227,34 +249,27 @@ func load_settings() -> void:
 			"mirror": %MirrorOptionButton.selected,
 			"margin": %MarginSpinBox.value,
 			"language": %LanguageOptionButton.selected,
-			})
+			"ip": get_default_ip(),
+		}
+		FileAccess.open(SETTINGS_FILE, FileAccess.WRITE).store_var(settings)
+
 		# Possible TODO for later, Godot automatically selects your
 		# system language, we could use this info to save the system
 		# locale directly without having English as the default.
 		set_language(%LanguageOptionButton.selected)
-		return
-	var settings_file := FileAccess.open(SETTINGS_FILE, FileAccess.READ)
-	var settings_data: Dictionary = settings_file.get_var()
-	for setting in settings_data:
-		match setting:
-			"alignment": 
-				%AlignmentOptionButton.select(settings_data[setting])
-			"mirror": 
-				%MirrorOptionButton.select(settings_data[setting])
-			"color_text": 
-				%FontColorPicker.color = settings_data[setting]
-			"color_background": 
-				%FontColorPicker.color = settings_data[setting]
-			"margin": 
-				%MarginSpinBox.value = settings_data[setting]
-			"scroll_speed": 
-				%ScrollSpeedSpinBox.value = settings_data[setting]
-			"font_size": 
-				%FontSizeSpinBox.value = settings_data[setting]
-			"language": 
-				%LanguageOptionButton.select(settings_data[setting])
-				set_language(settings_data[setting])
-			_: printerr("Could not find setting: %s" % setting)
+	else:
+		settings = FileAccess.open(SETTINGS_FILE, FileAccess.READ).get_var()
+	return settings
+
+
+func get_default_ip() -> String:
+	for x in IP.get_local_addresses():
+		if x.count(".") == 3 and !x.begins_with("127"):
+			return x
+		else:
+			continue
+		break
+	return "127.0.0.1"
 
 
 func _on_script_tab_text_changed() -> void:
@@ -304,6 +319,10 @@ func _on_ip_line_edit_text_submitted(_new_text: String) -> void:
 #	%PortLineEdit.caret_column = %PortLineEdit.text.length()
 
 
+func _on_ip_line_edit_text_changed(new_text: String) -> void:
+	save_setting("ip", new_text)
+
+
 # Port is being hidden for now as there is no way of changing the port
 # in view anyway. Maybe we could check if the port is actually open
 # on TeleDot View and make it choose a different port, but that's
@@ -315,3 +334,8 @@ func _on_port_line_edit_text_submitted(_new_text: String) -> void:
 
 func _on_update_available_label_meta_clicked(meta) -> void:
 	OS.shell_open(meta)
+
+
+func _on_reset_ip_pressed() -> void:
+	save_setting("ip", get_default_ip())
+	load_settings()

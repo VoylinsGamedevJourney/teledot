@@ -39,6 +39,7 @@ var alignment: int = 1
 # Playback variables:
 var scroll_speed: int = 2
 var play: bool = false
+var new_scroll_addition: float
 
 
 func _ready() -> void:
@@ -65,11 +66,13 @@ func start_server() -> void:
 func _process(delta: float) -> void:
 	# Make the script scroll on screen when play is pressed
 	if play:
-		var new_scroll: int = %ScriptScroll.scroll_vertical + (scroll_speed * delta)
-		%ScriptScroll.scroll_vertical = new_scroll
-		if %ScriptScroll.scroll_vertical != new_scroll:
-			# Reached end
-			play = !play
+		new_scroll_addition += (scroll_speed * delta)
+		if new_scroll_addition >= 1.0:
+			var new_scroll: int = new_scroll_addition + %ScriptScroll.scroll_vertical
+			%ScriptScroll.scroll_vertical = new_scroll
+			if %ScriptScroll.scroll_vertical != new_scroll:
+				play = !play # Reached end
+			new_scroll_addition = 0
 	
 	# Accept connection when lcient tries to connect 
 	if server.is_connection_available(): 
@@ -137,10 +140,10 @@ func change_font_size(value: int) -> void:
 # Commands:
 func command_play_pause(_value) -> void:
 	play = !play
-func command_move_up(value) -> void:
-	%ScriptScroll.scroll_vertical -= 5 * value
-func command_move_down(value) -> void:
-	%ScriptScroll.scroll_vertical += 5 * value
+func command_move_up(_value) -> void:
+	%ScriptScroll.scroll_vertical -= 10
+func command_move_down(_value) -> void:
+	%ScriptScroll.scroll_vertical += 10
 func command_jump_beginning(_value):
 	%ScriptScroll.scroll_vertical = 0
 func command_jump_end(_value):
