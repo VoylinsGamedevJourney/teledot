@@ -62,9 +62,9 @@ func _process(_delta: float) -> void:
 			get_viewport().gui_release_focus()
 			send_command("command_play_pause", null)
 		if Input.is_action_pressed("move_down"):
-			send_command("command_move_down", 2)
+			send_command("command_move_down", null)
 		if Input.is_action_pressed("move_up"):
-			send_command("command_move_up", 2)
+			send_command("command_move_up", null)
 	
 	# Do not go further when no connection has been made yet.
 	if client != null:
@@ -115,7 +115,7 @@ func connection_changed() -> void:
 		var settings_data: Dictionary = settings.get_var()
 		settings.close()
 		for setting in settings_data:
-			 setting in ["language", "ip"]: continue
+			if setting in ["language", "ip"]: continue
 			send_command("change_%s" % setting, settings_data[setting])
 
 
