@@ -18,6 +18,10 @@ extends ColorRect
 ## [command_play_pause, null]
 ## [command_move_up, null]
 ## [command_move_down, null]
+## [command_jump_start, null]
+## [command_jump_end, null]
+## [command_page_up, null]
+## [command_page_down, null]
 
 
 # Connection variables:
@@ -140,3 +144,11 @@ func command_move_up(_value) -> void:
 	%ScriptScroll.scroll_vertical -= 10
 func command_move_down(_value) -> void:
 	%ScriptScroll.scroll_vertical += 10
+func command_jump_beginning(_value):
+	%ScriptScroll.scroll_vertical = 0
+func command_jump_end(_value):
+	%ScriptScroll.scroll_vertical = %ScriptBox.size.y + 100
+func command_page_up(_value):
+	%ScriptScroll.scroll_vertical -= get_window().size.y
+func command_page_down(_value):
+	%ScriptScroll.scroll_vertical += get_window().size.y

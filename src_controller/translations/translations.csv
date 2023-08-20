@@ -18,6 +18,10 @@ SHORTCUT_GO_UP,Go up,上に移動,Vers le haut,向上移動
 SHORTCUT_GO_DOWN,Go down,下に移動,Vers le bas,向下移動
 SHORTCUT_INCREASE_SPEED,Increase speed,速度を上げる,Augmenter la vitesse,加速
 SHORTCUT_DECREASE_SPEED,Decrease speed,速度を下げる,Diminuer la vitesse,減速
+SHORTCUT_JUMP_BEGINNING,Jump to beginning,最初にジャンプ,,
+SHORTCUT_JUMP_END,Jump to end,最後にジャンプ,,
+SHORTCUT_PAGE_UP,Page up,ページアップ,,
+SHORTCUT_PAGE_DOWN,Page down,ページダウン,,
 NETWORK_STATUS,Status:,ステータス：,Statut :,狀態:
 NETWORK_STATUS_NO_CONNECTION,No connection,接続なし,Pas de connexion,未連接
 NETWORK_STATUS_ERROR,Error,エラー,Erreur,錯誤

@@ -281,6 +281,42 @@ layout_mode = 2
 text = "Right arrow"
 label_settings = ExtResource("4_1dvxd")
 
+[node name="JumpBeginningLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_JUMP_BEGINNING"
+
+[node name="JumpBeginninInfoLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "Home"
+label_settings = ExtResource("4_1dvxd")
+
+[node name="JumpEndLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_JUMP_END"
+
+[node name="JumpEndInfoLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "End"
+label_settings = ExtResource("4_1dvxd")
+
+[node name="PageUpLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_PAGE_UP"
+
+[node name="PageUpInfoLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "Page up"
+label_settings = ExtResource("4_1dvxd")
+
+[node name="PageDownLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "SHORTCUT_PAGE_DOWN"
+
+[node name="PageDownInfoLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ShortcutsGrid"]
+layout_mode = 2
+text = "Page down"
+label_settings = ExtResource("4_1dvxd")
+
 [node name="BottomSeparator" type="HSeparator" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
