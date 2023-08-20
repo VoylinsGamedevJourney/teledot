@@ -115,7 +115,7 @@ func connection_changed() -> void:
 		var settings_data: Dictionary = settings.get_var()
 		settings.close()
 		for setting in settings_data:
-			if setting == "language": continue
+			 setting in ["language", "ip"]: continue
 			send_command("change_%s" % setting, settings_data[setting])
 
 
