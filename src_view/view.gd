@@ -18,7 +18,7 @@ extends ColorRect
 ## [command_play_pause, null]
 ## [command_move_up, null]
 ## [command_move_down, null]
-## [command_jump_start, null]
+## [command_jump_beginning, null]
 ## [command_jump_end, null]
 ## [command_page_up, null]
 ## [command_page_down, null]
