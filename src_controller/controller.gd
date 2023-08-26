@@ -102,7 +102,6 @@ func _process(_delta: float) -> void:
 		
 		if %AutoConnectButton.button_pressed:
 			_on_connection_button_pressed()
-			
 		#Closes the listener after getting the relevant information to avoid manually entered IPS from being overwritten
 		listener.close()
 
