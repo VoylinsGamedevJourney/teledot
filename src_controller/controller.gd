@@ -216,7 +216,7 @@ func set_language(value:int) -> void:
 			TranslationServer.set_locale("fr")
 		LANGUAGE.CHINESE_TAIWAN:
 			TranslationServer.set_locale("zh_TW")
-	# Set tab translations correctI was thinking for the auto connect maybe having 
+	# Set tab translations correct
 	%ScriptPanel.get_child(0).name = "%s (ctrl+1)" % tr("TAB_SCRIPT")
 	%ScriptPanel.get_child(1).name = "%s (ctrl+2)" % tr("TAB_PREVIEW")
 	%ScriptPanel.get_child(2).name = "%s (ctrl+3)" % tr("TAB_SIDE_BY_SIDE")
