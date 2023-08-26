@@ -13,9 +13,10 @@ enum LANGUAGE {ENGLISH, JAPANESE, FRENCH, CHINESE_TAIWAN}
 const SETTINGS_FILE := "user://settings"
 
 # Connection variables:
-const PORT := 55757
+const port := 55757
 var client: StreamPeerTCP
 var status = client.STATUS_NONE
+var listener : PacketPeerUDP
 
 
 func _ready() -> void:
@@ -24,6 +25,15 @@ func _ready() -> void:
 	$Screensaver.visible = false
 	load_settings()
 	set_connection_text()
+	
+	# Server finder
+	listener = PacketPeerUDP.new()
+	var ok = listener.bind(port)
+	
+	if ok == OK:
+		print("bound to: " + str(port))
+	else:
+		print("failed to bind to: " + str(port))
 
 
 func version_check_request() -> void:
@@ -84,6 +94,17 @@ func _process(_delta: float) -> void:
 				_on_connection_button_pressed()
 			status = current_status
 			connection_changed()
+	# Auto grabs and IP and connects if enabled
+	elif listener.is_bound() && listener.get_available_packet_count() > 0:
+		listener.get_packet() 
+		%IPLineEdit.text = str(listener.get_packet_ip())
+		%PortLineEdit.text = str(listener.get_packet_port())
+		
+		if %AutoConnectButton.button_pressed:
+			_on_connection_button_pressed()
+			
+		#Closes the listener after getting the relevant information to avoid manually entered IPS from being overwritten
+		listener.close()
 
 
 func _input(event: InputEvent) -> void:
@@ -182,6 +203,8 @@ func _on_font_size_spin_box_value_changed(value: float) -> void:
 func _on_language_option_button_item_selected(value: int) -> void:
 	save_setting("language", value)
 	set_language(value)
+func _on_auto_connect_button_toggled(button_pressed):
+	save_setting("auto_connect", button_pressed)
 
 
 func set_language(value:int) -> void:
@@ -194,7 +217,7 @@ func set_language(value:int) -> void:
 			TranslationServer.set_locale("fr")
 		LANGUAGE.CHINESE_TAIWAN:
 			TranslationServer.set_locale("zh_TW")
-	# Set tab translations correct
+	# Set tab translations correctI was thinking for the auto connect maybe having 
 	%ScriptPanel.get_child(0).name = "%s (ctrl+1)" % tr("TAB_SCRIPT")
 	%ScriptPanel.get_child(1).name = "%s (ctrl+2)" % tr("TAB_PREVIEW")
 	%ScriptPanel.get_child(2).name = "%s (ctrl+3)" % tr("TAB_SIDE_BY_SIDE")
@@ -232,6 +255,8 @@ func load_settings() -> void:
 				set_language(settings_data[setting])
 			"ip":
 				%IPLineEdit.text = settings_data[setting]
+			"auto_connect":
+				%AutoConnectButton.button_pressed = settings_data[setting]
 			_:
 				printerr("Could not find setting: %s" % setting)
 
@@ -250,6 +275,7 @@ func get_settings() -> Dictionary:
 			"margin": %MarginSpinBox.value,
 			"language": %LanguageOptionButton.selected,
 			"ip": get_default_ip(),
+			"auto_connect": %AutoConnectButton.button_pressed,
 		}
 		FileAccess.open(SETTINGS_FILE, FileAccess.WRITE).store_var(settings)
 
@@ -339,3 +365,7 @@ func _on_update_available_label_meta_clicked(meta) -> void:
 func _on_reset_ip_pressed() -> void:
 	save_setting("ip", get_default_ip())
 	load_settings()
+
+func _exit_tree():
+	if listener.is_bound():
+		listener.close()

@@ -22,6 +22,10 @@ boot_splash/minimum_display_time=10
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 
+[dotnet]
+
+project/assembly_name="TeleDot - View"
+
 [rendering]
 
 renderer/rendering_method="mobile"

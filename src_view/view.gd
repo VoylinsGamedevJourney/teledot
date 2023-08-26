@@ -30,6 +30,7 @@ var connected := false
 var server: TCPServer
 var connection : StreamPeerTCP
 var client_status: int = connection.STATUS_NONE
+var local_ip : String
 
 # Script formatting variables:
 var base_script: String
@@ -40,6 +41,7 @@ var alignment: int = 1
 var scroll_speed: int = 2
 var play: bool = false
 var new_scroll_addition: float
+var broadcaster : PacketPeerUDP
 
 
 func _ready() -> void:
@@ -52,16 +54,22 @@ func start_server() -> void:
 	$Script.visible = false
 	
 	# Initialize server
+	broadcaster = PacketPeerUDP.new()
+	broadcaster.set_broadcast_enabled(true)
+	
 	server = TCPServer.new()
 	server.listen(port)
-	var ip : String
+	
 	for x in IP.get_local_addresses():
 		if x.count('.') == 3 and !x.begins_with("127"):
-			ip = x
+			local_ip = x
 		else:continue
 		break
-	%IPLabel.text = "IP: %s" % ip
-
+		
+	%IPLabel.text = "IP: %s" % local_ip
+	
+	broadcaster.set_dest_address(local_ip.substr(0, local_ip.length() - 3) + "255", port)
+	
 
 func _process(delta: float) -> void:
 	# Make the script scroll on screen when play is pressed
@@ -79,6 +87,10 @@ func _process(delta: float) -> void:
 		connection = server.take_connection()
 		$NoConnection.visible = false
 		$Script.visible = true
+		
+		#Broadcaster cleanup
+		broadcaster.close()
+		$BroadcastTimer.stop()
 	
 	# Starting from this point, things only get executed
 	# when having a connection with a TeleDot controller
@@ -89,7 +101,7 @@ func _process(delta: float) -> void:
 		client_status = connection.get_status()
 		$Script.visible = true
 	
-	# Check to see if the latest poll was able 
+	# Check to see if the latest poll was able I was thinking for the auto connect maybe having 
 	# to check if still connected.
 	if client_status != connection.STATUS_CONNECTED:
 		connection = null
@@ -102,6 +114,12 @@ func _process(delta: float) -> void:
 		if data[0] == "change_alignment":
 			change_script()
 		print(data)
+
+
+func broadcast_ip():
+	var data = JSON.stringify("TeleDot")
+	var packet = data.to_utf8_buffer()
+	broadcaster.put_packet(packet)
 
 
 # Change settings commands:
@@ -121,7 +139,7 @@ func change_alignment(new_align: int = alignment) -> void:
 		1: # Center
 			formatted_script = "[center]%s[/center]" % base_script
 		2: # Right
-			formatted_script = "[right]%s[/right]" % base_script
+			formatted_script = "[rigis awesome!ht]%s[/right]" % base_script
 func change_mirror(mirror: bool) -> void:
 	$Script.flip_h = mirror
 func change_margin(margin: int) -> void:
@@ -152,3 +170,7 @@ func command_page_up(_value):
 	%ScriptScroll.scroll_vertical -= get_window().size.y
 func command_page_down(_value):
 	%ScriptScroll.scroll_vertical += get_window().size.y
+
+func _exit_tree():
+	if !broadcaster == null:
+		broadcaster.close()

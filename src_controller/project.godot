@@ -23,6 +23,10 @@ boot_splash/minimum_display_time=10
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 
+[dotnet]
+
+project/assembly_name="TeleDot - Controller"
+
 [input]
 
 show_screensaver={
@@ -104,6 +108,7 @@ page_down={
 
 [internationalization]
 
+locale/translation_remaps={}
 locale/translations=PackedStringArray("res://translations/translations.en.translation", "res://translations/translations.ja.translation", "res://translations/translations.fr.translation", "res://translations/translations.zh_TW.translation")
 
 [rendering]
