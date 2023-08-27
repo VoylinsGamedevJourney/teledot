@@ -1,4 +1,7 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dt4slcvh1rugo"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dt4slcvh1rugo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4oae1"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2qwo2"]
 content_margin_left = 7.0
@@ -23,6 +26,7 @@ corner_radius_bottom_right = 7
 corner_radius_bottom_left = 7
 
 [resource]
+CheckBox/styles/normal = SubResource("StyleBoxFlat_4oae1")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_2qwo2")
 TabBar/styles/tab_selected = null
 TabContainer/styles/panel = SubResource("StyleBoxFlat_l6usq")

@@ -153,3 +153,8 @@ layout_mode = 2
 size_flags_vertical = 3
 texture = SubResource("ViewportTexture_hb0d8")
 flip_h = true
+
+[node name="BroadcastTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="BroadcastTimer" to="." method="broadcast_ip"]
