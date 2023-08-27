@@ -18,17 +18,17 @@ SHORTCUT_GO_UP,Go up,上に移動,Vers le haut,向上移動
 SHORTCUT_GO_DOWN,Go down,下に移動,Vers le bas,向下移動
 SHORTCUT_INCREASE_SPEED,Increase speed,速度を上げる,Augmenter la vitesse,加速
 SHORTCUT_DECREASE_SPEED,Decrease speed,速度を下げる,Diminuer la vitesse,減速
-SHORTCUT_JUMP_BEGINNING,Jump to beginning,最初にジャンプ,,
-SHORTCUT_JUMP_END,Jump to end,最後にジャンプ,,
-SHORTCUT_PAGE_UP,Page up,ページアップ,,
-SHORTCUT_PAGE_DOWN,Page down,ページダウン,,
+SHORTCUT_JUMP_BEGINNING,Jump to beginning,最初にジャンプ,Aller au début,
+SHORTCUT_JUMP_END,Jump to end,最後にジャンプ,Aller à la fin,
+SHORTCUT_PAGE_UP,Page up,ページアップ,Page vers le haut,
+SHORTCUT_PAGE_DOWN,Page down,ページダウン,Page vers le bas,
 NETWORK_STATUS,Status:,ステータス：,Statut :,狀態:
 NETWORK_STATUS_NO_CONNECTION,No connection,接続なし,Pas de connexion,未連接
 NETWORK_STATUS_ERROR,Error,エラー,Erreur,錯誤
 NETWORK_STATUS_CONNECTED,Connected,接続済み,Connecté,已連接
 NETWORK_STATUS_CONNECTING,Connecting,接続中,Connexion en cours,連接中
-NETWORK_AUTO_CONNECT,Auto Connect,自動接続,,
-BUTTON_RESET_IP,Reset IP address,,,重置IP位置
+NETWORK_AUTO_CONNECT,Auto Connect,自動接続,Connexion Automatique,
+BUTTON_RESET_IP,Reset IP address,,Réinitialiser l'adresse IP,重置IP位置
 BUTTON_START_CONNECTION,Start connection,接続開始,Démarrer la connexion,開始連接
 TAB_SCRIPT,Script,スクリプト,Script,脚本
 TAB_PREVIEW,Preview,プレビュー,Prévisualisation,预览
