@@ -27,7 +27,7 @@ NETWORK_STATUS_NO_CONNECTION,No connection,接続なし,Pas de connexion,未連�
 NETWORK_STATUS_ERROR,Error,エラー,Erreur,錯誤
 NETWORK_STATUS_CONNECTED,Connected,接続済み,Connecté,已連接
 NETWORK_STATUS_CONNECTING,Connecting,接続中,Connexion en cours,連接中
-NETWORK_AUTO_CONNECT,Auto Connect,接続中,Connexion en cours,連接中
+NETWORK_AUTO_CONNECT,Auto Connect,自動接続,,
 BUTTON_RESET_IP,Reset IP address,,,重置IP位置
 BUTTON_START_CONNECTION,Start connection,接続開始,Démarrer la connexion,開始連接
 TAB_SCRIPT,Script,スクリプト,Script,脚本
