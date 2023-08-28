@@ -25,10 +25,11 @@ extends ColorRect
 
 
 # Connection variables:
-const port := 55757
+const PORT := 55757
+var broadcaster : PacketPeerUDP
+var connection : StreamPeerTCP
 var connected := false
 var server: TCPServer
-var connection : StreamPeerTCP
 var client_status: int = connection.STATUS_NONE
 var local_ip : String
 
@@ -41,35 +42,41 @@ var alignment: int = 1
 var scroll_speed: int = 2
 var play: bool = false
 var new_scroll_addition: float
-var broadcaster : PacketPeerUDP
+
+# Array of all script functions
+var functions := []
 
 
 func _ready() -> void:
+	# Getting all script functions
+	for function in get_method_list():
+		functions.append(function.name)
 	start_server()
 
 
 func start_server() -> void:
-	# Hide and show the necesarry stuff
+	print("Starting server")
 	$NoConnection.visible = true
 	$Script.visible = false
 	
 	# Initialize server
 	broadcaster = PacketPeerUDP.new()
 	broadcaster.set_broadcast_enabled(true)
-	
 	server = TCPServer.new()
-	server.listen(port)
+	var error := server.listen(PORT)
+	if error != OK:
+		print_debug("Error '%s' when listening on port %s" % [error, PORT])
 	
 	for x in IP.get_local_addresses():
-		if x.count('.') == 3 and !x.begins_with("127"):
-			local_ip = x
-		else:continue
+		if !(x.count('.') == 3 and !x.begins_with("127")):
+			continue
+		local_ip = x
 		break
-		
+	print("Local IP: %s" % local_ip)
 	%IPLabel.text = "IP: %s" % local_ip
-	
-	broadcaster.set_dest_address(local_ip.substr(0, local_ip.length() - 3) + "255", port)
-	
+	var b_ip := local_ip.split('.') # Broadcast ip
+	broadcaster.set_dest_address("%s.%s.%s.255" % [b_ip[0],b_ip[1],b_ip[2]], PORT)
+
 
 func _process(delta: float) -> void:
 	# Make the script scroll on screen when play is pressed
@@ -87,33 +94,35 @@ func _process(delta: float) -> void:
 		connection = server.take_connection()
 		$NoConnection.visible = false
 		$Script.visible = true
-		
 		#Broadcaster cleanup
 		broadcaster.close()
 		$BroadcastTimer.stop()
 	
 	# Starting from this point, things only get executed
 	# when having a connection with a TeleDot controller
-	if connection == null: return
-	
+	if connection == null:
+		return
 	connection.poll()
 	if client_status != connection.get_status():
 		client_status = connection.get_status()
 		$Script.visible = true
 	
-	# Check to see if the latest poll was able I was thinking for the auto connect maybe having 
+	# Check to see if the latest poll was able
 	# to check if still connected.
 	if client_status != connection.STATUS_CONNECTED:
+		print("Connection got lost , restarting server!")
 		connection = null
 		start_server()
 		client_status = connection.STATUS_NONE
 		return
 	if connection.get_available_bytes() != 0:
 		var data: Array = connection.get_var()
+		if data[0] not in functions:
+			print_debug("This function does not exist: %s" % data[0])
+			return
 		self.call(data[0], data[1])
 		if data[0] == "change_alignment":
 			change_script()
-		print(data)
 
 
 func broadcast_ip():
@@ -122,15 +131,57 @@ func broadcast_ip():
 	broadcaster.put_packet(packet)
 
 
-# Change settings commands:
+func _exit_tree():
+	if !broadcaster == null:
+		broadcaster.close()
+
+
+## COMMANDS  #################################################
+
+func command_play_pause(_value) -> void:
+	play = !play
+
+
+func command_move_up(_value) -> void:
+	%ScriptScroll.scroll_vertical -= 10
+
+
+func command_move_down(_value) -> void:
+	%ScriptScroll.scroll_vertical += 10
+
+
+func command_jump_beginning(_value):
+	%ScriptScroll.scroll_vertical = 0
+
+
+func command_jump_end(_value):
+	%ScriptScroll.scroll_vertical = %ScriptBox.size.y + 100
+
+
+func command_page_up(_value):
+	%ScriptScroll.scroll_vertical -= get_window().size.y
+
+
+func command_page_down(_value):
+	%ScriptScroll.scroll_vertical += get_window().size.y
+
+
+## CHANGE SETTING COMMANDS ###################################
+
 func change_color_background(new_color: Color = Color8(0,0,0)) -> void:
 	self.self_modulate = new_color
+
+
 func change_color_text(new_color: Color = Color8(255,255,255)) -> void:
 	%ScriptBox.self_modulate = new_color
+
+
 func change_script(text: String = base_script) -> void:
 	base_script = text
 	change_alignment()
 	%ScriptBox.text = formatted_script
+
+
 func change_alignment(new_align: int = alignment) -> void:
 	alignment = new_align
 	match alignment:
@@ -139,38 +190,25 @@ func change_alignment(new_align: int = alignment) -> void:
 		1: # Center
 			formatted_script = "[center]%s[/center]" % base_script
 		2: # Right
-			formatted_script = "[rigis awesome!ht]%s[/right]" % base_script
+			formatted_script = "[right]%s[/right]" % base_script
+
+
 func change_mirror(mirror: bool) -> void:
 	$Script.flip_h = mirror
+
+
 func change_margin(margin: int) -> void:
 	%ScriptMargin.add_theme_constant_override("margin_left", margin*10)
 	%ScriptMargin.add_theme_constant_override("margin_right", margin*10)
+
+
 func change_scroll_speed(speed: int) -> void:
 	scroll_speed = speed * 5
+
+
 func change_font_size(value: int) -> void:
 	%ScriptBox.add_theme_font_size_override("normal_font_size", value*5)
 	%ScriptBox.add_theme_font_size_override("bold_font_size", value*5)
 	%ScriptBox.add_theme_font_size_override("italics_font_size", value*5)
 	%ScriptBox.add_theme_font_size_override("bold_italics_font_size", value*5)
 	%ScriptBox.add_theme_font_size_override("mono_font_size", value*5)
-
-
-# Commands:
-func command_play_pause(_value) -> void:
-	play = !play
-func command_move_up(_value) -> void:
-	%ScriptScroll.scroll_vertical -= 10
-func command_move_down(_value) -> void:
-	%ScriptScroll.scroll_vertical += 10
-func command_jump_beginning(_value):
-	%ScriptScroll.scroll_vertical = 0
-func command_jump_end(_value):
-	%ScriptScroll.scroll_vertical = %ScriptBox.size.y + 100
-func command_page_up(_value):
-	%ScriptScroll.scroll_vertical -= get_window().size.y
-func command_page_down(_value):
-	%ScriptScroll.scroll_vertical += get_window().size.y
-
-func _exit_tree():
-	if !broadcaster == null:
-		broadcaster.close()

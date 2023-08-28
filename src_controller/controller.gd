@@ -13,10 +13,10 @@ enum LANGUAGE {ENGLISH, JAPANESE, FRENCH, CHINESE_TAIWAN}
 const SETTINGS_FILE := "user://settings"
 
 # Connection variables:
-const port := 55757
+const PORT := 55757
+var listener : PacketPeerUDP
 var client: StreamPeerTCP
 var status = client.STATUS_NONE
-var listener : PacketPeerUDP
 
 
 func _ready() -> void:
@@ -28,12 +28,8 @@ func _ready() -> void:
 	
 	# Server finder
 	listener = PacketPeerUDP.new()
-	var ok = listener.bind(port)
-	
-	if ok == OK:
-		print("bound to: " + str(port))
-	else:
-		print("failed to bind to: " + str(port))
+	if listener.bind(PORT) != OK:
+		print("Failed to bind to: %s!" % PORT)
 
 
 func version_check_request() -> void:
@@ -42,7 +38,8 @@ func version_check_request() -> void:
 	add_child(http_request)
 	http_request.request_completed.connect(self.version_check)
 	var error = http_request.request(version_url)
-	if error != OK: print_debug("Could not get version json")
+	if error != OK:
+		print_debug("Could not get version json")
 
 
 func version_check(_result, response_code, _headers, body) -> void:
@@ -86,31 +83,34 @@ func _process(_delta: float) -> void:
 
 	# Do not go further when no connection has been made yet.
 	if client != null:
-		# Checking connection status with TeleDot View
 		client.poll()
+		# Checking connection status with TeleDot View
 		var current_status := client.get_status()
 		if current_status != status:
 			if status == client.STATUS_CONNECTED:
 				_on_connection_button_pressed()
 			status = current_status
 			connection_changed()
-	# Auto grabs and IP and connects if enabled
+	# Auto grabs IP and connects if enabled
 	elif listener.is_bound() && listener.get_available_packet_count() > 0:
 		listener.get_packet() 
 		%IPLineEdit.text = str(listener.get_packet_ip())
-		%PortLineEdit.text = str(listener.get_packet_port())
-		
+	
 		if %AutoConnectButton.button_pressed:
 			_on_connection_button_pressed()
-		#Closes the listener after getting the relevant information to avoid manually entered IPS from being overwritten
+		# Closes the listener after getting the relevant information to avoid 
+		# manually entered IPS from being overwritten
 		listener.close()
 
 
 func _input(event: InputEvent) -> void:
 	# Switching tab commands:
-	if event.is_action_pressed("switch_tab_script"):  %ScriptPanel.current_tab = 0
-	if event.is_action_pressed("switch_tab_preview"): %ScriptPanel.current_tab = 1
-	if event.is_action_pressed("switch_tab_double"):  %ScriptPanel.current_tab = 2
+	if event.is_action_pressed("switch_tab_script"):  
+		%ScriptPanel.current_tab = 0
+	if event.is_action_pressed("switch_tab_preview"): 
+		%ScriptPanel.current_tab = 1
+	if event.is_action_pressed("switch_tab_double"):  
+		%ScriptPanel.current_tab = 2
 	
 	# Shortcut commands
 	if event.is_action_pressed("show_screensaver"):
@@ -135,7 +135,6 @@ func _input(event: InputEvent) -> void:
 
 func connection_changed() -> void:
 	set_connection_text()
-	
 	# Sending all necesarry data to view
 	if status == client.STATUS_CONNECTED: 
 		send_command("change_script", %ScriptTextEdit.text)
@@ -143,24 +142,32 @@ func connection_changed() -> void:
 		var settings_data: Dictionary = settings.get_var()
 		settings.close()
 		for setting in settings_data:
-			if setting in ["language", "ip"]: continue
+			if setting in ["language", "ip", "auto_connect"]:
+				continue
 			send_command("change_%s" % setting, settings_data[setting])
 
 
 func set_connection_text(_status: int = status) -> void:
 	var text: Array = [tr("NETWORK_STATUS")]
 	match _status:
-		client.STATUS_NONE:       text.append_array(["gray", tr("NETWORK_STATUS_NO_CONNECTION")])
-		client.STATUS_ERROR:      text.append_array(["red", tr("NETWORK_STATUS_ERROR")])
-		client.STATUS_CONNECTING: text.append_array(["purple", tr("NETWORK_STATUS_CONNECTING")])
-		client.STATUS_CONNECTED:  text.append_array(["green", tr("NETWORK_STATUS_CONNECTING")])
-		_: text = ["red", _status]
+		client.STATUS_NONE:       
+			text.append_array(["gray", tr("NETWORK_STATUS_NO_CONNECTION")])
+		client.STATUS_ERROR:      
+			text.append_array(["red", tr("NETWORK_STATUS_ERROR")])
+		client.STATUS_CONNECTING: 
+			text.append_array(["purple", tr("NETWORK_STATUS_CONNECTING")])
+		client.STATUS_CONNECTED:  
+			text.append_array(["green", tr("NETWORK_STATUS_CONNECTED")])
+		_: 
+			text = ["red", _status]
 	%NetworkStatusLabel.text = "%s [i][color=%s]%s[/color][/i]" % text
 
 
 func send_command(key:String, value) -> void:
-	if client == null: return
-	if client.get_status() == 2: client.put_var([key,value])
+	if client == null:
+		return
+	if client.get_status() == 2:
+		client.put_var([key,value])
 
 
 func _on_connection_button_pressed() -> void:
@@ -169,7 +176,7 @@ func _on_connection_button_pressed() -> void:
 		%ConnectionButton.text = "Stop connection"
 		status = client.STATUS_NONE
 		client = StreamPeerTCP.new()
-		client.connect_to_host(%IPLineEdit.text, int(%PortLineEdit.text.strip_edges()))
+		client.connect_to_host(%IPLineEdit.text, PORT)
 	else:
 		# Stop connection
 		%ConnectionButton.text = "Start connection"
@@ -181,29 +188,48 @@ func _on_connection_button_pressed() -> void:
 func _on_alignment_option_item_selected(index: int) -> void:
 	save_setting("alignment", index)
 	send_command("change_alignment", index)
+
+
 func _on_mirror_option_button_item_selected(index: int) -> void:
 	save_setting("mirror", index)
 	send_command("change_mirror", index == 1)
+
+
 func _on_font_color_picker_changed(_color: Color) -> void:
 	save_setting("color_text", _color)
 	send_command("change_color_text", _color)
+
+
 func _on_background_color_picker_changed(_color: Color) -> void:
 	save_setting("color_background", _color)
 	send_command("change_color_background", _color)
+
+
 func _on_margin_spin_box_value_changed(value: float) -> void:
 	save_setting("margin", value)
 	send_command("change_margin", value)
+
+
 func _on_scroll_speed_spin_box_value_changed(value: float) -> void:
 	save_setting("scroll_speed", value)
 	send_command("change_scroll_speed", value)
+
+
 func _on_font_size_spin_box_value_changed(value: float) -> void:
 	save_setting("font_size", value)
 	send_command("change_font_size", value)
+
+
 func _on_language_option_button_item_selected(value: int) -> void:
 	save_setting("language", value)
 	set_language(value)
+
+
 func _on_auto_connect_button_toggled(button_pressed):
 	save_setting("auto_connect", button_pressed)
+	%IPLabel.visible = !button_pressed
+	%IPLineEdit.visible = !button_pressed
+	%ResetIP.visible = !button_pressed
 
 
 func set_language(value:int) -> void:
@@ -339,22 +365,11 @@ func _on_remove_focus_button_pressed(_e:int = 0) -> void:
 func _on_ip_line_edit_text_submitted(_new_text: String) -> void:
 	_on_connection_button_pressed()
 	get_viewport().gui_release_focus()
-# Explanation of why this is commented is bellow
-#	%PortLineEdit.grab_focus()
-#	%PortLineEdit.caret_column = %PortLineEdit.text.length()
 
 
 func _on_ip_line_edit_text_changed(new_text: String) -> void:
 	save_setting("ip", new_text)
 
-
-# Port is being hidden for now as there is no way of changing the port
-# in view anyway. Maybe we could check if the port is actually open
-# on TeleDot View and make it choose a different port, but that's
-# probably for a later moment if this were to become an issue.
-func _on_port_line_edit_text_submitted(_new_text: String) -> void:
-	_on_connection_button_pressed()
-	get_viewport().gui_release_focus()
 
 
 func _on_update_available_label_meta_clicked(meta) -> void:
@@ -364,6 +379,7 @@ func _on_update_available_label_meta_clicked(meta) -> void:
 func _on_reset_ip_pressed() -> void:
 	save_setting("ip", get_default_ip())
 	load_settings()
+
 
 func _exit_tree():
 	if listener.is_bound():

@@ -1,3 +1,11 @@
+# TeleDot Controller + View Version 1.3: 2023-08-28
+
+## New features/improvements:
+
+- Auto connect;
+- End, Home, Page up and Page down controls;
+- Fixed the icon on Android;
+
 # TeleDot View Version 1.1: 2023-08-18
 
 ## Bug fixed:
