@@ -112,7 +112,7 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="NoConnection/VBoxContainer/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(1920, 534)
+size = Vector2i(1920, 528)
 render_target_update_mode = 4
 
 [node name="VBox" type="VBoxContainer" parent="NoConnection/VBoxContainer/SubViewportContainer/SubViewport"]
@@ -144,6 +144,21 @@ theme_override_font_sizes/font_size = 50
 text = "IP: %s"
 horizontal_alignment = 1
 
+[node name="GetControllerButton" type="Button" parent="NoConnection/VBoxContainer/SubViewportContainer/SubViewport"]
+custom_minimum_size = Vector2(150, 60)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Info page"
+
+[node name="GetControllerButton" type="Button" parent="NoConnection/VBoxContainer"]
+layout_mode = 2
+
 [node name="HSeparator" type="HSeparator" parent="NoConnection/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_r2j3r")
@@ -157,4 +172,5 @@ flip_h = true
 [node name="BroadcastTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="pressed" from="NoConnection/VBoxContainer/SubViewportContainer/SubViewport/GetControllerButton" to="." method="_on_get_controller_button_pressed"]
 [connection signal="timeout" from="BroadcastTimer" to="." method="broadcast_ip"]

@@ -208,3 +208,9 @@ func change_font_size(value: int) -> void:
 	%ScriptBox.add_theme_font_size_override("italics_font_size", value*5)
 	%ScriptBox.add_theme_font_size_override("bold_italics_font_size", value*5)
 	%ScriptBox.add_theme_font_size_override("mono_font_size", value*5)
+
+
+func _on_get_controller_button_pressed() -> void:
+	# Take people to the itch page to download controller
+	# and to see the instructions
+	OS.shell_open("https://voylin.itch.io/TeleDot")
