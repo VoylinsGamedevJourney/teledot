@@ -80,7 +80,7 @@ func _process(_delta: float) -> void:
 			send_command("command_page_up", null)
 		if Input.is_action_just_pressed("page_down"):
 			send_command("command_page_down", null)
-
+	
 	# Do not go further when no connection has been made yet.
 	if client != null:
 		client.poll()

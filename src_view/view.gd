@@ -31,7 +31,6 @@ var connection : StreamPeerTCP
 var connected := false
 var server: TCPServer
 var client_status: int = connection.STATUS_NONE
-var local_ip : String
 
 # Script formatting variables:
 var base_script: String
@@ -70,12 +69,9 @@ func start_server() -> void:
 	for x in IP.get_local_addresses():
 		if !(x.count('.') == 3 and !x.begins_with("127")):
 			continue
-		local_ip = x
+		%IPLabel.text = "IP: %s" % x
 		break
-	print("Local IP: %s" % local_ip)
-	%IPLabel.text = "IP: %s" % local_ip
-	var b_ip := local_ip.split('.') # Broadcast ip
-	broadcaster.set_dest_address("%s.%s.%s.255" % [b_ip[0],b_ip[1],b_ip[2]], PORT)
+	broadcaster.set_dest_address("255.255.255.255", PORT)
 
 
 func _process(delta: float) -> void:
