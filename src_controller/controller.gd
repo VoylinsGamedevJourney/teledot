@@ -192,7 +192,7 @@ func _on_alignment_option_item_selected(index: int) -> void:
 
 func _on_mirror_option_button_item_selected(index: int) -> void:
 	save_setting("mirror", index)
-	send_command("change_mirror", index == 1)
+	send_command("change_mirror", index)
 
 
 func _on_font_color_picker_changed(_color: Color) -> void:

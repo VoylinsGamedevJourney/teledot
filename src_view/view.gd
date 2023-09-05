@@ -85,7 +85,7 @@ func _process(delta: float) -> void:
 			if %ScriptScroll.scroll_vertical != new_scroll:
 				play = !play # Reached end
 			new_scroll_addition = 0
-	print(broadcaster.is_bound())
+	
 	# Accept connection when lcient tries to connect 
 	if server.is_connection_available(): 
 		connection = server.take_connection()

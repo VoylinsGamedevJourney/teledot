@@ -33,3 +33,7 @@ BUTTON_START_CONNECTION,Start connection,接続開始,Démarrer la connexion,開
 TAB_SCRIPT,Script,スクリプト,Script,腳本
 TAB_PREVIEW,Preview,プレビュー,Prévisualisation,預覽
 TAB_SIDE_BY_SIDE,Side-by-side,並べて表示,Affichage côte à côte,並排顯示
+MIRROR_OPTION_OFF,Off,オフ,,
+MIRROR_OPTION_BOTH,Both,両方,,
+MIRROR_OPTION_HORIZONTAL,Horizontal,水平,,
+MIRROR_OPTION_VERTICAL,Vertical,垂直,,

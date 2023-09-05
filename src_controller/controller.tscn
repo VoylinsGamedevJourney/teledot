@@ -123,12 +123,16 @@ text = "SETTING_MIRROR_TEXT"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-item_count = 2
+item_count = 4
 selected = 1
-popup/item_0/text = "No"
+popup/item_0/text = "MIRROR_OPTION_OFF"
 popup/item_0/id = 0
-popup/item_1/text = "Yes"
+popup/item_1/text = "MIRROR_OPTION_HORIZONTAL"
 popup/item_1/id = 1
+popup/item_2/text = "MIRROR_OPTION_VERTICAL"
+popup/item_2/id = 2
+popup/item_3/text = "MIRROR_OPTION_BOTH"
+popup/item_3/id = 3
 
 [node name="MarginsLabel" type="Label" parent="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid"]
 layout_mode = 2
