@@ -93,7 +93,7 @@ func _process(_delta: float) -> void:
 			connection_changed()
 	# Auto grabs IP and connects if enabled
 	elif listener.is_bound() && listener.get_available_packet_count() > 0:
-		listener.get_packet() 
+		listener.get_packet()
 		%IPLineEdit.text = str(listener.get_packet_ip())
 	
 		if %AutoConnectButton.button_pressed:
@@ -230,6 +230,8 @@ func _on_auto_connect_button_toggled(button_pressed):
 	%IPLabel.visible = !button_pressed
 	%IPLineEdit.visible = !button_pressed
 	%ResetIP.visible = !button_pressed
+	if listener != null and !listener.is_bound() and listener.bind(PORT) != OK:
+		print("Failed to bind to: %s!" % PORT)
 
 
 func set_language(value:int) -> void:
@@ -382,5 +384,10 @@ func _on_reset_ip_pressed() -> void:
 
 
 func _exit_tree():
+	if listener.is_bound():
+		listener.close()
+
+
+func _on_ip_line_edit_focus_entered() -> void:
 	if listener.is_bound():
 		listener.close()

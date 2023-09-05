@@ -72,6 +72,7 @@ func start_server() -> void:
 		%IPLabel.text = "IP: %s" % x
 		break
 	broadcaster.set_dest_address("255.255.255.255", PORT)
+	$BroadcastTimer.start()
 
 
 func _process(delta: float) -> void:
@@ -84,7 +85,7 @@ func _process(delta: float) -> void:
 			if %ScriptScroll.scroll_vertical != new_scroll:
 				play = !play # Reached end
 			new_scroll_addition = 0
-	
+	print(broadcaster.is_bound())
 	# Accept connection when lcient tries to connect 
 	if server.is_connection_available(): 
 		connection = server.take_connection()
@@ -189,8 +190,9 @@ func change_alignment(new_align: int = alignment) -> void:
 			formatted_script = "[right]%s[/right]" % base_script
 
 
-func change_mirror(mirror: bool) -> void:
-	$Script.flip_h = mirror
+func change_mirror(mirror: int) -> void:
+	$Script.flip_h = mirror in [1,3]
+	$Script.flip_v = mirror in [2,3]
 
 
 func change_margin(margin: int) -> void:
