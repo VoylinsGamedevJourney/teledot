@@ -22,7 +22,7 @@ var preview_alignment := "left"
 
 
 func _ready() -> void:
-	version_check_request()
+	var version_check := VersionCheck.new(%UpdateAvailableLabel)
 	# Hiding the screensaver incase it was visible when building.
 	$Screensaver.visible = false
 	load_settings()
@@ -32,37 +32,6 @@ func _ready() -> void:
 	listener = PacketPeerUDP.new()
 	if listener.bind(PORT) != OK:
 		print("Failed to bind to: %s!" % PORT)
-
-
-func version_check_request() -> void:
-	const version_url := "https://raw.githubusercontent.com/voylin/TeleDot/master/src_controller/version.json"
-	var http_request := HTTPRequest.new()
-	add_child(http_request)
-	http_request.request_completed.connect(self.version_check)
-	var error = http_request.request(version_url)
-	if error != OK:
-		print_debug("Could not get version json")
-
-
-func version_check(_result, response_code, _headers, body) -> void:
-	var result: String = body.get_string_from_utf8()
-	if response_code == 404 or result.length() < 5: 
-		print("Received version file info invalid")
-		return
-	var json = JSON.new()
-	json.parse(result)
-	var current_version: Dictionary = json.data
-	var file := FileAccess.open("res://version.json", FileAccess.READ)
-	json.parse(file.get_as_text())
-	var local_version: Dictionary = json.data
-	var update_available := false
-	if current_version.latest_stable.major > local_version.latest_stable.major:
-		update_available = true
-	elif current_version.latest_stable.minor > local_version.latest_stable.minor:
-		update_available = true
-	elif current_version.latest_stable.patch > local_version.latest_stable.patch:
-		update_available = true
-	%UpdateAvailableLabel.visible = update_available
 
 
 func _process(_delta: float) -> void:
