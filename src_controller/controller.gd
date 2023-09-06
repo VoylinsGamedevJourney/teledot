@@ -65,6 +65,9 @@ func _process(_delta: float) -> void:
 		if current_status != status:
 			if status == client.STATUS_CONNECTED:
 				_on_connection_button_pressed()
+			elif status == client.STATUS_NONE and %AutoConnectButton.button_pressed:
+				if listener.bind(PORT) != OK:
+					print("Failed to bind to: %s!" % PORT)
 			status = current_status
 			connection_changed()
 	# Auto grabs IP and connects if enabled
