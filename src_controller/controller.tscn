@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bqi78vhexs7gv"]
+[gd_scene load_steps=10 format=3 uid="uid://bqi78vhexs7gv"]
 
 [ext_resource type="Theme" uid="uid://dt4slcvh1rugo" path="res://theme.tres" id="1_2beuo"]
 [ext_resource type="Script" path="res://controller.gd" id="1_51ox2"]
@@ -18,9 +18,6 @@ corner_radius_bottom_right = 7
 expand_margin_left = 8.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_udgk6"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hjhdp"]
-bg_color = Color(0.294118, 0.294118, 0.294118, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3pw2"]
 bg_color = Color(0.294118, 0.294118, 0.294118, 1)
@@ -379,6 +376,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
 
 [node name="Script (ctrl+1)" type="TabBar" parent="MarginContainer/MainHSplit/ScriptPanel"]
+visible = false
 layout_mode = 2
 
 [node name="ScriptScroll" type="ScrollContainer" parent="MarginContainer/MainHSplit/ScriptPanel/Script (ctrl+1)"]
@@ -398,8 +396,16 @@ theme_override_colors/background_color = Color(0.164706, 0.164706, 0.164706, 1)
 wrap_mode = 1
 
 [node name="Preview (ctrl+2)" type="TabBar" parent="MarginContainer/MainHSplit/ScriptPanel"]
-visible = false
 layout_mode = 2
+
+[node name="PreviewBackground1" type="ColorRect" parent="MarginContainer/MainHSplit/ScriptPanel/Preview (ctrl+2)"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PreviewScroll" type="ScrollContainer" parent="MarginContainer/MainHSplit/ScriptPanel/Preview (ctrl+2)"]
 layout_mode = 1
@@ -414,8 +420,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_hjhdp")
 bbcode_enabled = true
+text = "ffffff"
 fit_content = true
 
 [node name="Side-by-side (ctrl+3)" type="TabBar" parent="MarginContainer/MainHSplit/ScriptPanel"]
@@ -443,9 +449,26 @@ size_flags_vertical = 3
 theme_override_colors/background_color = Color(0.164706, 0.164706, 0.164706, 1)
 wrap_mode = 1
 
-[node name="sbsPreview" type="RichTextLabel" parent="MarginContainer/MainHSplit/ScriptPanel/Side-by-side (ctrl+3)/ScriptScroll/HBoxContainer"]
+[node name="Control" type="Control" parent="MarginContainer/MainHSplit/ScriptPanel/Side-by-side (ctrl+3)/ScriptScroll/HBoxContainer"]
+layout_mode = 2
+
+[node name="PreviewBackground2" type="ColorRect" parent="MarginContainer/MainHSplit/ScriptPanel/Side-by-side (ctrl+3)/ScriptScroll/HBoxContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 42.0
+offset_right = 11.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="sbsPreview" type="RichTextLabel" parent="MarginContainer/MainHSplit/ScriptPanel/Side-by-side (ctrl+3)/ScriptScroll/HBoxContainer/Control"]
 unique_name_in_owner = true
 layout_mode = 2
+offset_right = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_v3pw2")
@@ -476,16 +499,16 @@ texture = SubResource("GradientTexture1D_d0ttv")
 [connection signal="pressed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/ScreenSaverButton" to="." method="_on_screen_saver_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/ScrollSpeedSpinBox" to="." method="_on_scroll_speed_spin_box_value_changed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/ScrollSpeedSpinBox" to="." method="_on_remove_focus_button_pressed"]
-[connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MirrorOptionButton" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MirrorOptionButton" to="." method="_on_mirror_option_button_item_selected"]
+[connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MirrorOptionButton" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MarginSpinBox" to="." method="_on_margin_spin_box_value_changed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MarginSpinBox" to="." method="_on_remove_focus_button_pressed"]
-[connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_font_size_spin_box_value_changed"]
+[connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontColorPicker" to="." method="_on_font_color_picker_changed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontColorPicker" to="." method="_on_remove_focus_button_pressed"]
-[connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/BackgroundColorPicker" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/BackgroundColorPicker" to="." method="_on_background_color_picker_changed"]
+[connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/BackgroundColorPicker" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/AlignmentOptionButton" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/AlignmentOptionButton" to="." method="_on_alignment_option_item_selected"]
 [connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/LanguageOptionButton" to="." method="_on_language_option_button_item_selected"]

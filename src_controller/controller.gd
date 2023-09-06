@@ -18,6 +18,8 @@ var listener : PacketPeerUDP
 var client: StreamPeerTCP
 var status = client.STATUS_NONE
 
+var preview_alignment := "left"
+
 
 func _ready() -> void:
 	version_check_request()
@@ -186,6 +188,16 @@ func _on_connection_button_pressed() -> void:
 
 
 func _on_alignment_option_item_selected(index: int) -> void:
+	match index:
+		0:
+			preview_alignment = "left"
+		1:
+			preview_alignment = "center"
+		2:
+			preview_alignment = "right"
+	var preview_text = "[_]%s[_]".replace('_', preview_alignment)
+	%sbsPreview.text = preview_text % %sbsTextEdit.text
+	%ScriptPreview.text = preview_text % %sbsTextEdit.text
 	save_setting("alignment", index)
 	send_command("change_alignment", index)
 
@@ -196,11 +208,15 @@ func _on_mirror_option_button_item_selected(index: int) -> void:
 
 
 func _on_font_color_picker_changed(_color: Color) -> void:
+	%sbsPreview.self_modulate = _color
+	%ScriptPreview.self_modulate = _color
 	save_setting("color_text", _color)
 	send_command("change_color_text", _color)
 
 
 func _on_background_color_picker_changed(_color: Color) -> void:
+	%PreviewBackground1.color = _color
+	%PreviewBackground2.color = _color
 	save_setting("color_background", _color)
 	send_command("change_color_background", _color)
 
@@ -268,9 +284,15 @@ func load_settings() -> void:
 			"mirror":
 				%MirrorOptionButton.select(settings_data[setting])
 			"color_text":
-				%FontColorPicker.color = settings_data[setting]
+				var _color: Color = settings_data[setting]
+				%sbsPreview.self_modulate = _color
+				%ScriptPreview.self_modulate = _color
+				%FontColorPicker.color = _color
 			"color_background":
-				%FontColorPicker.color = settings_data[setting]
+				var _color: Color = settings_data[setting]
+				%PreviewBackground1.color = _color
+				%PreviewBackground2.color = _color
+				%BackgroundColorPicker.color = _color
 			"margin":
 				%MarginSpinBox.value = settings_data[setting]
 			"scroll_speed":
@@ -326,17 +348,20 @@ func get_default_ip() -> String:
 
 
 func _on_script_tab_text_changed() -> void:
+	var preview_text = "[_]%s[_]".replace('_', preview_alignment)
 	%sbsTextEdit.text = %ScriptTextEdit.text
-	%sbsPreview.text = %ScriptTextEdit.text
-	%ScriptPreview.text = %ScriptTextEdit.text
+	%sbsPreview.text = preview_text % %ScriptTextEdit.text
+	%ScriptPreview.text = preview_text % %ScriptTextEdit.text
 	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
 	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
 	send_command("change_script", %ScriptTextEdit.text)
 
 
 func _on_sbs_tab_text_changed() -> void:
+	var preview_text = "[_]%s[_]".replace('_', preview_alignment)
 	%ScriptTextEdit.text = %sbsTextEdit.text
-	%sbsPreview.text = %sbsTextEdit.text
+	%sbsPreview.text = preview_text % %sbsTextEdit.text
+	%ScriptPreview.text = preview_text % %sbsTextEdit.text
 	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
 	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
 	send_command("change_script", %ScriptTextEdit.text)
@@ -371,7 +396,6 @@ func _on_ip_line_edit_text_submitted(_new_text: String) -> void:
 
 func _on_ip_line_edit_text_changed(new_text: String) -> void:
 	save_setting("ip", new_text)
-
 
 
 func _on_update_available_label_meta_clicked(meta) -> void:

@@ -10,7 +10,7 @@ extends ColorRect
 ## [change_color_text, Color]
 ## [change_script, String]
 ## [change_alignment, int]
-## [change_mirror, bool]
+## [change_mirror, int]
 ## [change_margin, int]
 ## [change_scroll_speed, int]
 ## [change_font_size, int]

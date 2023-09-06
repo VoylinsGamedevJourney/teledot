@@ -1,3 +1,14 @@
+# TeleDot Controller: 2023-09-06
+
+- Added settings for new mirror controls;
+
+# TeleDot View: 2023-09-06
+
+- Fixed broadcasting;
+- Added an info button;
+- Added more mirror controls;
+
+
 # TeleDot Controller + View Version 1.3: 2023-08-28
 
 ## New features/improvements:
