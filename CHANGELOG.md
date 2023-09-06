@@ -1,4 +1,22 @@
-# TeleDot Controller: 2023-09-06
+# TeleDot Controller 1.7: 2023-09-06
+
+## Fixes
+
+- Fix listener;
+- Fix preview text on startup;
+- Fix side-by-side preview panel not showing;
+- Fix using left and right does not move cursor in text;
+
+## Features
+
+- Screensaver saves between sessions;
+
+## Other improvements 
+
+- Code cleanup for both controller and view;
+
+
+# TeleDot Controller 1.6: 2023-09-06
 
 - Added settings for new mirror controls;
 - Improved preview;

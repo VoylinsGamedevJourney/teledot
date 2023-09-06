@@ -1,5 +1,4 @@
 extends ColorRect
-
 ## All TeleDot View does is create a server, let the 
 ## controller connect to it and then just receive and listen
 ## to the commands being send
@@ -23,8 +22,10 @@ extends ColorRect
 ## [command_page_up, null]
 ## [command_page_down, null]
 
+###############################################################
+## VARIABLES  #################################################
 
-# Connection variables:
+## Connection variables:  #####################################
 const PORT := 55757
 var broadcaster : PacketPeerUDP
 var connection : StreamPeerTCP
@@ -32,47 +33,28 @@ var connected := false
 var server: TCPServer
 var client_status: int = connection.STATUS_NONE
 
-# Script formatting variables:
+## Script formatting variables:  ##############################
 var base_script: String
 var formatted_script: String
 var alignment: int = 1
 
-# Playback variables:
+## Playback variables:  #######################################
 var scroll_speed: int = 2
 var play: bool = false
 var new_scroll_addition: float
 
-# Array of all script functions
+## Array of all script functions:  #############################
 var functions := []
 
+
+###############################################################
+## FUNCTIONS  #################################################
 
 func _ready() -> void:
 	# Getting all script functions
 	for function in get_method_list():
 		functions.append(function.name)
 	start_server()
-
-
-func start_server() -> void:
-	print("Starting server")
-	$NoConnection.visible = true
-	$Script.visible = false
-	
-	# Initialize server
-	broadcaster = PacketPeerUDP.new()
-	broadcaster.set_broadcast_enabled(true)
-	server = TCPServer.new()
-	var error := server.listen(PORT)
-	if error != OK:
-		print_debug("Error '%s' when listening on port %s" % [error, PORT])
-	
-	for x in IP.get_local_addresses():
-		if !(x.count('.') == 3 and !x.begins_with("127")):
-			continue
-		%IPLabel.text = "IP: %s" % x
-		break
-	broadcaster.set_dest_address("255.255.255.255", PORT)
-	$BroadcastTimer.start()
 
 
 func _process(delta: float) -> void:
@@ -122,18 +104,37 @@ func _process(delta: float) -> void:
 			change_script()
 
 
+## NETWORKING  ################################################
+
+func start_server() -> void:
+	print("Starting server")
+	$NoConnection.visible = true
+	$Script.visible = false
+	
+	# Initialize broadcast + server
+	broadcaster = PacketPeerUDP.new()
+	broadcaster.set_broadcast_enabled(true)
+	server = TCPServer.new()
+	var error := server.listen(PORT)
+	if error != OK:
+		print_debug("Error '%s' when listening on port %s" % [error, PORT])
+	
+	for x in IP.get_local_addresses():
+		if !(x.count('.') == 3 and !x.begins_with("127")):
+			continue
+		%IPLabel.text = "IP: %s" % x
+		break
+	broadcaster.set_dest_address("255.255.255.255", PORT)
+	$BroadcastTimer.start()
+
+
 func broadcast_ip():
 	var data = JSON.stringify("TeleDot")
 	var packet = data.to_utf8_buffer()
 	broadcaster.put_packet(packet)
 
 
-func _exit_tree():
-	if !broadcaster == null:
-		broadcaster.close()
-
-
-## COMMANDS  #################################################
+## COMMAND FUNCTIONS ###################################
 
 func command_play_pause(_value) -> void:
 	play = !play
@@ -162,8 +163,6 @@ func command_page_up(_value):
 func command_page_down(_value):
 	%ScriptScroll.scroll_vertical += get_window().size.y
 
-
-## CHANGE SETTING COMMANDS ###################################
 
 func change_color_background(new_color: Color = Color8(0,0,0)) -> void:
 	self.self_modulate = new_color
@@ -212,7 +211,14 @@ func change_font_size(value: int) -> void:
 	%ScriptBox.add_theme_font_size_override("mono_font_size", value*5)
 
 
+## OTHERS  ####################################################
+
 func _on_get_controller_button_pressed() -> void:
 	# Take people to the itch page to download controller
 	# and to see the instructions
 	OS.shell_open("https://voylin.itch.io/TeleDot")
+
+
+func _exit_tree():
+	if !broadcaster == null:
+		broadcaster.close()
