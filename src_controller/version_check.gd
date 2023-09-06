@@ -1,14 +1,14 @@
 class_name VersionCheck extends Node
 
 
-var update_label: Label
+var update_label: RichTextLabel
 
 
-func _init(_update_label: Label) -> void:
+func _init(control: Control, _update_label: RichTextLabel) -> void:
 	update_label = _update_label
 	const version_url := "https://raw.githubusercontent.com/voylin/TeleDot/master/src_controller/version.json"
 	var http_request := HTTPRequest.new()
-	add_child(http_request)
+	control.add_child(http_request)
 	http_request.request_completed.connect(self._check)
 	var error = http_request.request(version_url)
 	if error != OK:
