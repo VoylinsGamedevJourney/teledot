@@ -129,9 +129,11 @@ func _input(event: InputEvent) -> void:
 			get_window().mode = Window.MODE_WINDOWED
 			get_node("Screensaver").visible = false
 	
-	if event.is_action_pressed("decrease_speed"):
+	var focus = get_viewport().gui_get_focus_owner()
+	if not focus is Object and event.is_action_pressed("decrease_speed"):
+		print()
 		%ScrollSpeedSpinBox.value -= 1
-	if event.is_action_pressed("increase_speed"):
+	if not focus is Object and event.is_action_pressed("increase_speed"):
 		%ScrollSpeedSpinBox.value += 1
 
 
