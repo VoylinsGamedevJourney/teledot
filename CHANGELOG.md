@@ -1,6 +1,7 @@
 # TeleDot Controller: 2023-09-06
 
 - Added settings for new mirror controls;
+- Improved preview;
 
 # TeleDot View: 2023-09-06
 
