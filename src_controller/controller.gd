@@ -71,7 +71,7 @@ func _process(_delta: float) -> void:
 			status = current_status
 			connection_changed()
 	# Auto grabs IP and connects if enabled
-	elif listener.is_bound() && listener.get_available_packet_count() > 0:
+	elif listener.is_bound() and listener.get_available_packet_count() > 0:
 		listener.get_packet()
 		%IPLineEdit.text = str(listener.get_packet_ip())
 	
