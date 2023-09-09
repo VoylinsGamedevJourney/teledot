@@ -38,9 +38,10 @@ var formatted_script: String
 var alignment: int = 1
 
 # Playback variables:
-var scroll_speed: int = 2
+var scroll_speed: float = 2
 var play: bool = false
 var intended_scroll: float = 0
+var smooth_scroll_amount: float = 0.3
 
 # Array of all script functions
 var functions := []
@@ -77,14 +78,18 @@ func start_server() -> void:
 func _process(delta: float) -> void:
 	# Make the script scroll on screen when play is pressed
 	if play:
-		intended_scroll += (scroll_speed * delta)
+		intended_scroll += scroll_speed
+	
+	# Clamp intended scroll
 	if intended_scroll <= 0:
 		intended_scroll = 0
 	if intended_scroll >= %ScriptBox.size.y:
 		intended_scroll = %ScriptBox.size.y
-	%ScriptScroll.scroll_vertical += (intended_scroll - %ScriptScroll.scroll_vertical) *0.5
 	
-	# Accept connection when lcient tries to connect 
+	# Smooth scroll to intended scroll position
+	%ScriptScroll.scroll_vertical += (intended_scroll - %ScriptScroll.scroll_vertical) * smooth_scroll_amount
+	
+	# Accept connection when client tries to connect 
 	if server.is_connection_available(): 
 		connection = server.take_connection()
 		$NoConnection.visible = false
@@ -138,11 +143,11 @@ func command_play_pause(_value) -> void:
 
 
 func command_move_up(_value) -> void:
-	intended_scroll -= 10
+	intended_scroll -= scroll_speed
 
 
 func command_move_down(_value) -> void:
-	intended_scroll += 10
+	intended_scroll += scroll_speed
 
 
 func command_jump_beginning(_value):
@@ -198,7 +203,7 @@ func change_margin(margin: int) -> void:
 
 
 func change_scroll_speed(speed: int) -> void:
-	scroll_speed = speed * 5
+	scroll_speed = float(speed * speed) / 100
 
 
 func change_font_size(value: int) -> void:
