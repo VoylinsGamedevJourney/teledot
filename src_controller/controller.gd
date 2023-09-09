@@ -1,5 +1,4 @@
 extends ColorRect
-
 ## TeleDot controller's job is to connect to the TeleDot view and
 ## send all necesarry data. This data includes commands and settings.
 ##
@@ -8,6 +7,10 @@ extends ColorRect
 
 
 enum LANGUAGE {ENGLISH, JAPANESE, FRENCH, CHINESE_TAIWAN}
+
+
+###############################################################
+## VARIABLES  #################################################
 
 # Paths:
 const SETTINGS_FILE := "user://settings"
@@ -18,9 +21,13 @@ var listener : PacketPeerUDP
 var client: StreamPeerTCP
 var status = client.STATUS_NONE
 
+var preview_alignment := "left"
+
+###############################################################
+## FUNCTIONS  #################################################
 
 func _ready() -> void:
-	version_check_request()
+	var _version_check := VersionCheck.new(self, %UpdateAvailableLabel)
 	# Hiding the screensaver incase it was visible when building.
 	$Screensaver.visible = false
 	load_settings()
@@ -30,37 +37,6 @@ func _ready() -> void:
 	listener = PacketPeerUDP.new()
 	if listener.bind(PORT) != OK:
 		print("Failed to bind to: %s!" % PORT)
-
-
-func version_check_request() -> void:
-	const version_url := "https://raw.githubusercontent.com/voylin/TeleDot/master/src_controller/version.json"
-	var http_request := HTTPRequest.new()
-	add_child(http_request)
-	http_request.request_completed.connect(self.version_check)
-	var error = http_request.request(version_url)
-	if error != OK:
-		print_debug("Could not get version json")
-
-
-func version_check(_result, response_code, _headers, body) -> void:
-	var result: String = body.get_string_from_utf8()
-	if response_code == 404 or result.length() < 5: 
-		print("Received version file info invalid")
-		return
-	var json = JSON.new()
-	json.parse(result)
-	var current_version: Dictionary = json.data
-	var file := FileAccess.open("res://version.json", FileAccess.READ)
-	json.parse(file.get_as_text())
-	var local_version: Dictionary = json.data
-	var update_available := false
-	if current_version.latest_stable.major > local_version.latest_stable.major:
-		update_available = true
-	elif current_version.latest_stable.minor > local_version.latest_stable.minor:
-		update_available = true
-	elif current_version.latest_stable.patch > local_version.latest_stable.patch:
-		update_available = true
-	%UpdateAvailableLabel.visible = update_available
 
 
 func _process(_delta: float) -> void:
@@ -89,11 +65,14 @@ func _process(_delta: float) -> void:
 		if current_status != status:
 			if status == client.STATUS_CONNECTED:
 				_on_connection_button_pressed()
+			elif status == client.STATUS_NONE and %AutoConnectButton.button_pressed:
+				if listener.bind(PORT) != OK:
+					print("Failed to bind to: %s!" % PORT)
 			status = current_status
 			connection_changed()
 	# Auto grabs IP and connects if enabled
-	elif listener.is_bound() && listener.get_available_packet_count() > 0:
-		listener.get_packet() 
+	elif listener.is_bound() and listener.get_available_packet_count() > 0:
+		listener.get_packet()
 		%IPLineEdit.text = str(listener.get_packet_ip())
 	
 		if %AutoConnectButton.button_pressed:
@@ -127,126 +106,15 @@ func _input(event: InputEvent) -> void:
 			get_window().mode = Window.MODE_WINDOWED
 			get_node("Screensaver").visible = false
 	
-	if event.is_action_pressed("decrease_speed"):
+	var focus = get_viewport().gui_get_focus_owner()
+	if not focus is Object and event.is_action_pressed("decrease_speed"):
+		print()
 		%ScrollSpeedSpinBox.value -= 1
-	if event.is_action_pressed("increase_speed"):
+	if not focus is Object and event.is_action_pressed("increase_speed"):
 		%ScrollSpeedSpinBox.value += 1
 
 
-func connection_changed() -> void:
-	set_connection_text()
-	# Sending all necesarry data to view
-	if status == client.STATUS_CONNECTED: 
-		send_command("change_script", %ScriptTextEdit.text)
-		var settings := FileAccess.open(SETTINGS_FILE, FileAccess.READ)
-		var settings_data: Dictionary = settings.get_var()
-		settings.close()
-		for setting in settings_data:
-			if setting in ["language", "ip", "auto_connect"]:
-				continue
-			send_command("change_%s" % setting, settings_data[setting])
-
-
-func set_connection_text(_status: int = status) -> void:
-	var text: Array = [tr("NETWORK_STATUS")]
-	match _status:
-		client.STATUS_NONE:       
-			text.append_array(["gray", tr("NETWORK_STATUS_NO_CONNECTION")])
-		client.STATUS_ERROR:      
-			text.append_array(["red", tr("NETWORK_STATUS_ERROR")])
-		client.STATUS_CONNECTING: 
-			text.append_array(["purple", tr("NETWORK_STATUS_CONNECTING")])
-		client.STATUS_CONNECTED:  
-			text.append_array(["green", tr("NETWORK_STATUS_CONNECTED")])
-		_: 
-			text = ["red", _status]
-	%NetworkStatusLabel.text = "%s [i][color=%s]%s[/color][/i]" % text
-
-
-func send_command(key:String, value) -> void:
-	if client == null:
-		return
-	if client.get_status() == 2:
-		client.put_var([key,value])
-
-
-func _on_connection_button_pressed() -> void:
-	if client == null:
-		# Start connection
-		%ConnectionButton.text = "Stop connection"
-		status = client.STATUS_NONE
-		client = StreamPeerTCP.new()
-		client.connect_to_host(%IPLineEdit.text, PORT)
-	else:
-		# Stop connection
-		%ConnectionButton.text = "Start connection"
-		client = null
-		set_connection_text(client.STATUS_NONE)
-	get_viewport().gui_release_focus()
-
-
-func _on_alignment_option_item_selected(index: int) -> void:
-	save_setting("alignment", index)
-	send_command("change_alignment", index)
-
-
-func _on_mirror_option_button_item_selected(index: int) -> void:
-	save_setting("mirror", index)
-	send_command("change_mirror", index == 1)
-
-
-func _on_font_color_picker_changed(_color: Color) -> void:
-	save_setting("color_text", _color)
-	send_command("change_color_text", _color)
-
-
-func _on_background_color_picker_changed(_color: Color) -> void:
-	save_setting("color_background", _color)
-	send_command("change_color_background", _color)
-
-
-func _on_margin_spin_box_value_changed(value: float) -> void:
-	save_setting("margin", value)
-	send_command("change_margin", value)
-
-
-func _on_scroll_speed_spin_box_value_changed(value: float) -> void:
-	save_setting("scroll_speed", value)
-	send_command("change_scroll_speed", value)
-
-
-func _on_font_size_spin_box_value_changed(value: float) -> void:
-	save_setting("font_size", value)
-	send_command("change_font_size", value)
-
-
-func _on_language_option_button_item_selected(value: int) -> void:
-	save_setting("language", value)
-	set_language(value)
-
-
-func _on_auto_connect_button_toggled(button_pressed):
-	save_setting("auto_connect", button_pressed)
-	%IPLabel.visible = !button_pressed
-	%IPLineEdit.visible = !button_pressed
-	%ResetIP.visible = !button_pressed
-
-
-func set_language(value:int) -> void:
-	match value:
-		LANGUAGE.ENGLISH:
-			TranslationServer.set_locale("en")
-		LANGUAGE.JAPANESE:
-			TranslationServer.set_locale("ja")
-		LANGUAGE.FRENCH:
-			TranslationServer.set_locale("fr")
-		LANGUAGE.CHINESE_TAIWAN:
-			TranslationServer.set_locale("zh_TW")
-	# Set tab translations correct
-	%ScriptPanel.get_child(0).name = "%s (ctrl+1)" % tr("TAB_SCRIPT")
-	%ScriptPanel.get_child(1).name = "%s (ctrl+2)" % tr("TAB_PREVIEW")
-	%ScriptPanel.get_child(2).name = "%s (ctrl+3)" % tr("TAB_SIDE_BY_SIDE")
-
+## SETTING FUNCTIONS  #############################################
 
 func save_setting(key: String, value) -> void:
 	var settings_file := FileAccess.open(SETTINGS_FILE, FileAccess.READ)
@@ -261,14 +129,22 @@ func load_settings() -> void:
 	var settings_data: Dictionary = get_settings()
 	for setting in settings_data:
 		match setting:
+			"screensaver":
+				change_screensaver(settings_data[setting])
 			"alignment":
 				%AlignmentOptionButton.select(settings_data[setting])
 			"mirror":
 				%MirrorOptionButton.select(settings_data[setting])
 			"color_text":
-				%FontColorPicker.color = settings_data[setting]
+				var _color: Color = settings_data[setting]
+				%sbsPreview.self_modulate = _color
+				%ScriptPreview.self_modulate = _color
+				%FontColorPicker.color = _color
 			"color_background":
-				%FontColorPicker.color = settings_data[setting]
+				var _color: Color = settings_data[setting]
+				%PreviewBackground1.color = _color
+				%PreviewBackground2.color = _color
+				%BackgroundColorPicker.color = _color
 			"margin":
 				%MarginSpinBox.value = settings_data[setting]
 			"scroll_speed":
@@ -313,32 +189,7 @@ func get_settings() -> Dictionary:
 	return settings
 
 
-func get_default_ip() -> String:
-	for x in IP.get_local_addresses():
-		if x.count(".") == 3 and !x.begins_with("127"):
-			return x
-		else:
-			continue
-		break
-	return "127.0.0.1"
-
-
-func _on_script_tab_text_changed() -> void:
-	%sbsTextEdit.text = %ScriptTextEdit.text
-	%sbsPreview.text = %ScriptTextEdit.text
-	%ScriptPreview.text = %ScriptTextEdit.text
-	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
-	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
-	send_command("change_script", %ScriptTextEdit.text)
-
-
-func _on_sbs_tab_text_changed() -> void:
-	%ScriptTextEdit.text = %sbsTextEdit.text
-	%sbsPreview.text = %sbsTextEdit.text
-	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
-	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
-	send_command("change_script", %ScriptTextEdit.text)
-
+## SETTING NODES  #############################################
 
 func _on_screen_saver_button_pressed() -> void:
 	var file_explorer := FileDialog.new()
@@ -352,14 +203,157 @@ func _on_screen_saver_button_pressed() -> void:
 
 
 func change_screensaver(path: String) -> void:
+	save_setting("screensaver", path)
 	var tex := ImageTexture.new()
 	var image := Image.load_from_file(path)
 	tex.set_image(image)
 	$Screensaver/ScreensaverTexture.texture = tex
 
 
+func _on_alignment_option_item_selected(index: int) -> void:
+	match index:
+		0:
+			preview_alignment = "left"
+		1:
+			preview_alignment = "center"
+		2:
+			preview_alignment = "right"
+	var preview_text = "[_]%s[_]".replace('_', preview_alignment)
+	%sbsPreview.text = preview_text % %sbsTextEdit.text
+	%ScriptPreview.text = preview_text % %sbsTextEdit.text
+	save_setting("alignment", index)
+	send_command("change_alignment", index)
+
+
+func _on_mirror_option_button_item_selected(index: int) -> void:
+	save_setting("mirror", index)
+	send_command("change_mirror", index)
+
+
+func _on_font_color_picker_changed(_color: Color) -> void:
+	%sbsPreview.self_modulate = _color
+	%ScriptPreview.self_modulate = _color
+	save_setting("color_text", _color)
+	send_command("change_color_text", _color)
+
+
+func _on_background_color_picker_changed(_color: Color) -> void:
+	%PreviewBackground1.color = _color
+	%PreviewBackground2.color = _color
+	save_setting("color_background", _color)
+	send_command("change_color_background", _color)
+
+
+func _on_margin_spin_box_value_changed(value: float) -> void:
+	save_setting("margin", value)
+	send_command("change_margin", value)
+
+
+func _on_scroll_speed_spin_box_value_changed(value: float) -> void:
+	save_setting("scroll_speed", value)
+	send_command("change_scroll_speed", value)
+
+
+func _on_font_size_spin_box_value_changed(value: float) -> void:
+	save_setting("font_size", value)
+	send_command("change_font_size", value)
+
+
+func _on_language_option_button_item_selected(value: int) -> void:
+	save_setting("language", value)
+	set_language(value)
+
+
+func set_language(value:int) -> void:
+	match value:
+		LANGUAGE.ENGLISH:
+			TranslationServer.set_locale("en")
+		LANGUAGE.JAPANESE:
+			TranslationServer.set_locale("ja")
+		LANGUAGE.FRENCH:
+			TranslationServer.set_locale("fr")
+		LANGUAGE.CHINESE_TAIWAN:
+			TranslationServer.set_locale("zh_TW")
+	# Set tab translations correct
+	%ScriptPanel.get_child(0).name = "%s (ctrl+1)" % tr("TAB_SCRIPT")
+	%ScriptPanel.get_child(1).name = "%s (ctrl+2)" % tr("TAB_PREVIEW")
+	%ScriptPanel.get_child(2).name = "%s (ctrl+3)" % tr("TAB_SIDE_BY_SIDE")
+
+
 func _on_remove_focus_button_pressed(_e:int = 0) -> void:
 	get_viewport().gui_release_focus()
+
+## CONNECTION STUFF  #############################################
+
+func _on_connection_button_pressed() -> void:
+	if client == null:
+		# Start connection
+		%ConnectionButton.text = "Stop connection"
+		status = client.STATUS_NONE
+		client = StreamPeerTCP.new()
+		client.connect_to_host(%IPLineEdit.text, PORT)
+	else:
+		# Stop connection
+		%ConnectionButton.text = "Start connection"
+		client = null
+		set_connection_text(client.STATUS_NONE)
+	get_viewport().gui_release_focus()
+
+
+func _on_auto_connect_button_toggled(button_pressed):
+	save_setting("auto_connect", button_pressed)
+	%IPLabel.visible = !button_pressed
+	%IPLineEdit.visible = !button_pressed
+	%ResetIP.visible = !button_pressed
+	if listener != null and !listener.is_bound() and listener.bind(PORT) != OK:
+		print("Failed to bind to: %s!" % PORT)
+
+
+func get_default_ip() -> String:
+	for x in IP.get_local_addresses():
+		if x.count(".") == 3 and !x.begins_with("127"):
+			return x
+		else:
+			continue
+		break
+	return "127.0.0.1"
+
+
+func connection_changed() -> void:
+	set_connection_text()
+	# Sending all necesarry data to view
+	if status == client.STATUS_CONNECTED: 
+		send_command("change_script", %ScriptTextEdit.text)
+		var settings := FileAccess.open(SETTINGS_FILE, FileAccess.READ)
+		var settings_data: Dictionary = settings.get_var()
+		settings.close()
+		for setting in settings_data:
+			if setting in ["language", "ip", "auto_connect"]:
+				continue
+			send_command("change_%s" % setting, settings_data[setting])
+
+
+func set_connection_text(_status: int = status) -> void:
+	var text: Array = [tr("NETWORK_STATUS")]
+	match _status:
+		client.STATUS_NONE:       
+			text.append_array(["gray", tr("NETWORK_STATUS_NO_CONNECTION")])
+		client.STATUS_ERROR:      
+			text.append_array(["red", tr("NETWORK_STATUS_ERROR")])
+		client.STATUS_CONNECTING: 
+			text.append_array(["purple", tr("NETWORK_STATUS_CONNECTING")])
+		client.STATUS_CONNECTED:  
+			text.append_array(["green", tr("NETWORK_STATUS_CONNECTED")])
+		_: 
+			text = ["red", _status]
+	%NetworkStatusLabel.text = "%s [i][color=%s]%s[/color][/i]" % text
+
+
+func send_command(key:String, value) -> void:
+	if client == null:
+		return
+	if client.get_status() == 2:
+		client.put_var([key,value])
 
 
 func _on_ip_line_edit_text_submitted(_new_text: String) -> void:
@@ -371,14 +365,41 @@ func _on_ip_line_edit_text_changed(new_text: String) -> void:
 	save_setting("ip", new_text)
 
 
-
-func _on_update_available_label_meta_clicked(meta) -> void:
-	OS.shell_open(meta)
-
-
 func _on_reset_ip_pressed() -> void:
 	save_setting("ip", get_default_ip())
 	load_settings()
+
+
+func _on_ip_line_edit_focus_entered() -> void:
+	if listener.is_bound():
+		listener.close()
+
+## SCRIPT TEXT CHANGES  #######################################
+
+func _on_script_tab_text_changed() -> void:
+	var preview_text = "[_]%s[_]".replace('_', preview_alignment)
+	%sbsTextEdit.text = %ScriptTextEdit.text
+	%sbsPreview.text = preview_text % %ScriptTextEdit.text
+	%ScriptPreview.text = preview_text % %ScriptTextEdit.text
+	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
+	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
+	send_command("change_script", %ScriptTextEdit.text)
+
+
+func _on_sbs_tab_text_changed() -> void:
+	var preview_text = "[_]%s[_]".replace('_', preview_alignment)
+	%ScriptTextEdit.text = %sbsTextEdit.text
+	%sbsPreview.text = preview_text % %sbsTextEdit.text
+	%ScriptPreview.text = preview_text % %sbsTextEdit.text
+	%ScriptPreview.get_parent().scroll_horizontal = %ScriptTextEdit.get_parent().scroll_horizontal
+	%ScriptPreview.get_parent().scroll_vertical = %ScriptTextEdit.get_parent().scroll_vertical
+	send_command("change_script", %ScriptTextEdit.text)
+
+
+## OTHERS  ####################################################
+
+func _on_update_available_label_meta_clicked(meta) -> void:
+	OS.shell_open(meta)
 
 
 func _exit_tree():

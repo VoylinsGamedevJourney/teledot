@@ -5,7 +5,7 @@ TITLE_SCRIPTS,Scripts,脚本,Scripts,腳本
 TITLE_NETWORKING,Networking,コネクション,Réseau,網路
 SETTING_SCREENSAVER,Screensaver,スクリーンセーバー,Écran de veille,螢幕保護程式
 SETTING_SCROLL_SPEED,Scroll speed,スクロール速度,Vitesse de défilement,滾動速度
-SETTING_MIRROR_TEXT,Mirror text,ミラーテキスト,Texte miroir,鏡像文字
+SETTING_MIRROR_TEXT,Mirror text,ミラーテキスト,Inversion de texte,鏡像文字
 SETTING_MARGINS,Margins,マージン,Marges,邊距
 SETTING_COLOR_FONT,Font color,フォントの色,Couleur du texte,字體顏色
 SETTING_COLOR_BACKGROUND,Background color,背景色,Couleur du fond,背景顏色
@@ -33,3 +33,7 @@ BUTTON_START_CONNECTION,Start connection,接続開始,Démarrer la connexion,開
 TAB_SCRIPT,Script,スクリプト,Script,腳本
 TAB_PREVIEW,Preview,プレビュー,Prévisualisation,預覽
 TAB_SIDE_BY_SIDE,Side-by-side,並べて表示,Affichage côte à côte,並排顯示
+MIRROR_OPTION_OFF,Off,オフ,Aucune,
+MIRROR_OPTION_BOTH,Both,両方,Toutes,
+MIRROR_OPTION_HORIZONTAL,Horizontal,水平,Horizontale,
+MIRROR_OPTION_VERTICAL,Vertical,垂直,Verticale,
