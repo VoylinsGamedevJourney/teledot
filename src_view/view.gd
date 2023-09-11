@@ -38,11 +38,12 @@ var base_script: String
 var formatted_script: String
 var alignment: int = 1
 
-# Playback variables:
+# Playback variables:  ##############################
 var scroll_speed: float = 2
 var play: bool = false
 var intended_scroll: float = 0
-var smooth_scroll_amount: float = 0.3
+var smooth_scroll_amount: float = 10
+var move: float = 0
 
 ## Array of all script functions:  #############################
 var functions := []
@@ -59,9 +60,12 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	# Make the script scroll on screen when play is pressed
-	if play:
-		intended_scroll += scroll_speed
+	# Calculate scroll values for moving
+	intended_scroll += (move + float(play)) * scroll_speed * delta
+	
+	# Pause playback when end is reached
+	if intended_scroll >= %ScriptBox.size.y:
+		play = false
 	
 	# Clamp intended scroll
 	if intended_scroll <= 0:
@@ -70,7 +74,10 @@ func _process(delta: float) -> void:
 		intended_scroll = %ScriptBox.size.y
 	
 	# Smooth scroll to intended scroll position
-	%ScriptScroll.scroll_vertical += (intended_scroll - %ScriptScroll.scroll_vertical) * smooth_scroll_amount
+	if 1/delta < smooth_scroll_amount:
+		%ScriptScroll.scroll_vertical = intended_scroll
+	else:
+		%ScriptScroll.scroll_vertical += (intended_scroll - %ScriptScroll.scroll_vertical) * delta * smooth_scroll_amount
 	
 	# Accept connection when client tries to connect 
 	if server.is_connection_available(): 
@@ -144,12 +151,12 @@ func command_play_pause(_value) -> void:
 	play = !play
 
 
-func command_move_up(_value) -> void:
-	intended_scroll -= scroll_speed
+func command_move_up(value) -> void:
+	move += value
 
 
-func command_move_down(_value) -> void:
-	intended_scroll += scroll_speed
+func command_move_down(value) -> void:
+	move += value
 
 
 func command_jump_beginning(_value):
@@ -204,7 +211,7 @@ func change_margin(margin: int) -> void:
 
 
 func change_scroll_speed(speed: int) -> void:
-	scroll_speed = float(speed * speed) / 100
+	scroll_speed = float(speed * speed)
 
 
 func change_font_size(value: int) -> void:
