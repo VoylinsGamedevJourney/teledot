@@ -22,12 +22,10 @@ expand_margin_left = 8.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v3pw2"]
 bg_color = Color(0.294118, 0.294118, 0.294118, 1)
 
-[sub_resource type="Gradient" id="Gradient_m5bjm"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
+[sub_resource type="Gradient" id="Gradient_hdcrr"]
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_d0ttv"]
-gradient = SubResource("Gradient_m5bjm")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gy55t"]
+gradient = SubResource("Gradient_hdcrr")
 
 [node name="Controller" type="ColorRect"]
 anchors_preset = 15
@@ -38,7 +36,6 @@ grow_vertical = 2
 theme = ExtResource("1_2beuo")
 color = Color(0, 0.0784314, 0.0901961, 1)
 script = ExtResource("1_51ox2")
-metadata/_edit_vertical_guides_ = [841.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -476,7 +473,6 @@ bbcode_enabled = true
 fit_content = true
 
 [node name="Screensaver" type="Button" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -491,9 +487,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture1D_d0ttv")
+texture = SubResource("GradientTexture2D_gy55t")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="FileDialog" type="FileDialog" parent="Screensaver/ScreensaverTexture"]
+size = Vector2i(392, 162)
 
 [connection signal="meta_clicked" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/UpdateAvailableLabel" to="." method="_on_update_available_label_meta_clicked"]
 [connection signal="pressed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/ScreenSaverButton" to="." method="_on_screen_saver_button_pressed"]
@@ -503,8 +502,8 @@ texture = SubResource("GradientTexture1D_d0ttv")
 [connection signal="item_selected" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MirrorOptionButton" to="." method="_on_mirror_option_button_item_selected"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MarginSpinBox" to="." method="_on_margin_spin_box_value_changed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/MarginSpinBox" to="." method="_on_remove_focus_button_pressed"]
-[connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_font_size_spin_box_value_changed"]
 [connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_remove_focus_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontSizeSpinBox" to="." method="_on_font_size_spin_box_value_changed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontColorPicker" to="." method="_on_font_color_picker_changed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/FontColorPicker" to="." method="_on_remove_focus_button_pressed"]
 [connection signal="color_changed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/SettingsGrid/BackgroundColorPicker" to="." method="_on_background_color_picker_changed"]
