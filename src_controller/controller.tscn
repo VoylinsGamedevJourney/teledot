@@ -520,4 +520,5 @@ size = Vector2i(392, 162)
 [connection signal="pressed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ResetIP" to="." method="_on_reset_ip_pressed"]
 [connection signal="pressed" from="MarginContainer/MainHSplit/LeftPanel/ScrollContainer/VBox/ConnectionButton" to="." method="_on_connection_button_pressed"]
 [connection signal="text_changed" from="MarginContainer/MainHSplit/ScriptPanel/Script (ctrl+1)/ScriptScroll/ScriptTextEdit" to="." method="_on_script_tab_text_changed"]
+[connection signal="text_set" from="MarginContainer/MainHSplit/ScriptPanel/Script (ctrl+1)/ScriptScroll/ScriptTextEdit" to="." method="_on_script_tab_text_changed"]
 [connection signal="text_changed" from="MarginContainer/MainHSplit/ScriptPanel/Side-by-side (ctrl+3)/ScriptScroll/HBoxContainer/sbsTextEdit" to="." method="_on_sbs_tab_text_changed"]
