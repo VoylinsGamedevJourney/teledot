@@ -1,3 +1,9 @@
+# TeleDot Controller 1.7.2: 2023-09-06
+
+## Fixes
+
+- Preview in side-by-side wasn't displaying things correctly;
+
 # TeleDot Controller 1.7: 2023-09-06
 
 ## Fixes
