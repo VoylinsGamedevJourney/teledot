@@ -27,6 +27,15 @@ var preview_alignment := "left"
 ## FUNCTIONS  #################################################
 
 func _ready() -> void:
+	# Drag and drop for choosing screensaver and loading script
+	get_window().connect("files_dropped", func(files: PackedStringArray):
+		match files[0].get_extension().to_lower():
+			"png", "jpg", "webp", "jpeg", "svg", "svgz":
+				change_screensaver(files[0])
+			"txt":
+				%ScriptTextEdit.text = FileAccess.get_file_as_string(files[0])
+		)
+	
 	var _version_check := VersionCheck.new(self, %UpdateAvailableLabel)
 	# Hiding the screensaver incase it was visible when building.
 	$Screensaver.visible = false
