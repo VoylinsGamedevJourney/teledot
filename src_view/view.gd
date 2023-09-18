@@ -75,9 +75,10 @@ func _process(delta: float) -> void:
 	
 	# Smooth scroll to intended scroll position
 	if 1/delta < smooth_scroll_amount:
+		# For low framerates
 		%ScriptScroll.scroll_vertical = intended_scroll
 	else:
-		%ScriptScroll.scroll_vertical += (intended_scroll - %ScriptScroll.scroll_vertical) * delta * smooth_scroll_amount
+		%ScriptScroll.scroll_vertical = lerp(%ScriptScroll.scroll_vertical, int(intended_scroll), delta * smooth_scroll_amount)
 	
 	# Accept connection when client tries to connect 
 	if server.is_connection_available(): 
