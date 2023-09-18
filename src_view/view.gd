@@ -38,7 +38,7 @@ var base_script: String
 var formatted_script: String
 var alignment: int = 1
 
-# Playback variables:  ##############################
+## Playback variables:  #######################################
 var scroll_speed: float = 2
 var play: bool = false
 var intended_scroll: float = 0
