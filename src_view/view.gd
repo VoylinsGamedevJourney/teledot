@@ -15,8 +15,8 @@ extends ColorRect
 ## [change_font_size, int]
 ##
 ## [command_play_pause, null]
-## [command_move_up, null]
-## [command_move_down, null]
+## [command_move_up, float]
+## [command_move_down, float]
 ## [command_jump_beginning, null]
 ## [command_jump_end, null]
 ## [command_page_up, null]
@@ -152,11 +152,11 @@ func command_play_pause(_value) -> void:
 	play = !play
 
 
-func command_move_up(value) -> void:
+func command_move_up(value: float) -> void:
 	move += value
 
 
-func command_move_down(value) -> void:
+func command_move_down(value: float) -> void:
 	move += value
 
 
