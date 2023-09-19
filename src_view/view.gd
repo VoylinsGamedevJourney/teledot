@@ -15,8 +15,8 @@ extends ColorRect
 ## [change_font_size, int]
 ##
 ## [command_play_pause, null]
-## [command_move_up, null]
-## [command_move_down, null]
+## [command_move_up, float]
+## [command_move_down, float]
 ## [command_jump_beginning, null]
 ## [command_jump_end, null]
 ## [command_page_up, null]
@@ -39,9 +39,11 @@ var formatted_script: String
 var alignment: int = 1
 
 ## Playback variables:  #######################################
-var scroll_speed: int = 2
+var scroll_speed: float = 2
 var play: bool = false
-var new_scroll_addition: float
+var intended_scroll: float = 0
+var smooth_scroll_amount: float = 10
+var move: float = 0
 
 ## Array of all script functions:  #############################
 var functions := []
@@ -58,17 +60,27 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	# Make the script scroll on screen when play is pressed
-	if play:
-		new_scroll_addition += (scroll_speed * delta)
-		if new_scroll_addition >= 1.0:
-			var new_scroll: int = new_scroll_addition + %ScriptScroll.scroll_vertical
-			%ScriptScroll.scroll_vertical = new_scroll
-			if %ScriptScroll.scroll_vertical != new_scroll:
-				play = !play # Reached end
-			new_scroll_addition = 0
+	# Calculate scroll values for moving
+	intended_scroll += (move + float(play)) * scroll_speed * delta
 	
-	# Accept connection when lcient tries to connect 
+	# Pause playback when end is reached
+	if intended_scroll >= %ScriptBox.size.y:
+		play = false
+	
+	# Clamp intended scroll
+	if intended_scroll <= 0:
+		intended_scroll = 0
+	if intended_scroll >= %ScriptBox.size.y:
+		intended_scroll = %ScriptBox.size.y
+	
+	# Smooth scroll to intended scroll position
+	if 1/delta < smooth_scroll_amount:
+		# For low framerates
+		%ScriptScroll.scroll_vertical = intended_scroll
+	else:
+		%ScriptScroll.scroll_vertical = lerp(%ScriptScroll.scroll_vertical, int(intended_scroll), delta * smooth_scroll_amount)
+	
+	# Accept connection when client tries to connect 
 	if server.is_connection_available(): 
 		connection = server.take_connection()
 		$NoConnection.visible = false
@@ -140,28 +152,28 @@ func command_play_pause(_value) -> void:
 	play = !play
 
 
-func command_move_up(_value) -> void:
-	%ScriptScroll.scroll_vertical -= 10
+func command_move_up(value: float) -> void:
+	move += value
 
 
-func command_move_down(_value) -> void:
-	%ScriptScroll.scroll_vertical += 10
+func command_move_down(value: float) -> void:
+	move += value
 
 
 func command_jump_beginning(_value):
-	%ScriptScroll.scroll_vertical = 0
+	intended_scroll = 0
 
 
 func command_jump_end(_value):
-	%ScriptScroll.scroll_vertical = %ScriptBox.size.y + 100
+	intended_scroll = %ScriptBox.size.y + 100
 
 
 func command_page_up(_value):
-	%ScriptScroll.scroll_vertical -= get_window().size.y
+	intended_scroll -= get_window().size.y
 
 
 func command_page_down(_value):
-	%ScriptScroll.scroll_vertical += get_window().size.y
+	intended_scroll += get_window().size.y
 
 
 func change_color_background(new_color: Color = Color8(0,0,0)) -> void:
@@ -200,7 +212,7 @@ func change_margin(margin: int) -> void:
 
 
 func change_scroll_speed(speed: int) -> void:
-	scroll_speed = speed * 5
+	scroll_speed = float(speed * speed)
 
 
 func change_font_size(value: int) -> void:

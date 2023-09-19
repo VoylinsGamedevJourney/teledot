@@ -53,13 +53,17 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_released("play_pause"):
 			get_viewport().gui_release_focus()
 			send_command("command_play_pause", null)
-		if Input.is_action_pressed("move_down"):
-			send_command("command_move_down", null)
-		if Input.is_action_pressed("move_up"):
-			send_command("command_move_up", null)
-		if Input.is_action_pressed("jump_beginning"):
+		if Input.is_action_just_pressed("move_down"):
+			send_command("command_move_down", 1)
+		if Input.is_action_just_released("move_down"):
+			send_command("command_move_down", -1)
+		if Input.is_action_just_pressed("move_up"):
+			send_command("command_move_up", -1)
+		if Input.is_action_just_released("move_up"):
+			send_command("command_move_up", 1)
+		if Input.is_action_just_pressed("jump_beginning"):
 			send_command("command_jump_beginning", null)
-		if Input.is_action_pressed("jump_end"):
+		if Input.is_action_just_pressed("jump_end"):
 			send_command("command_jump_end", null)
 		if Input.is_action_just_pressed("page_up"):
 			send_command("command_page_up", null)
