@@ -11,10 +11,11 @@ config_version=5
 [application]
 
 config/name="TeleDot - View"
+config/tags=PackedStringArray("teledot")
 run/main_scene="res://view.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
-boot_splash/image="res://startup.png"
-config/icon="res://TeleDotViewLogo.png"
+config/features=PackedStringArray("4.5", "Forward Plus")
+boot_splash/image="res://assets/startup.png"
+config/icon="res://assets/TeleDotViewLogo.png"
 boot_splash/minimum_display_time=10
 
 [display]

@@ -15,3 +15,5 @@ src_view/android
 # Exports
 exports
 teledotview.keystore
+
+android-keystores/
