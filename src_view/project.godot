@@ -27,6 +27,10 @@ window/size/viewport_height=1080
 
 project/assembly_name="TeleDot - View"
 
+[gui]
+
+theme/custom="uid://c54dotw8uvvuh"
+
 [rendering]
 
 renderer/rendering_method="mobile"

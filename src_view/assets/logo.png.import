@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyrmbuhip8l2b"
-path="res://.godot/imported/TeleDotViewLogo.png-f360222d049ce12330b2a561ff99da47.ctex"
+uid="uid://b05ifh3oruj1t"
+path="res://.godot/imported/logo.png-e2220799298e3631eb0e245316e0501a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/TeleDotViewLogo.png"
-dest_files=["res://.godot/imported/TeleDotViewLogo.png-f360222d049ce12330b2a561ff99da47.ctex"]
+source_file="res://assets/logo.png"
+dest_files=["res://.godot/imported/logo.png-e2220799298e3631eb0e245316e0501a.ctex"]
 
 [params]
 

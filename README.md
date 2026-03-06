@@ -24,3 +24,7 @@ TeleDot controller has been translated to following languages by following peopl
 - Japanese: Voylin;
 - French: Slander;
 - Chinese: Aappaapp.
+
+## Support this project
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/R6R4M1UM6)
+[Patreon page](https://patreon.com/voylin)
