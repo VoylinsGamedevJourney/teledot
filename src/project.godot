@@ -1,0 +1,55 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="TeleDot App"
+config/description="A simple but great teleprompter application which is easy to use and adjust.
+Made with Godot by Voylins Gamedev Journey."
+run/main_scene="uid://b0cm4tcthothq"
+run/print_header=false
+config/use_custom_user_dir=true
+config/custom_user_dir_name="teledot"
+config/features=PackedStringArray("4.6", "GL Compatibility")
+run/low_processor_mode=true
+boot_splash/show_image=false
+config/icon="res://icon.svg"
+
+[autoload]
+
+Server="*uid://bs8lhvmv06ghx"
+ScriptHandler="*uid://cah5ck0k8df4q"
+Settings="*uid://dbsv0xvn087h5"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/inferred_declaration=1
+gdscript/warnings/unsafe_property_access=1
+gdscript/warnings/unsafe_method_access=1
+gdscript/warnings/unsafe_cast=1
+gdscript/warnings/unsafe_call_argument=1
+gdscript/warnings/return_value_discarded=1
+
+[display]
+
+window/size/viewport_width=648
+window/size/viewport_height=1152
+window/handheld/orientation=5
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
