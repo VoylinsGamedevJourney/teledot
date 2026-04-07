@@ -5,9 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://dwplj4pwcned3" path="res://icon_return.svg" id="3_h2yge"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ig7tw"]
-content_margin_left = 7.0
-content_margin_right = 7.0
-content_margin_bottom = 7.0
 bg_color = Color(0.3325487, 0.34922248, 0.33858913, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xm2m"]
@@ -26,45 +23,53 @@ shadow_offset = Vector2(3, 3)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
 bg_color = Color(1, 1, 1, 1)
 
-[node name="Main" type="TabContainer" unique_id=18170843 node_paths=PackedStringArray("scripts_vbox", "slider_font_size", "slider_scroll_speed", "slider_prompt_width", "mirror", "color_picker_font", "color_picker_background", "example_panel", "example_label")]
+[node name="Main" type="TabContainer" unique_id=18170843 node_paths=PackedStringArray("scripts_vbox", "slider_font_size", "slider_scroll_speed", "slider_prompt_width", "mirror", "color_picker_font", "color_picker_background", "example_panel", "example_label", "teleprompter_bg", "teleprompter_margin", "teleprompter_scroll", "teleprompter_label")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ig7tw")
-current_tab = 2
+current_tab = 0
 tabs_visible = false
 script = ExtResource("1_ig7tw")
-scripts_vbox = NodePath("Start/ScriptsScroll/ScriptsVBox")
-slider_font_size = NodePath("Settings/SettingsVBox/FontSizeHSlider")
-slider_scroll_speed = NodePath("Settings/SettingsVBox/ScrollSpeedHSlider")
-slider_prompt_width = NodePath("Settings/SettingsVBox/PromptWidthHSlider")
-mirror = NodePath("Settings/SettingsVBox/MirrorCheckButton")
-color_picker_font = NodePath("Settings/SettingsVBox/FontColorPickerButton")
-color_picker_background = NodePath("Settings/SettingsVBox/BackgroundColorPickerButton")
-example_panel = NodePath("Settings/ExampleControl/SettingsExamplePanel")
-example_label = NodePath("Settings/ExampleControl/SettingsExamplePanel/MarginContainer/ScrollContainer/ExampleLabel")
+scripts_vbox = NodePath("Start/VBox/ScriptsScroll/ScriptsVBox")
+slider_font_size = NodePath("Settings/VBox/SettingsVBox/FontSizeHSlider")
+slider_scroll_speed = NodePath("Settings/VBox/SettingsVBox/ScrollSpeedHSlider")
+slider_prompt_width = NodePath("Settings/VBox/SettingsVBox/PromptWidthHSlider")
+mirror = NodePath("Settings/VBox/SettingsVBox/MirrorCheckButton")
+color_picker_font = NodePath("Settings/VBox/SettingsVBox/FontColorPickerButton")
+color_picker_background = NodePath("Settings/VBox/SettingsVBox/BackgroundColorPickerButton")
+example_panel = NodePath("Settings/VBox/ExampleControl/SettingsExamplePanel")
+example_label = NodePath("Settings/VBox/ExampleControl/SettingsExamplePanel/MarginContainer/ScrollContainer/ExampleLabel")
+teleprompter_bg = NodePath("Teleprompter/BackgroundColor")
+teleprompter_margin = NodePath("Teleprompter/PromptMargin")
+teleprompter_scroll = NodePath("Teleprompter/PromptMargin/ScrollContainer")
+teleprompter_label = NodePath("Teleprompter/PromptMargin/ScrollContainer/VBoxContainer/TeleprompterLabel")
 
-[node name="Start" type="VBoxContainer" parent="." unique_id=800439087]
-visible = false
+[node name="Start" type="MarginContainer" parent="." unique_id=451974339]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
 metadata/_tab_index = 0
 
-[node name="TopContainer" type="PanelContainer" parent="Start" unique_id=2132654683]
+[node name="VBox" type="VBoxContainer" parent="Start" unique_id=1061265718]
+layout_mode = 2
+
+[node name="TopContainer" type="PanelContainer" parent="Start/VBox" unique_id=2132654683]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0xm2m")
 
-[node name="TitleLabel" type="Label" parent="Start/TopContainer" unique_id=389494424]
+[node name="TitleLabel" type="Label" parent="Start/VBox/TopContainer" unique_id=389494424]
 auto_translate_mode = 2
 layout_mode = 2
 text = "Teledot"
 label_settings = SubResource("LabelSettings_ig7tw")
 horizontal_alignment = 1
 
-[node name="SettingsButton" type="TextureButton" parent="Start/TopContainer" unique_id=1573161994]
+[node name="SettingsButton" type="TextureButton" parent="Start/VBox/TopContainer" unique_id=1573161994]
 self_modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(35, 55)
 layout_mode = 2
@@ -73,71 +78,86 @@ texture_normal = ExtResource("2_0xm2m")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="ScriptsScroll" type="ScrollContainer" parent="Start" unique_id=881554324]
+[node name="ScriptsScroll" type="ScrollContainer" parent="Start/VBox" unique_id=881554324]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 2
 
-[node name="ScriptsVBox" type="VBoxContainer" parent="Start/ScriptsScroll" unique_id=105451024]
+[node name="ScriptsVBox" type="VBoxContainer" parent="Start/VBox/ScriptsScroll" unique_id=105451024]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="Start/VBox" unique_id=2020947168]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="Start" unique_id=2020947168]
-layout_mode = 2
-
-[node name="AddScriptButton" type="Button" parent="Start" unique_id=971346372]
+[node name="AddScriptButton" type="Button" parent="Start/VBox" unique_id=971346372]
 layout_mode = 2
 text = "Add script"
 
-[node name="EditScript" type="VBoxContainer" parent="." unique_id=1847799045]
+[node name="EditScript" type="MarginContainer" parent="." unique_id=1728660997]
 visible = false
 layout_mode = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
 metadata/_tab_index = 1
 
-[node name="EditTitleLineEdit" type="LineEdit" parent="EditScript" unique_id=402243692]
+[node name="VBox" type="VBoxContainer" parent="EditScript" unique_id=1561954297]
+layout_mode = 2
+
+[node name="EditTitleLineEdit" type="LineEdit" parent="EditScript/VBox" unique_id=402243692]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 placeholder_text = "Title"
 alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="EditScript" unique_id=319543517]
+[node name="HSeparator" type="HSeparator" parent="EditScript/VBox" unique_id=319543517]
 layout_mode = 2
 
-[node name="EditScriptTextEdit" type="TextEdit" parent="EditScript" unique_id=1927071701]
+[node name="EditScriptTextEdit" type="TextEdit" parent="EditScript/VBox" unique_id=1927071701]
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="EditScript" unique_id=1156310452]
+[node name="HSeparator2" type="HSeparator" parent="EditScript/VBox" unique_id=1156310452]
 layout_mode = 2
 
-[node name="ButtonHBox" type="HBoxContainer" parent="EditScript" unique_id=91568071]
+[node name="ButtonHBox" type="HBoxContainer" parent="EditScript/VBox" unique_id=91568071]
 layout_mode = 2
 
-[node name="CancelButton" type="Button" parent="EditScript/ButtonHBox" unique_id=570850640]
+[node name="CancelButton" type="Button" parent="EditScript/VBox/ButtonHBox" unique_id=570850640]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Cancel"
 
-[node name="SaveButton" type="Button" parent="EditScript/ButtonHBox" unique_id=2140526632]
+[node name="SaveButton" type="Button" parent="EditScript/VBox/ButtonHBox" unique_id=2140526632]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Save"
 
-[node name="Settings" type="VBoxContainer" parent="." unique_id=1461300476]
+[node name="Settings" type="MarginContainer" parent="." unique_id=298185644]
+visible = false
 layout_mode = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
 metadata/_tab_index = 2
 
-[node name="TopContainer" type="PanelContainer" parent="Settings" unique_id=1596174312]
+[node name="VBox" type="VBoxContainer" parent="Settings" unique_id=513585929]
+layout_mode = 2
+
+[node name="TopContainer" type="PanelContainer" parent="Settings/VBox" unique_id=1596174312]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_0xm2m")
 
-[node name="TitleLabel" type="Label" parent="Settings/TopContainer" unique_id=488884901]
+[node name="TitleLabel" type="Label" parent="Settings/VBox/TopContainer" unique_id=488884901]
 layout_mode = 2
 text = "Settings"
 label_settings = SubResource("LabelSettings_ig7tw")
 horizontal_alignment = 1
 
-[node name="ReturnButton" type="TextureButton" parent="Settings/TopContainer" unique_id=1967908102]
+[node name="ReturnButton" type="TextureButton" parent="Settings/VBox/TopContainer" unique_id=1967908102]
 self_modulate = Color(1, 1, 1, 0.78431374)
 custom_minimum_size = Vector2(35, 55)
 layout_mode = 2
@@ -146,18 +166,18 @@ texture_normal = ExtResource("3_h2yge")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="SettingsVBox" type="GridContainer" parent="Settings" unique_id=1362096976]
+[node name="SettingsVBox" type="GridContainer" parent="Settings/VBox" unique_id=1362096976]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 15
 columns = 2
 
-[node name="FontSizeLabel" type="Label" parent="Settings/SettingsVBox" unique_id=62700066]
+[node name="FontSizeLabel" type="Label" parent="Settings/VBox/SettingsVBox" unique_id=62700066]
 layout_mode = 2
 text = "Font size"
 
-[node name="FontSizeHSlider" type="HSlider" parent="Settings/SettingsVBox" unique_id=557475392]
+[node name="FontSizeHSlider" type="HSlider" parent="Settings/VBox/SettingsVBox" unique_id=557475392]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -168,11 +188,11 @@ tick_count = 20
 ticks_on_borders = true
 ticks_position = 3
 
-[node name="ScrollSpeedLabel" type="Label" parent="Settings/SettingsVBox" unique_id=1699932063]
+[node name="ScrollSpeedLabel" type="Label" parent="Settings/VBox/SettingsVBox" unique_id=1699932063]
 layout_mode = 2
 text = "Scroll speed"
 
-[node name="ScrollSpeedHSlider" type="HSlider" parent="Settings/SettingsVBox" unique_id=528818966]
+[node name="ScrollSpeedHSlider" type="HSlider" parent="Settings/VBox/SettingsVBox" unique_id=528818966]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -183,11 +203,11 @@ tick_count = 20
 ticks_on_borders = true
 ticks_position = 3
 
-[node name="PromptWidthLabel" type="Label" parent="Settings/SettingsVBox" unique_id=514376507]
+[node name="PromptWidthLabel" type="Label" parent="Settings/VBox/SettingsVBox" unique_id=514376507]
 layout_mode = 2
 text = "Prompt width"
 
-[node name="PromptWidthHSlider" type="HSlider" parent="Settings/SettingsVBox" unique_id=1950188828]
+[node name="PromptWidthHSlider" type="HSlider" parent="Settings/VBox/SettingsVBox" unique_id=1950188828]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -198,40 +218,40 @@ tick_count = 10
 ticks_on_borders = true
 ticks_position = 3
 
-[node name="MirrorLabel" type="Label" parent="Settings/SettingsVBox" unique_id=2017642623]
+[node name="MirrorLabel" type="Label" parent="Settings/VBox/SettingsVBox" unique_id=2017642623]
 layout_mode = 2
 text = "Mirror"
 
-[node name="MirrorCheckButton" type="CheckButton" parent="Settings/SettingsVBox" unique_id=1804621725]
+[node name="MirrorCheckButton" type="CheckButton" parent="Settings/VBox/SettingsVBox" unique_id=1804621725]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="FontColorLabel" type="Label" parent="Settings/SettingsVBox" unique_id=1316080540]
+[node name="FontColorLabel" type="Label" parent="Settings/VBox/SettingsVBox" unique_id=1316080540]
 layout_mode = 2
 text = "Font color"
 
-[node name="FontColorPickerButton" type="ColorPickerButton" parent="Settings/SettingsVBox" unique_id=611548171]
+[node name="FontColorPickerButton" type="ColorPickerButton" parent="Settings/VBox/SettingsVBox" unique_id=611548171]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="BackgroundColorLabel" type="Label" parent="Settings/SettingsVBox" unique_id=1198458401]
+[node name="BackgroundColorLabel" type="Label" parent="Settings/VBox/SettingsVBox" unique_id=1198458401]
 layout_mode = 2
 text = "Background color"
 
-[node name="BackgroundColorPickerButton" type="ColorPickerButton" parent="Settings/SettingsVBox" unique_id=1687116624]
+[node name="BackgroundColorPickerButton" type="ColorPickerButton" parent="Settings/VBox/SettingsVBox" unique_id=1687116624]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="ExampleControl" type="Control" parent="Settings" unique_id=323135474]
+[node name="ExampleControl" type="Control" parent="Settings/VBox" unique_id=323135474]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="SettingsExamplePanel" type="PanelContainer" parent="Settings/ExampleControl" unique_id=684346846]
+[node name="SettingsExamplePanel" type="PanelContainer" parent="Settings/VBox/ExampleControl" unique_id=684346846]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
 anchors_preset = 14
@@ -242,15 +262,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
 
-[node name="MarginContainer" type="MarginContainer" parent="Settings/ExampleControl/SettingsExamplePanel" unique_id=611224682]
+[node name="MarginContainer" type="MarginContainer" parent="Settings/VBox/ExampleControl/SettingsExamplePanel" unique_id=611224682]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Settings/ExampleControl/SettingsExamplePanel/MarginContainer" unique_id=564821300]
+[node name="ScrollContainer" type="ScrollContainer" parent="Settings/VBox/ExampleControl/SettingsExamplePanel/MarginContainer" unique_id=564821300]
 layout_mode = 2
 
-[node name="ExampleLabel" type="Label" parent="Settings/ExampleControl/SettingsExamplePanel/MarginContainer/ScrollContainer" unique_id=849299127]
+[node name="ExampleLabel" type="Label" parent="Settings/VBox/ExampleControl/SettingsExamplePanel/MarginContainer/ScrollContainer" unique_id=849299127]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -262,18 +282,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="Settings" unique_id=238384624]
+[node name="HSeparator2" type="HSeparator" parent="Settings/VBox" unique_id=238384624]
 layout_mode = 2
 
-[node name="ButtonHBox" type="HBoxContainer" parent="Settings" unique_id=1247640011]
+[node name="ButtonHBox" type="HBoxContainer" parent="Settings/VBox" unique_id=1247640011]
 layout_mode = 2
 
-[node name="CancelButton" type="Button" parent="Settings/ButtonHBox" unique_id=1823884276]
+[node name="CancelButton" type="Button" parent="Settings/VBox/ButtonHBox" unique_id=1823884276]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Cancel"
 
-[node name="SaveButton" type="Button" parent="Settings/ButtonHBox" unique_id=1582404342]
+[node name="SaveButton" type="Button" parent="Settings/VBox/ButtonHBox" unique_id=1582404342]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Save"
@@ -283,13 +303,58 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[connection signal="pressed" from="Start/TopContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Start/AddScriptButton" to="." method="_on_add_script_button_pressed"]
-[connection signal="pressed" from="EditScript/ButtonHBox/CancelButton" to="." method="_on_cancel_pressed"]
-[connection signal="pressed" from="EditScript/ButtonHBox/SaveButton" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="Settings/TopContainer/ReturnButton" to="." method="_on_cancel_pressed"]
-[connection signal="value_changed" from="Settings/SettingsVBox/FontSizeHSlider" to="." method="_on_font_size_h_slider_value_changed"]
-[connection signal="color_changed" from="Settings/SettingsVBox/FontColorPickerButton" to="." method="_on_font_color_picker_button_color_changed"]
-[connection signal="color_changed" from="Settings/SettingsVBox/BackgroundColorPickerButton" to="." method="_on_background_color_picker_button_color_changed"]
-[connection signal="pressed" from="Settings/ButtonHBox/CancelButton" to="." method="_on_cancel_pressed"]
-[connection signal="pressed" from="Settings/ButtonHBox/SaveButton" to="." method="_on_save_settings_pressed"]
+[node name="BackgroundColor" type="ColorRect" parent="Teleprompter" unique_id=463823076]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PromptMargin" type="MarginContainer" parent="Teleprompter" unique_id=1042416268]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Teleprompter/PromptMargin" unique_id=1277504844]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Teleprompter/PromptMargin/ScrollContainer" unique_id=1692374920]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopSpacer" type="Control" parent="Teleprompter/PromptMargin/ScrollContainer/VBoxContainer" unique_id=1102051129]
+custom_minimum_size = Vector2(0, 900)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TeleprompterLabel" type="RichTextLabel" parent="Teleprompter/PromptMargin/ScrollContainer/VBoxContainer" unique_id=907004899]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="BottomSpacer" type="Control" parent="Teleprompter/PromptMargin/ScrollContainer/VBoxContainer" unique_id=862533388]
+custom_minimum_size = Vector2(0, 900)
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="Start/VBox/TopContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Start/VBox/AddScriptButton" to="." method="edit_script" binds= [PackedStringArray("New", "")]]
+[connection signal="pressed" from="EditScript/VBox/ButtonHBox/CancelButton" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="EditScript/VBox/ButtonHBox/SaveButton" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="Settings/VBox/TopContainer/ReturnButton" to="." method="_on_cancel_pressed"]
+[connection signal="value_changed" from="Settings/VBox/SettingsVBox/FontSizeHSlider" to="." method="_on_font_size_h_slider_value_changed"]
+[connection signal="color_changed" from="Settings/VBox/SettingsVBox/FontColorPickerButton" to="." method="_on_font_color_picker_button_color_changed"]
+[connection signal="color_changed" from="Settings/VBox/SettingsVBox/BackgroundColorPickerButton" to="." method="_on_background_color_picker_button_color_changed"]
+[connection signal="pressed" from="Settings/VBox/ButtonHBox/CancelButton" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="Settings/VBox/ButtonHBox/SaveButton" to="." method="_on_save_settings_pressed"]
