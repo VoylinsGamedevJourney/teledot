@@ -13,6 +13,7 @@ config_version=5
 config/name="TeleDot App"
 config/description="A simple but great teleprompter application which is easy to use and adjust.
 Made with Godot by Voylins Gamedev Journey."
+config/version="0.1"
 run/main_scene="uid://b0cm4tcthothq"
 run/print_header=false
 config/use_custom_user_dir=true
