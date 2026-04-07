@@ -1,23 +1,57 @@
-# Privacy Policy for TeleDot View
+# Privacy Policy for TeleDot
 
-We take your privacy seriously. This privacy policy is here to inform you about the data we collect and how we use it. The good news is, we don't collect any personal data or track your behavior. Yup, you heard that right!
+**Last updated:** April 2026
 
-## Information We Collect:
-We do not collect any personal information, user data, or anything that could identify you. When you use TeleDot View, you can be sure that your privacy is respected.
+## 1. Overview
 
-## How We Use Your Information:
-Since we don't collect any information in the first place, we have nothing to use or share with anyone. We're all about keeping things simple and private.
+TeleDot is a simple teleprompter application designed to display user-provided scripts. Your privacy is important, and this app is built to minimize data collection.
 
-## Third-party Services:
-We don't integrate with any third-party services that might collect your data. Your experience with TeleDot View is all about you and the app itself.
+## 2. Data Collection
 
-## Cookies:
-Guess what? We don't use cookies either. So, no worries about those sneaky bits of data hanging around.
+TeleDot does **not collect, store, or share any personal data**.
 
-## Changes to Privacy Policy:
-If, by some wild chance, we decide to change our privacy policy in the future, we'll make sure to update you. But don't worry, our commitment to your privacy won't change.
+The app:
 
-## Contact Us:
-Have any questions or concerns? Feel free to reach out to us at voylinslife@gmail.com. We're always here to chat.
+* Does not require user accounts
+* Does not include analytics
+* Does not display advertisements
+* Does not track user behavior
 
-Thanks for using TeleDot View and trusting us with your privacy. Now go ahead, enjoy the app without any strings attached!
+## 3. Local Data Usage
+
+Scripts used within TeleDot are:
+
+* Stored locally on your device only (if applicable)
+* Never transmitted to external servers
+
+## 4. Local Network Communication
+
+TeleDot allows scripts to be sent to the app over a **local network**.
+
+* This communication happens only within your local network (e.g., Wi-Fi)
+* No data is sent to external servers
+* The app does not control or secure your local network
+
+## 5. Third-Party Services
+
+TeleDot does not use any third-party services, SDKs, or external APIs.
+
+## 6. Data Security
+
+Since no personal data is collected or transmitted externally, risks are minimal. However, users are responsible for securing their own devices and local networks.
+
+## 7. Children’s Privacy
+
+TeleDot does not knowingly collect any personal information from children.
+
+## 8. Changes to This Policy
+
+This privacy policy may be updated in the future. Any changes will be reflected on this page.
+
+## 9. Contact
+
+If you have any questions about this Privacy Policy, you can contact the developer.
+
+---
+
+**Summary:** TeleDot does not collect or share any user data. All functionality is local to your device or local network.
