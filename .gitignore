@@ -17,3 +17,5 @@ exports
 teledotview.keystore
 
 android-keystores/
+
+*.zip

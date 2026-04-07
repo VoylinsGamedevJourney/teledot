@@ -1,9 +1,21 @@
 # TeleDot
-A Teleprompter solution made with Godot. Use it as a stand-alone app on your phone, or use your phone with your pc as the controller!
+A Teleprompter solution made with Godot. This standalone app is all you need for your teleprompting needs.
+
+## Features
+- **Standalone teleprompter:** Easily edit, format, and scroll through your scripts;
+- **Bluetooth controller support:** Control playback, speed, and scroll using any Bluetooth media remote or keyboard;
+- **NeoVim integration:** Seamlessly send scripts directly from your code editor;
 
 ## How use TeleDot?
+TeleDot is a standalone application. Simply create a new script inside the app, configure your settings (scroll speed, font size, margin, mirroring), and start the teleprompter!
 
-You have a view application and a controller application. Have the view on your phone or extra monitor, open the application and that is it. It will display the ip and port to connect to the view. Next up open the controller application, configure your settings and shortcuts, add your script to the script box and that's it. The script box works with BBCode and is also displayed using BBCode.
+### Bluetooth Controller Controls
+You can control the teleprompter using a connected Bluetooth keyboard/remote:
+- **Play/Pause:** `Space` or `Play/Pause button`
+- **Speed Up:** `Right arrow` or `Next track`
+- **Speed Down:** `Left arrow` or `Previous track`
+- **Scroll Up/Down:** `Up/Down arrows`
+- **Exit Prompter:** `Escape`, `Backspace`, or `Back Button`
 
 ### Send with NeoVim
 ```lua
@@ -35,14 +47,6 @@ end, {})
 
 vim.keymap.set("n", "<leader>t", ":Teledot<CR>")
 ```
-
-## Translations
-TeleDot controller has been translated to following languages by following people:
-
-- English: Voylin;
-- Japanese: Voylin;
-- French: Slander;
-- Chinese: Aappaapp.
 
 ## Support this project
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/R6R4M1UM6)
