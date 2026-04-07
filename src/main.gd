@@ -189,8 +189,8 @@ func _on_save_settings_pressed() -> void:
 
 
 func edit_script(script: PackedStringArray) -> void:
-	text_edit_title.text = script[0] if script[0] else ""
-	text_edit_script.text = script[1] if script[1] else ""
+	text_edit_title.text = script[0]
+	text_edit_script.text = script[1]
 	self.current_tab = SCREENS.EDIT_SCRIPT
 
 	if script[0].is_empty() and script[1].is_empty():

@@ -23,7 +23,7 @@ shadow_offset = Vector2(3, 3)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
 bg_color = Color(1, 1, 1, 1)
 
-[node name="Main" type="TabContainer" unique_id=18170843 node_paths=PackedStringArray("scripts_vbox", "slider_font_size", "slider_scroll_speed", "slider_prompt_width", "mirror", "color_picker_font", "color_picker_background", "example_panel", "example_label", "teleprompter_bg", "teleprompter_margin", "teleprompter_scroll", "teleprompter_label")]
+[node name="Main" type="TabContainer" unique_id=18170843 node_paths=PackedStringArray("scripts_vbox", "text_edit_title", "text_edit_script", "slider_font_size", "slider_scroll_speed", "slider_prompt_width", "mirror", "color_picker_font", "color_picker_background", "example_panel", "example_label", "teleprompter_bg", "teleprompter_margin", "teleprompter_scroll", "teleprompter_label")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -34,6 +34,8 @@ current_tab = 0
 tabs_visible = false
 script = ExtResource("1_ig7tw")
 scripts_vbox = NodePath("Start/VBox/ScriptsScroll/ScriptsVBox")
+text_edit_title = NodePath("EditScript/VBox/EditTitleLineEdit")
+text_edit_script = NodePath("EditScript/VBox/EditScriptTextEdit")
 slider_font_size = NodePath("Settings/VBox/SettingsVBox/FontSizeHSlider")
 slider_scroll_speed = NodePath("Settings/VBox/SettingsVBox/ScrollSpeedHSlider")
 slider_prompt_width = NodePath("Settings/VBox/SettingsVBox/PromptWidthHSlider")
@@ -100,6 +102,7 @@ text = "Add script"
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 7
 theme_override_constants/margin_bottom = 7
 metadata/_tab_index = 1
@@ -108,6 +111,7 @@ metadata/_tab_index = 1
 layout_mode = 2
 
 [node name="EditTitleLineEdit" type="LineEdit" parent="EditScript/VBox" unique_id=402243692]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 placeholder_text = "Title"
@@ -118,6 +122,7 @@ layout_mode = 2
 
 [node name="EditScriptTextEdit" type="TextEdit" parent="EditScript/VBox" unique_id=1927071701]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="HSeparator2" type="HSeparator" parent="EditScript/VBox" unique_id=1156310452]
 layout_mode = 2
@@ -349,7 +354,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [connection signal="pressed" from="Start/VBox/TopContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Start/VBox/AddScriptButton" to="." method="edit_script" binds= [PackedStringArray("New", "")]]
+[connection signal="pressed" from="Start/VBox/AddScriptButton" to="." method="edit_script" binds= [PackedStringArray("", "")]]
 [connection signal="pressed" from="EditScript/VBox/ButtonHBox/CancelButton" to="." method="_on_cancel_pressed"]
 [connection signal="pressed" from="EditScript/VBox/ButtonHBox/SaveButton" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="Settings/VBox/TopContainer/ReturnButton" to="." method="_on_cancel_pressed"]
