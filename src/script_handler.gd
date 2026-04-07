@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func on_script_received(text: String) -> void:
 	var title: String = text.get_slice('\n', 0)
-	add_script([title, text.lstrip(title).strip_edges()])
+	add_script([title, text.trim_prefix(title).strip_edges()])
 
 
 func add_script(script: PackedStringArray) -> void:
@@ -29,6 +29,7 @@ func add_script(script: PackedStringArray) -> void:
 	if script[0].is_empty():
 		script[0] = "New script"
 	scripts.push_front(script)
+	_save_to_disk()
 	scripts_updated.emit()
 
 
@@ -37,12 +38,20 @@ func update_script(old_script: PackedStringArray, new_script: PackedStringArray)
 		return delete_script(old_script[0])
 	var index: int = scripts.find_custom(_find_script.bind(old_script[0]))
 	scripts[index] = new_script
+	_save_to_disk()
+	scripts_updated.emit()
 
 
 func delete_script(title: String) -> void:
 	var index: int = scripts.find_custom(_find_script.bind(title))
 	scripts.remove_at(index)
+	_save_to_disk()
 	scripts_updated.emit()
+
+
+func _save_to_disk() -> void:
+	var file: FileAccess = FileAccess.open(PATH, FileAccess.WRITE)
+	var _err: int = file.store_var(scripts)
 
 
 func _find_script(script: PackedStringArray, title: String) -> bool:
