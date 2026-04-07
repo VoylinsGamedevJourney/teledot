@@ -27,15 +27,15 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.19153339"
-     inkscape:cx="1169.5089"
-     inkscape:cy="1344.4131"
+     inkscape:zoom="0.27086912"
+     inkscape:cx="970.94863"
+     inkscape:cy="1126.0051"
      inkscape:window-width="1920"
-     inkscape:window-height="1059"
+     inkscape:window-height="1080"
      inkscape:window-x="0"
-     inkscape:window-y="21"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g10537"
+     inkscape:current-layer="layer1"
      showguides="true"
      inkscape:export-bgcolor="#ffffff00" />
   <defs
@@ -45,18 +45,19 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#39353c;fill-rule:evenodd;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;paint-order:markers stroke fill;fill-opacity:1"
+       style="fill:#39353c;fill-opacity:1;fill-rule:evenodd;stroke-width:1.2904;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;paint-order:markers stroke fill"
        id="rect358"
-       width="600"
-       height="600"
-       x="5.2957638e-14"
-       y="5.3179683e-14"
-       ry="133.55914"
-       rx="133.55914"
+       width="455.43448"
+       height="455.43448"
+       x="72.282761"
+       y="72.282761"
+       ry="101.37907"
+       rx="101.37907"
        inkscape:label="Background" />
     <g
        id="g10537"
-       style="display:inline">
+       style="display:inline"
+       transform="matrix(0.75905748,0,0,0.75905748,72.282757,72.282757)">
       <rect
          style="fill:#8b7a9b;fill-opacity:1;fill-rule:evenodd;stroke-width:1.68444;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;paint-order:markers stroke fill"
          id="rect2603"
@@ -137,8 +138,8 @@
          aria-label="TeleDot" />
     </g>
     <path
-       style="fill:#8b7a9b;fill-opacity:1;fill-rule:evenodd;stroke-width:1.94056;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;paint-order:markers stroke fill"
-       d="M 489.3378,150.98852 570.34623,90.04509 V 350.59344 L 488.27127,288.84763 Z"
+       style="fill:#8b7a9b;fill-opacity:1;fill-rule:evenodd;stroke-width:1.473;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;paint-order:markers stroke fill"
+       d="m 443.71827,186.89172 61.49006,-46.25956 v 197.77117 l -62.29961,-46.86862 z"
        id="path5467"
        inkscape:label="CameraLens" />
   </g>
